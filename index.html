@@ -181,7 +181,7 @@
 
     <script>
         // ==========================================
-        // ⚠️ 請在下方雙引號內貼上您的 API KEY ⚠️
+        // ⚠️ API KEY 區域 (已更新模型為 gemini-pro)
         const API_KEY = "AIzaSyAAgi9OLWYIq3Mhwkwv4kS_Shlm8xYxJ9I"; 
         // ==========================================
 
@@ -235,8 +235,7 @@
         【回答規則】：
         1. 必須使用「繁體中文」。
         2. 回答要簡潔、重點清晰，語氣要像真人導遊般親切。
-        3. 如果使用者的問題與行程無關(例如問政治或寫程式)，請禮貌婉拒，並引導回旅遊話題。
-        4. 針對長輩需求(廁所、走路、保暖)要特別貼心提醒。
+        3. 如果使用者的問題與行程無關，請禮貌婉拒。
         `;
 
         // 1. 頁面互動邏輯 (展開行程)
@@ -267,30 +266,21 @@
                 var userText = $("#chatInput").val().trim();
                 if (userText === "") return;
 
-                // 顯示使用者訊息
                 appendMsg(userText, "user");
                 $("#chatInput").val("");
 
-                // 顯示思考中...
                 var loadingId = "loading-" + Date.now();
                 $("#chatBody").append('<div id="' + loadingId + '" class="msg msg-bot clearfix">🤔 導遊思考中...</div>');
                 scrollToBottom();
 
-                // 呼叫 Gemini API
                 callGeminiAPI(userText, loadingId);
             }
 
             function callGeminiAPI(question, loadingId) {
-                // 如果使用者沒有填入 Key，就跳出警告
-                if(API_KEY === "在此處貼上您的API_KEY" || API_KEY === "") {
-                    $("#" + loadingId).html("⚠️ 請先在程式碼中貼上您的 API Key 才能啟用 AI 功能喔！");
-                    return;
-                }
-
+                // 使用 gemini-pro 模型 (最通用穩定)
                 var settings = {
-                    "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=" + API_KEY,
+                    "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=" + API_KEY,
                     "method": "POST",
-                    "timeout": 0,
                     "headers": {
                         "Content-Type": "application/json"
                     },
@@ -305,13 +295,16 @@
 
                 $.ajax(settings).done(function (response) {
                     var aiResponse = response.candidates[0].content.parts[0].text;
-                    // 使用 marked.js 將 markdown 轉為 html
                     var htmlResponse = marked.parse(aiResponse);
                     $("#" + loadingId).html(htmlResponse);
                     scrollToBottom();
-                }).fail(function (error) {
-                    console.error(error);
-                    $("#" + loadingId).html("😵 哎呀，連線有點問題，請稍後再試。");
+                }).fail(function (xhr, status, error) {
+                    console.error("API Error:", xhr.responseText);
+                    var errMsg = "😵 連線失敗";
+                    if(xhr.status === 404) errMsg = "❌ 找不到模型 (404)";
+                    if(xhr.status === 400) errMsg = "❌ 請求格式錯誤 (400)";
+                    if(xhr.status === 403) errMsg = "🚫 API Key 權限被拒 (403)";
+                    $("#" + loadingId).html(errMsg + "<br><small>請確認 Key 是否啟用 Generative Language API</small>");
                 });
             }
 
