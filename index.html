@@ -3,11 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2026 日本東北家族旅行2</title>
+    <title>2026 日本東北家族旅行</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-
     <style>
         body { font-family: "Microsoft JhengHei", sans-serif; background-color: #f0f2f5; padding-bottom: 80px; }
         .hero { background: linear-gradient(135deg, #004e92, #000428); color: white; padding: 40px 20px; text-align: center; border-radius: 0 0 25px 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
@@ -26,18 +24,15 @@
         /* --- 聊天機器人 CSS --- */
         .chat-btn { position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px; background-color: #0d6efd; color: white; border-radius: 50%; text-align: center; line-height: 60px; font-size: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); cursor: pointer; z-index: 1000; transition: transform 0.2s; }
         .chat-btn:hover { transform: scale(1.1); }
-        .chat-window { display: none; position: fixed; bottom: 90px; right: 20px; width: 340px; height: 500px; background: white; border-radius: 15px; box-shadow: 0 5px 25px rgba(0,0,0,0.3); z-index: 1000; flex-direction: column; overflow: hidden; border: 1px solid #ddd; }
-        .chat-header { background: #0d6efd; color: white; padding: 12px 15px; font-weight: bold; display: flex; justify-content: space-between; align-items: center; }
+        .chat-window { display: none; position: fixed; bottom: 90px; right: 20px; width: 320px; height: 450px; background: white; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.2); z-index: 1000; flex-direction: column; overflow: hidden; border: 1px solid #ddd; }
+        .chat-header { background: #0d6efd; color: white; padding: 10px 15px; font-weight: bold; display: flex; justify-content: space-between; align-items: center; }
         .chat-body { flex: 1; padding: 15px; overflow-y: auto; background-color: #f9f9f9; font-size: 0.9rem; }
         .chat-input-area { padding: 10px; border-top: 1px solid #eee; display: flex; background: white; }
-        .chat-input-area input { flex: 1; margin-right: 10px; border: 1px solid #ddd; border-radius: 20px; padding: 8px 15px; outline: none; }
-        .msg { margin-bottom: 12px; max-width: 85%; padding: 8px 12px; border-radius: 15px; font-size: 0.9rem; word-wrap: break-word; line-height: 1.5; }
+        .chat-input-area input { flex: 1; margin-right: 10px; border: 1px solid #ddd; border-radius: 20px; padding: 5px 15px; outline: none; }
+        .msg { margin-bottom: 10px; max-width: 80%; padding: 8px 12px; border-radius: 15px; font-size: 0.9rem; word-wrap: break-word; }
         .msg-bot { background: #e9ecef; color: #333; border-bottom-left-radius: 2px; align-self: flex-start; float: left; clear: both; }
         .msg-user { background: #0d6efd; color: white; border-bottom-right-radius: 2px; align-self: flex-end; float: right; clear: both; }
         .clearfix::after { content: ""; clear: both; display: table; }
-        /* Markdown 樣式調整 */
-        .msg-bot p { margin-bottom: 5px; } 
-        .msg-bot ul { padding-left: 20px; margin-bottom: 5px; }
     </style>
 </head>
 <body>
@@ -157,20 +152,20 @@
         </div>
     </div>
 
-    <div class="chat-btn" id="chatBtn">🧞‍♂️</div>
+    <div class="chat-btn" id="chatBtn">🤖</div>
     <div class="chat-window" id="chatWindow">
         <div class="chat-header">
-            <span>❄️ 東北旅遊 AI 導遊</span>
+            <span>旅遊小幫手</span>
             <span style="cursor:pointer;" id="closeChat">✖</span>
         </div>
         <div class="chat-body" id="chatBody">
             <div class="msg msg-bot clearfix">
-                你好！我是你的 AI 隨身導遊 ✨<br>
-                我讀過完整的行程表了。<br><br>
-                你可以問我任何問題，例如：<br>
-                「明天早上幾點集合？」<br>
-                「第一天晚餐吃什麼？」<br>
-                「萬國屋溫泉有什麼特色？」
+                你好！我是這次行程的小精靈 🧞‍♂️<br>
+                為了確保行程順利，我已經切換成<strong>穩定模式</strong>囉！<br><br>
+                請輸入關鍵字，例如：<br>
+                「<strong>司機</strong>」、「<strong>飯店</strong>」<br>
+                「<strong>天氣</strong>」、「<strong>wifi</strong>」<br>
+                或「<strong>晚餐</strong>」來查詢資訊。
             </div>
         </div>
         <div class="chat-input-area">
@@ -180,65 +175,7 @@
     </div>
 
     <script>
-        // ==========================================
-        // ⚠️ API KEY 區域 (已修正模型為 gemini-1.5-flash)
-        const API_KEY = "AIzaSyAAgi9OLWYIq3Mhwkwv4kS_Shlm8xYxJ9I"; 
-        // ==========================================
-
-        // 建立給 AI 的行程知識庫 (系統提示詞)
-        const ITINERARY_CONTEXT = `
-        你是一個專業、親切的日本東北旅遊導遊 AI。你的使用者是參加這次「六天五夜日本東北雪見之旅」的家庭成員(共5人，含一位67歲長輩)。
-        
-        請根據以下【行程資料】回答使用者的問題。
-        
-        【行程資料】：
-        - 日期：2026/2/23 (一) ~ 2/28 (六)
-        - 交通：第一天自行從機場搭電車到市區，第二天到第六天全程包車(有司機)。
-        
-        [Day 1: 2/23]
-        - 16:00 抵達仙台機場(SDJ)。
-        - 交通：搭乘仙台機場聯絡線(25分鐘, 660円)至JR仙台站，步行5分至飯店。
-        - 19:00 晚餐：牛舌 善治郎 (仙台站前本店)。地址：仙台市青葉区中央1-8-38 AKビル 3F。電話：+81-22-723-1877。
-        - 住宿：Hotel GrandBach Sendai (仙台格蘭巴赫飯店)。
-        
-        [Day 2: 2/24]
-        - 09:00 包車司機來飯店接駁。
-        - 10:30 藏王樹冰 (搭乘 Wild Monster 雪怪車，有暖氣，不冷)。
-        - 13:00 午餐：遠刈田溫泉區。
-        - 15:30 抵達銀山溫泉 (趁天黑前欣賞藍調)。
-        - 住宿：銀山溫泉。
-        
-        [Day 3: 2/25]
-        - 09:30 出發。
-        - 10:45 最上川 芭蕉遊船 (搭乘暖桌船，舒適賞雪)。
-        - 14:00 酒田 山居倉庫 (阿信拍攝地)。
-        - 住宿：湯野濱溫泉 (龜屋或遊水亭)。
-        
-        [Day 4: 2/26]
-        - 10:00 加茂水族館 (世界第一水母館)。
-        - 12:30 午餐：鶴岡料理。
-        - 14:30 入住溫海溫泉 萬國屋 (日本百選溫泉，享受設施)。
-        - 住宿：溫海溫泉 萬國屋。
-        
-        [Day 5: 2/27]
-        - 11:00 採草莓體驗 (溫室高架栽培)。
-        - 12:30 午餐：冷肉蕎麥麵或米澤牛。
-        - 14:30 仙台 大崎八幡宮 (國寶)。
-        - 17:30 晚餐：仙台市區自由活動。
-        - 住宿：仙台市區 (威斯汀或蒙特利)。
-        
-        [Day 6: 2/28]
-        - 上午：仙台朝市、S-PAL百貨採買伴手禮。
-        - 14:30 專車接送至機場。
-        - 17:00 仙台機場起飛返台。
-
-        【回答規則】：
-        1. 必須使用「繁體中文」。
-        2. 回答要簡潔、重點清晰，語氣要像真人導遊般親切。
-        3. 如果使用者的問題與行程無關，請禮貌婉拒。
-        `;
-
-        // 1. 頁面互動邏輯 (展開行程)
+        // 1. 行程展開收合邏輯
         function toggleDay(element) {
             $(".day-body").slideUp();
             $(".day-header").removeClass("active");
@@ -252,69 +189,65 @@
             $(".day-header").first().click();
         });
 
-        // 2. AI 聊天機器人邏輯
+        // 2. 聊天機器人邏輯 (Jquery 穩定版)
         $(document).ready(function() {
+            // 開關視窗
             $("#chatBtn").click(function() { $("#chatWindow").fadeIn(); });
             $("#closeChat").click(function() { $("#chatWindow").fadeOut(); });
 
-            $("#sendBtn").click(handleUserMessage);
+            // 發送訊息
+            $("#sendBtn").click(sendMessage);
             $("#chatInput").keypress(function(e) {
-                if (e.which == 13) handleUserMessage();
+                if (e.which == 13) sendMessage();
             });
 
-            function handleUserMessage() {
-                var userText = $("#chatInput").val().trim();
-                if (userText === "") return;
+            function sendMessage() {
+                var text = $("#chatInput").val().trim();
+                if (text === "") return;
 
-                appendMsg(userText, "user");
+                // 顯示使用者訊息
+                appendMsg(text, "user");
                 $("#chatInput").val("");
 
-                var loadingId = "loading-" + Date.now();
-                $("#chatBody").append('<div id="' + loadingId + '" class="msg msg-bot clearfix">🤔 導遊思考中...</div>');
-                scrollToBottom();
-
-                callGeminiAPI(userText, loadingId);
-            }
-
-            function callGeminiAPI(question, loadingId) {
-                // 改用最新的 gemini-1.5-flash 模型，這是目前最穩定的免費版端點
-                var settings = {
-                    "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=" + API_KEY,
-                    "method": "POST",
-                    "headers": {
-                        "Content-Type": "application/json"
-                    },
-                    "data": JSON.stringify({
-                        "contents": [{
-                            "parts": [{
-                                "text": ITINERARY_CONTEXT + "\n\n使用者問：" + question
-                            }]
-                        }]
-                    }),
-                };
-
-                $.ajax(settings).done(function (response) {
-                    var aiResponse = response.candidates[0].content.parts[0].text;
-                    var htmlResponse = marked.parse(aiResponse);
-                    $("#" + loadingId).html(htmlResponse);
-                    scrollToBottom();
-                }).fail(function (xhr, status, error) {
-                    console.error("API Error:", xhr.responseText);
-                    var errMsg = "😵 連線失敗";
-                    if(xhr.status === 404) errMsg = "❌ 找不到模型 (請稍後再試)";
-                    if(xhr.status === 400) errMsg = "❌ 請求格式錯誤";
-                    $("#" + loadingId).html(errMsg + "<br><small>錯誤代碼：" + xhr.status + "</small>");
-                });
+                // 機器人思考與回覆 (模擬延遲)
+                setTimeout(function() {
+                    var reply = getBotReply(text);
+                    appendMsg(reply, "bot");
+                }, 500);
             }
 
             function appendMsg(text, type) {
                 var cssClass = type === "user" ? "msg-user" : "msg-bot";
                 $("#chatBody").append('<div class="msg ' + cssClass + ' clearfix">' + text + '</div>');
-                scrollToBottom();
+                // 捲動到底部
+                $("#chatBody").scrollTop($("#chatBody")[0].scrollHeight);
             }
 
-            function scrollToBottom() {
-                $("#chatBody").scrollTop($("#chatBody")[0].scrollHeight);
+            // 🤖 機器人腦袋 (關鍵字設定區)
+            function getBotReply(input) {
+                input = input.toLowerCase(); // 轉小寫方便比對
+
+                if (input.indexOf("司機") >= 0 || input.indexOf("車") >= 0) {
+                    return "🚗 <strong>關於包車：</strong><br>Day2 - Day6 全程包車。<br>第一天抵達時是自己搭機場捷運喔！";
+                }
+                if (input.indexOf("飯店") >= 0 || input.indexOf("住") >= 0) {
+                    return "🏨 <strong>住宿清單：</strong><br>D1: 仙台 GrandBach<br>D2: 銀山溫泉<br>D3: 湯野濱溫泉<br>D4: 溫海溫泉 萬國屋<br>D5: 仙台 威斯汀/蒙特利";
+                }
+                if (input.indexOf("天氣") >= 0 || input.indexOf("冷") >= 0) {
+                    return "❄️ <strong>天氣提醒：</strong><br>東北2月非常冷 (約-2°C ~ 5°C)！<br>一定要穿防滑雪靴、戴手套與毛帽。<br>樹冰和遊船時會特別冷喔。";
+                }
+                if (input.indexOf("wifi") >= 0 || input.indexOf("網") >= 0) {
+                    return "📶 <strong>網路資訊：</strong><br>請確認大家是否已購買 ESIM 或開啟漫遊。<br>各家飯店大廳都有免費 Wifi。";
+                }
+                if (input.indexOf("晚餐") >= 0 || input.indexOf("吃") >= 0) {
+                    return "🍽 <strong>重點晚餐：</strong><br>D1: 牛舌 善治郎 (仙台站前本店)<br>D2: 銀山溫泉旅館料理<br>D4: 萬國屋懷石料理";
+                }
+                if (input.indexOf("急") >= 0 || input.indexOf("救") >= 0) {
+                    return "🆘 <strong>緊急聯絡：</strong><br>救護車/火警：119<br>警察局：110<br>外交部旅外救助：+81-80-1009-7179";
+                }
+                
+                // 預設回覆
+                return "🤔 這個我不確定耶...<br>您可以輸入「<strong>飯店</strong>」、「<strong>晚餐</strong>」或「<strong>天氣</strong>」試試看！";
             }
         });
     </script>
