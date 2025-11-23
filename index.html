@@ -18,7 +18,7 @@
         .time-tag { background: #6c757d; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; margin-right: 8px; display: inline-block; min-width: 55px; text-align: center; }
         .highlight { color: #d63384; font-weight: bold; }
         .hotel-box { background: #f8f9fa; border-left: 4px solid #198754; padding: 10px; border-radius: 4px; margin-top: 10px; font-size: 0.9rem; }
-        .footer-btn { position: fixed; bottom: 0; left: 0; width: 100%; background: white; border-top: 1px solid #ddd; padding: 10px; text-align: center; box-shadow: 0 -2px 5px rgba(0,0,0,0.05); }
+        .transport-note { font-size: 0.85rem; color: #0d6efd; background-color: #e7f1ff; padding: 8px; border-radius: 5px; margin-top: 5px; display: block; }
     </style>
 </head>
 <body>
@@ -30,7 +30,7 @@
 
     <div class="info-box">
         <div>📅 <strong>日期：</strong> 2026/2/23 - 2/28</div>
-        <div class="mt-1">🚙 <strong>交通：</strong> 全程包車 (司機接送)</div>
+        <div class="mt-1">🚙 <strong>交通：</strong> D1 自行前往，D2-D6 包車</div>
         <div class="mt-1">👥 <strong>成員：</strong> 5人 (含長輩)</div>
     </div>
 
@@ -44,9 +44,18 @@
                 </div>
                 <div class="day-body">
                     <p><span class="time-tag">17:00</span> 抵達仙台機場 (SDJ)</p>
-                    <p><span class="time-tag">18:00</span> 專車接機，前往飯店 check-in</p>
-                    <p><span class="time-tag">19:00</span> 晚餐：<span class="highlight">仙台牛舌 (喜助/利久)</span></p>
-                    <div class="hotel-box">🏨 <strong>住宿：</strong>仙台市區 (大都會或威斯汀)</div>
+                    <p><span class="time-tag">18:00</span> <span class="highlight">交通：前往市區</span></p>
+                    <span class="transport-note">
+                        🚄 <strong>搭乘：</strong>仙台機場聯絡線 (Sendai Airport Access Line)<br>
+                        📍 <strong>路線：</strong>仙台空港站 → JR仙台站<br>
+                        ⏱ <strong>時間：</strong>約 25 分鐘 (票價 660円)
+                    </span>
+                    <p class="mt-3"><span class="time-tag">18:40</span> 抵達 JR 仙台站</p>
+                    <span class="transport-note">
+                        🚶 <strong>步行：</strong>往「東口」方向，步行約 5 分鐘抵達飯店
+                    </span>
+                    <p class="mt-3"><span class="time-tag">19:00</span> 飯店 Check-in & 晚餐</p>
+                    <div class="hotel-box">🏨 <strong>住宿：</strong>Hotel GrandBach Sendai (仙台格蘭巴赫飯店)</div>
                 </div>
             </div>
 
@@ -56,7 +65,7 @@
                     <span class="badge bg-secondary">Day 2</span>
                 </div>
                 <div class="day-body">
-                    <p><span class="time-tag">09:00</span> 飯店出發</p>
+                    <p><span class="time-tag">09:00</span> <strong>包車司機至飯店接駁</strong></p>
                     <p><span class="time-tag">10:30</span> <span class="highlight">藏王樹冰 (搭乘雪怪車)</span> <br><small class="text-muted">*不用吹風，車上有暖氣</small></p>
                     <p><span class="time-tag">13:00</span> 午餐：遠刈田溫泉區</p>
                     <p><span class="time-tag">15:30</span> 抵達銀山溫泉 (趁天亮拍照)</p>
@@ -122,23 +131,16 @@
     </div>
 
     <script>
-        // 簡單的 Jquery 語法來控制展開/收合，符合您的習慣
+        // Jquery 控制展開收合
         function toggleDay(element) {
-            // 把其他展開的關起來
             $(".day-body").slideUp();
             $(".day-header").removeClass("active");
-
-            // 取得當前點擊的下一個元素 (內容區塊)
             var content = $(element).next();
-            
-            // 如果本來是關的，就打開；本來是開的，就保持關閉
             if (content.is(":hidden")) {
                 $(element).addClass("active");
                 content.slideDown();
             }
         }
-
-        // 預設打開第一天
         $(document).ready(function(){
             $(".day-header").first().click();
         });
