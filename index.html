@@ -6,8 +6,10 @@
     <title>2026 日本東北家族旅行</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
     <style>
-        body { font-family: "Microsoft JhengHei", sans-serif; background-color: #f0f2f5; padding-bottom: 60px; }
+        body { font-family: "Microsoft JhengHei", sans-serif; background-color: #f0f2f5; padding-bottom: 80px; }
         .hero { background: linear-gradient(135deg, #004e92, #000428); color: white; padding: 40px 20px; text-align: center; border-radius: 0 0 25px 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
         .hero h1 { font-size: 1.8rem; font-weight: bold; margin-bottom: 10px; }
         .info-box { background: white; margin: -20px 20px 20px 20px; padding: 15px; border-radius: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: relative; font-size: 0.9rem; }
@@ -20,6 +22,22 @@
         .hotel-box { background: #f8f9fa; border-left: 4px solid #198754; padding: 10px; border-radius: 4px; margin-top: 10px; font-size: 0.9rem; }
         .transport-note { font-size: 0.85rem; color: #0d6efd; background-color: #e7f1ff; padding: 8px; border-radius: 5px; margin-top: 5px; display: block; }
         .restaurant-box { background-color: #fff3cd; border: 1px solid #ffecb5; padding: 10px; border-radius: 8px; margin-top: 5px; font-size: 0.9rem; color: #664d03; }
+
+        /* --- 聊天機器人 CSS --- */
+        .chat-btn { position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px; background-color: #0d6efd; color: white; border-radius: 50%; text-align: center; line-height: 60px; font-size: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); cursor: pointer; z-index: 1000; transition: transform 0.2s; }
+        .chat-btn:hover { transform: scale(1.1); }
+        .chat-window { display: none; position: fixed; bottom: 90px; right: 20px; width: 340px; height: 500px; background: white; border-radius: 15px; box-shadow: 0 5px 25px rgba(0,0,0,0.3); z-index: 1000; flex-direction: column; overflow: hidden; border: 1px solid #ddd; }
+        .chat-header { background: #0d6efd; color: white; padding: 12px 15px; font-weight: bold; display: flex; justify-content: space-between; align-items: center; }
+        .chat-body { flex: 1; padding: 15px; overflow-y: auto; background-color: #f9f9f9; font-size: 0.9rem; }
+        .chat-input-area { padding: 10px; border-top: 1px solid #eee; display: flex; background: white; }
+        .chat-input-area input { flex: 1; margin-right: 10px; border: 1px solid #ddd; border-radius: 20px; padding: 8px 15px; outline: none; }
+        .msg { margin-bottom: 12px; max-width: 85%; padding: 8px 12px; border-radius: 15px; font-size: 0.9rem; word-wrap: break-word; line-height: 1.5; }
+        .msg-bot { background: #e9ecef; color: #333; border-bottom-left-radius: 2px; align-self: flex-start; float: left; clear: both; }
+        .msg-user { background: #0d6efd; color: white; border-bottom-right-radius: 2px; align-self: flex-end; float: right; clear: both; }
+        .clearfix::after { content: ""; clear: both; display: table; }
+        /* Markdown 樣式調整 */
+        .msg-bot p { margin-bottom: 5px; } 
+        .msg-bot ul { padding-left: 20px; margin-bottom: 5px; }
     </style>
 </head>
 <body>
@@ -47,7 +65,7 @@
                     <p><span class="time-tag">16:00</span> 抵達仙台機場 (SDJ)</p>
                     <p><span class="time-tag">17:00</span> <span class="highlight">交通：前往市區</span></p>
                     <span class="transport-note">
-                        🚄 <strong>搭乘：</strong>仙台機場聯絡線 (Sendai Airport Access Line)<br>
+                        🚄 <strong>搭乘：</strong>仙台機場聯絡線<br>
                         📍 <strong>路線：</strong>仙台空港站 → JR仙台站<br>
                         ⏱ <strong>時間：</strong>約 25 分鐘 (票價 660円)
                     </span>
@@ -56,9 +74,7 @@
                         🚶 <strong>步行：</strong>往「東口」方向，步行約 5 分鐘抵達飯店
                     </span>
                     <p class="mt-3"><span class="time-tag">18:00</span> 飯店 Check-in 休息</p>
-                    
                     <hr>
-                    
                     <p class="mt-3"><span class="time-tag">19:00</span> <span class="highlight">晚餐：牛舌 善治郎</span></p>
                     <div class="restaurant-box">
                         <strong>🍽 餐廳：</strong>たんや善治郎 (仙台站前本店)<br>
@@ -66,8 +82,7 @@
                         <strong>📞 電話：</strong>+81-22-723-1877<br>
                         <small>※ 位於仙台站西口對面，需從飯店(東口)穿越車站，步行約8-10分。</small>
                     </div>
-
-                    <div class="hotel-box">🏨 <strong>住宿：</strong>Hotel GrandBach Sendai (仙台格蘭巴赫飯店)</div>
+                    <div class="hotel-box">🏨 <strong>住宿：</strong>Hotel GrandBach Sendai</div>
                 </div>
             </div>
 
@@ -78,9 +93,9 @@
                 </div>
                 <div class="day-body">
                     <p><span class="time-tag">09:00</span> <strong>包車司機至飯店接駁</strong></p>
-                    <p><span class="time-tag">10:30</span> <span class="highlight">藏王樹冰 (搭乘雪怪車)</span> <br><small class="text-muted">*不用吹風，車上有暖氣</small></p>
+                    <p><span class="time-tag">10:30</span> <span class="highlight">藏王樹冰 (搭乘雪怪車)</span></p>
                     <p><span class="time-tag">13:00</span> 午餐：遠刈田溫泉區</p>
-                    <p><span class="time-tag">15:30</span> 抵達銀山溫泉 (趁天亮拍照)</p>
+                    <p><span class="time-tag">15:30</span> 抵達銀山溫泉</p>
                     <div class="hotel-box">🏨 <strong>住宿：</strong>銀山溫泉 (指定)</div>
                 </div>
             </div>
@@ -92,8 +107,8 @@
                 </div>
                 <div class="day-body">
                     <p><span class="time-tag">09:30</span> 感受早晨銀山，出發</p>
-                    <p><span class="time-tag">10:45</span> <span class="highlight">最上川 芭蕉遊船</span><br><small class="text-muted">*冬季暖桌船，船上賞雪</small></p>
-                    <p><span class="time-tag">14:00</span> 酒田 山居倉庫 (阿信拍攝地)</p>
+                    <p><span class="time-tag">10:45</span> <span class="highlight">最上川 芭蕉遊船</span></p>
+                    <p><span class="time-tag">14:00</span> 酒田 山居倉庫</p>
                     <p><span class="time-tag">17:00</span> 前往湯野濱溫泉</p>
                     <div class="hotel-box">🏨 <strong>住宿：</strong>湯野濱溫泉 (龜屋/遊水亭)</div>
                 </div>
@@ -105,7 +120,7 @@
                     <span class="badge bg-secondary">Day 4</span>
                 </div>
                 <div class="day-body">
-                    <p><span class="time-tag">10:00</span> <span class="highlight">加茂水族館</span> (夢幻水母牆)</p>
+                    <p><span class="time-tag">10:00</span> <span class="highlight">加茂水族館</span></p>
                     <p><span class="time-tag">12:30</span> 午餐：鶴岡在地料理</p>
                     <p><span class="time-tag">14:30</span> 提早入住溫泉旅館享受設施</p>
                     <div class="hotel-box">🏨 <strong>住宿：</strong>溫海溫泉 萬國屋 (指定)</div>
@@ -118,9 +133,9 @@
                     <span class="badge bg-secondary">Day 5</span>
                 </div>
                 <div class="day-body">
-                    <p><span class="time-tag">11:00</span> <span class="highlight">採草莓體驗</span> (溫室高架)</p>
+                    <p><span class="time-tag">11:00</span> <span class="highlight">採草莓體驗</span></p>
                     <p><span class="time-tag">12:30</span> 午餐：冷肉蕎麥麵或壽喜燒</p>
-                    <p><span class="time-tag">14:30</span> <span class="highlight">仙台 大崎八幡宮</span> (國寶)</p>
+                    <p><span class="time-tag">14:30</span> <span class="highlight">仙台 大崎八幡宮</span></p>
                     <p><span class="time-tag">17:30</span> 晚餐：仙台市區自由活動</p>
                     <div class="hotel-box">🏨 <strong>住宿：</strong>仙台市區 (威斯汀/蒙特利)</div>
                 </div>
@@ -142,8 +157,89 @@
         </div>
     </div>
 
+    <div class="chat-btn" id="chatBtn">🧞‍♂️</div>
+    <div class="chat-window" id="chatWindow">
+        <div class="chat-header">
+            <span>❄️ 東北旅遊 AI 導遊</span>
+            <span style="cursor:pointer;" id="closeChat">✖</span>
+        </div>
+        <div class="chat-body" id="chatBody">
+            <div class="msg msg-bot clearfix">
+                你好！我是你的 AI 隨身導遊 ✨<br>
+                我讀過完整的行程表了。<br><br>
+                你可以問我任何問題，例如：<br>
+                「明天早上幾點集合？」<br>
+                「第一天晚餐吃什麼？」<br>
+                「萬國屋溫泉有什麼特色？」
+            </div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="chatInput" placeholder="請輸入問題...">
+            <button class="btn btn-primary btn-sm" id="sendBtn">發送</button>
+        </div>
+    </div>
+
     <script>
-        // Jquery 控制展開收合
+        // ==========================================
+        // ⚠️ 請在下方雙引號內貼上您的 API KEY ⚠️
+        const API_KEY = "AIzaSyAAgi9OLWYIq3Mhwkwv4kS_Shlm8xYxJ9I"; 
+        // ==========================================
+
+        // 建立給 AI 的行程知識庫 (系統提示詞)
+        const ITINERARY_CONTEXT = `
+        你是一個專業、親切的日本東北旅遊導遊 AI。你的使用者是參加這次「六天五夜日本東北雪見之旅」的家庭成員(共5人，含一位67歲長輩)。
+        
+        請根據以下【行程資料】回答使用者的問題。
+        
+        【行程資料】：
+        - 日期：2026/2/23 (一) ~ 2/28 (六)
+        - 交通：第一天自行從機場搭電車到市區，第二天到第六天全程包車(有司機)。
+        
+        [Day 1: 2/23]
+        - 16:00 抵達仙台機場(SDJ)。
+        - 交通：搭乘仙台機場聯絡線(25分鐘, 660円)至JR仙台站，步行5分至飯店。
+        - 19:00 晚餐：牛舌 善治郎 (仙台站前本店)。地址：仙台市青葉区中央1-8-38 AKビル 3F。電話：+81-22-723-1877。
+        - 住宿：Hotel GrandBach Sendai (仙台格蘭巴赫飯店)。
+        
+        [Day 2: 2/24]
+        - 09:00 包車司機來飯店接駁。
+        - 10:30 藏王樹冰 (搭乘 Wild Monster 雪怪車，有暖氣，不冷)。
+        - 13:00 午餐：遠刈田溫泉區。
+        - 15:30 抵達銀山溫泉 (趁天黑前欣賞藍調)。
+        - 住宿：銀山溫泉。
+        
+        [Day 3: 2/25]
+        - 09:30 出發。
+        - 10:45 最上川 芭蕉遊船 (搭乘暖桌船，舒適賞雪)。
+        - 14:00 酒田 山居倉庫 (阿信拍攝地)。
+        - 住宿：湯野濱溫泉 (龜屋或遊水亭)。
+        
+        [Day 4: 2/26]
+        - 10:00 加茂水族館 (世界第一水母館)。
+        - 12:30 午餐：鶴岡料理。
+        - 14:30 入住溫海溫泉 萬國屋 (日本百選溫泉，享受設施)。
+        - 住宿：溫海溫泉 萬國屋。
+        
+        [Day 5: 2/27]
+        - 11:00 採草莓體驗 (溫室高架栽培)。
+        - 12:30 午餐：冷肉蕎麥麵或米澤牛。
+        - 14:30 仙台 大崎八幡宮 (國寶)。
+        - 17:30 晚餐：仙台市區自由活動。
+        - 住宿：仙台市區 (威斯汀或蒙特利)。
+        
+        [Day 6: 2/28]
+        - 上午：仙台朝市、S-PAL百貨採買伴手禮。
+        - 14:30 專車接送至機場。
+        - 17:00 仙台機場起飛返台。
+
+        【回答規則】：
+        1. 必須使用「繁體中文」。
+        2. 回答要簡潔、重點清晰，語氣要像真人導遊般親切。
+        3. 如果使用者的問題與行程無關(例如問政治或寫程式)，請禮貌婉拒，並引導回旅遊話題。
+        4. 針對長輩需求(廁所、走路、保暖)要特別貼心提醒。
+        `;
+
+        // 1. 頁面互動邏輯 (展開行程)
         function toggleDay(element) {
             $(".day-body").slideUp();
             $(".day-header").removeClass("active");
@@ -155,6 +251,79 @@
         }
         $(document).ready(function(){
             $(".day-header").first().click();
+        });
+
+        // 2. AI 聊天機器人邏輯
+        $(document).ready(function() {
+            $("#chatBtn").click(function() { $("#chatWindow").fadeIn(); });
+            $("#closeChat").click(function() { $("#chatWindow").fadeOut(); });
+
+            $("#sendBtn").click(handleUserMessage);
+            $("#chatInput").keypress(function(e) {
+                if (e.which == 13) handleUserMessage();
+            });
+
+            function handleUserMessage() {
+                var userText = $("#chatInput").val().trim();
+                if (userText === "") return;
+
+                // 顯示使用者訊息
+                appendMsg(userText, "user");
+                $("#chatInput").val("");
+
+                // 顯示思考中...
+                var loadingId = "loading-" + Date.now();
+                $("#chatBody").append('<div id="' + loadingId + '" class="msg msg-bot clearfix">🤔 導遊思考中...</div>');
+                scrollToBottom();
+
+                // 呼叫 Gemini API
+                callGeminiAPI(userText, loadingId);
+            }
+
+            function callGeminiAPI(question, loadingId) {
+                // 如果使用者沒有填入 Key，就跳出警告
+                if(API_KEY === "AIzaSyAAgi9OLWYIq3Mhwkwv4kS_Shlm8xYxJ9I" || API_KEY === "") {
+                    $("#" + loadingId).html("⚠️ 請先在程式碼中貼上您的 API Key 才能啟用 AI 功能喔！");
+                    return;
+                }
+
+                var settings = {
+                    "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=" + API_KEY,
+                    "method": "POST",
+                    "timeout": 0,
+                    "headers": {
+                        "Content-Type": "application/json"
+                    },
+                    "data": JSON.stringify({
+                        "contents": [{
+                            "parts": [{
+                                "text": ITINERARY_CONTEXT + "\n\n使用者問：" + question
+                            }]
+                        }]
+                    }),
+                };
+
+                $.ajax(settings).done(function (response) {
+                    var aiResponse = response.candidates[0].content.parts[0].text;
+                    // 使用 marked.js 將 markdown 轉為 html
+                    var htmlResponse = marked.parse(aiResponse);
+                    $("#" + loadingId).html(htmlResponse);
+                    scrollToBottom();
+                }).fail(function (error) {
+                    console.error(error);
+                    $("#" + loadingId).html("😵 哎呀，連線有點問題，請稍後再試。");
+                });
+            }
+
+            function appendMsg(text, type) {
+                var cssClass = type === "user" ? "msg-user" : "msg-bot";
+                $("#chatBody").append('<div class="msg ' + cssClass + ' clearfix">' + text + '</div>');
+                scrollToBottom();
+            }
+
+            function scrollToBottom() {
+                $("#chatBody").scrollTop($("#chatBody")[0].scrollHeight);
+            }
         });
     </script>
 </body>
