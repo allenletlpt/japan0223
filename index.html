@@ -282,7 +282,7 @@
 
             function callGeminiAPI(question, loadingId) {
                 // 如果使用者沒有填入 Key，就跳出警告
-                if(API_KEY === "AIzaSyAAgi9OLWYIq3Mhwkwv4kS_Shlm8xYxJ9I" || API_KEY === "") {
+                if(API_KEY === "在此處貼上您的API_KEY" || API_KEY === "") {
                     $("#" + loadingId).html("⚠️ 請先在程式碼中貼上您的 API Key 才能啟用 AI 功能喔！");
                     return;
                 }
