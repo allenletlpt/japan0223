@@ -17,9 +17,16 @@
         .day-body { display: none; background: white; padding: 20px; border-top: 1px solid #f0f0f0; }
         .time-tag { background: #6c757d; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; margin-right: 8px; display: inline-block; min-width: 55px; text-align: center; }
         .highlight { color: #d63384; font-weight: bold; }
+        
+        /* 資訊卡片樣式 */
         .hotel-box { background: #f8f9fa; border-left: 4px solid #198754; padding: 10px; border-radius: 4px; margin-top: 10px; font-size: 0.9rem; }
         .transport-note { font-size: 0.85rem; color: #0d6efd; background-color: #e7f1ff; padding: 8px; border-radius: 5px; margin-top: 5px; display: block; }
         .restaurant-box { background-color: #fff3cd; border: 1px solid #ffecb5; padding: 10px; border-radius: 8px; margin-top: 5px; font-size: 0.9rem; color: #664d03; }
+        
+        /* 導航連結樣式 */
+        .map-link { text-decoration: none; color: #0d6efd; font-weight: bold; margin-left: 5px; font-size: 0.85rem; background: #e7f1ff; padding: 2px 6px; border-radius: 4px; }
+        .map-link:hover { background: #0d6efd; color: white; }
+        .addr-text { display: block; font-size: 0.8rem; color: #666; margin-top: 2px; }
     </style>
 </head>
 <body>
@@ -44,11 +51,11 @@
                     <span class="badge bg-secondary">Day 1</span>
                 </div>
                 <div class="day-body">
-                    <p><span class="time-tag">16:00</span> 抵達仙台機場 (SDJ)</p>
+                    <p><span class="time-tag">16:00</span> 抵達仙台機場 (SDJ) <a href="https://www.google.com/maps/dir/?api=1&destination=Sendai+Airport" target="_blank" class="map-link">📍 導航</a></p>
                     <p><span class="time-tag">17:00</span> <span class="highlight">交通：前往市區</span></p>
                     <span class="transport-note">
                         🚄 <strong>搭乘：</strong>仙台機場聯絡線<br>
-                        📍 <strong>路線：</strong>仙台空港站 → JR仙台站<br>
+                        📍 <strong>路線：</strong>仙台空港站 → JR仙台站 <a href="https://www.google.com/maps/dir/?api=1&destination=JR+Sendai+Station" target="_blank" class="map-link">📍 導航</a><br>
                         ⏱ <strong>時間：</strong>約 25 分鐘 (票價 660円)
                     </span>
                     <p class="mt-3"><span class="time-tag">17:30</span> 抵達 JR 仙台站 (東口)</p>
@@ -56,15 +63,22 @@
                         🚶 <strong>步行：</strong>往「東口」方向，步行約 5 分鐘抵達飯店
                     </span>
                     <p class="mt-3"><span class="time-tag">18:00</span> 飯店 Check-in 休息</p>
+                    
                     <hr>
-                    <p class="mt-3"><span class="time-tag">19:00</span> <span class="highlight">晚餐：牛舌 善治郎</span></p>
+                    
+                    <p class="mt-3"><span class="time-tag">19:00</span> <span class="highlight">晚餐：牛舌 善治郎</span> <a href="https://www.google.com/maps/dir/?api=1&destination=牛舌善治郎+仙台站前本店" target="_blank" class="map-link">📍 導航</a></p>
                     <div class="restaurant-box">
                         <strong>🍽 餐廳：</strong>たんや善治郎 (仙台站前本店)<br>
-                        <strong>📍 地址：</strong>仙台市青葉区中央1-8-38 AKビル 3F<br>
+                        <span class="addr-text">📍 仙台市青葉区中央1-8-38 AKビル 3F</span>
                         <strong>📞 電話：</strong>+81-22-723-1877<br>
                         <small>※ 位於仙台站西口對面，需從飯店(東口)穿越車站，步行約8-10分。</small>
                     </div>
-                    <div class="hotel-box">🏨 <strong>住宿：</strong>Hotel GrandBach Sendai</div>
+
+                    <div class="hotel-box">
+                        🏨 <strong>住宿：</strong>Hotel GrandBach Sendai <a href="https://www.google.com/maps/dir/?api=1&destination=Hotel+GrandBach+Sendai" target="_blank" class="map-link">📍 導航</a><br>
+                        <span class="addr-text">📍 仙台市宮城野区榴岡3丁目7-33</span>
+                        <strong>📞 電話：</strong>+81-22-296-0660
+                    </div>
                 </div>
             </div>
 
@@ -75,10 +89,14 @@
                 </div>
                 <div class="day-body">
                     <p><span class="time-tag">09:00</span> <strong>包車司機至飯店接駁</strong></p>
-                    <p><span class="time-tag">10:30</span> <span class="highlight">藏王樹冰 (搭乘雪怪車)</span></p>
-                    <p><span class="time-tag">13:00</span> 午餐：遠刈田溫泉區</p>
-                    <p><span class="time-tag">15:30</span> 抵達銀山溫泉</p>
-                    <div class="hotel-box">🏨 <strong>住宿：</strong>銀山溫泉 (指定)</div>
+                    <p><span class="time-tag">10:30</span> <span class="highlight">藏王樹冰 (雪怪車)</span> <a href="https://www.google.com/maps/dir/?api=1&destination=Sumikawa+Snow+Park" target="_blank" class="map-link">📍 導航</a><br><small class="text-muted">*宮城藏王 Sumikawa Snow Park</small></p>
+                    <p><span class="time-tag">13:00</span> 午餐：遠刈田溫泉區 <a href="https://www.google.com/maps/dir/?api=1&destination=Togatta+Onsen" target="_blank" class="map-link">📍 導航</a></p>
+                    <p><span class="time-tag">15:30</span> 抵達銀山溫泉 <a href="https://www.google.com/maps/dir/?api=1&destination=Ginzan+Onsen" target="_blank" class="map-link">📍 導航</a></p>
+                    <div class="hotel-box">
+                        🏨 <strong>住宿：</strong>銀山溫泉 (指定)<br>
+                        <span class="addr-text">📍 山形県尾花沢市銀山新畑</span>
+                        <small>*請依實際預訂旅館導航</small>
+                    </div>
                 </div>
             </div>
 
@@ -89,10 +107,15 @@
                 </div>
                 <div class="day-body">
                     <p><span class="time-tag">09:30</span> 感受早晨銀山，出發</p>
-                    <p><span class="time-tag">10:45</span> <span class="highlight">最上川 芭蕉遊船</span></p>
-                    <p><span class="time-tag">14:00</span> 酒田 山居倉庫</p>
-                    <p><span class="time-tag">17:00</span> 前往湯野濱溫泉</p>
-                    <div class="hotel-box">🏨 <strong>住宿：</strong>湯野濱溫泉 (龜屋/遊水亭)</div>
+                    <p><span class="time-tag">10:45</span> <span class="highlight">最上川 芭蕉遊船</span> <a href="https://www.google.com/maps/dir/?api=1&destination=Mogami+River+Basho+Line+Boat+Ride" target="_blank" class="map-link">📍 導航</a><br><small class="text-muted">*古口港搭乘</small></p>
+                    <p><span class="time-tag">14:00</span> 酒田 山居倉庫 <a href="https://www.google.com/maps/dir/?api=1&destination=Sankyo+Rice+Storehouses" target="_blank" class="map-link">📍 導航</a></p>
+                    <p><span class="time-tag">17:00</span> 前往湯野濱溫泉 <a href="https://www.google.com/maps/dir/?api=1&destination=Yunohama+Onsen" target="_blank" class="map-link">📍 導航</a></p>
+                    <div class="hotel-box">
+                        🏨 <strong>住宿：</strong>湯野濱溫泉 (龜屋/遊水亭)<br>
+                        <small>預備連結：</small>
+                        <a href="https://www.google.com/maps/dir/?api=1&destination=Kameya+Yunohama" target="_blank" class="map-link">龜屋</a>
+                        <a href="https://www.google.com/maps/dir/?api=1&destination=Isagoja" target="_blank" class="map-link">遊水亭</a>
+                    </div>
                 </div>
             </div>
 
@@ -102,10 +125,14 @@
                     <span class="badge bg-secondary">Day 4</span>
                 </div>
                 <div class="day-body">
-                    <p><span class="time-tag">10:00</span> <span class="highlight">加茂水族館</span></p>
-                    <p><span class="time-tag">12:30</span> 午餐：鶴岡在地料理</p>
+                    <p><span class="time-tag">10:00</span> <span class="highlight">加茂水族館</span> <a href="https://www.google.com/maps/dir/?api=1&destination=Kamo+Aquarium" target="_blank" class="map-link">📍 導航</a></p>
+                    <p><span class="time-tag">12:30</span> 午餐：鶴岡在地料理 <a href="https://www.google.com/maps/dir/?api=1&destination=Tsuruoka+Station" target="_blank" class="map-link">📍 導航</a></p>
                     <p><span class="time-tag">14:30</span> 提早入住溫泉旅館享受設施</p>
-                    <div class="hotel-box">🏨 <strong>住宿：</strong>溫海溫泉 萬國屋 (指定)</div>
+                    <div class="hotel-box">
+                        🏨 <strong>住宿：</strong>溫海溫泉 萬國屋 <a href="https://www.google.com/maps/dir/?api=1&destination=Bankokuya+Atsumi+Onsen" target="_blank" class="map-link">📍 導航</a><br>
+                        <span class="addr-text">📍 山形県鶴岡市温海丁1</span>
+                        <strong>📞 電話：</strong>+81-235-43-3333
+                    </div>
                 </div>
             </div>
 
@@ -115,11 +142,16 @@
                     <span class="badge bg-secondary">Day 5</span>
                 </div>
                 <div class="day-body">
-                    <p><span class="time-tag">11:00</span> <span class="highlight">採草莓體驗</span></p>
+                    <p><span class="time-tag">11:00</span> <span class="highlight">採草莓體驗</span> <a href="https://www.google.com/maps/dir/?api=1&destination=JA+Sagae+Nishimurayama+Cherry+Land" target="_blank" class="map-link">📍 導航</a><br><small class="text-muted">*寒河江/天童地區</small></p>
                     <p><span class="time-tag">12:30</span> 午餐：冷肉蕎麥麵或壽喜燒</p>
-                    <p><span class="time-tag">14:30</span> <span class="highlight">仙台 大崎八幡宮</span></p>
+                    <p><span class="time-tag">14:30</span> <span class="highlight">仙台 大崎八幡宮</span> <a href="https://www.google.com/maps/dir/?api=1&destination=Osaki+Hachimangu" target="_blank" class="map-link">📍 導航</a></p>
                     <p><span class="time-tag">17:30</span> 晚餐：仙台市區自由活動</p>
-                    <div class="hotel-box">🏨 <strong>住宿：</strong>仙台市區 (威斯汀/蒙特利)</div>
+                    <div class="hotel-box">
+                        🏨 <strong>住宿：</strong>仙台市區<br>
+                        <small>預備連結：</small>
+                        <a href="https://www.google.com/maps/dir/?api=1&destination=The+Westin+Sendai" target="_blank" class="map-link">威斯汀</a>
+                        <a href="https://www.google.com/maps/dir/?api=1&destination=Hotel+Monterey+Sendai" target="_blank" class="map-link">蒙特利</a>
+                    </div>
                 </div>
             </div>
 
@@ -129,9 +161,9 @@
                     <span class="badge bg-secondary">Day 6</span>
                 </div>
                 <div class="day-body">
-                    <p><span class="time-tag">上午</span> 仙台朝市 / S-PAL百貨採買</p>
+                    <p><span class="time-tag">上午</span> 仙台朝市 <a href="https://www.google.com/maps/dir/?api=1&destination=Sendai+Morning+Market" target="_blank" class="map-link">📍 導航</a> / S-PAL <a href="https://www.google.com/maps/dir/?api=1&destination=S-PAL+Sendai" target="_blank" class="map-link">📍 導航</a></p>
                     <p><span class="time-tag">14:30</span> 專車送往機場</p>
-                    <p><span class="time-tag">17:00</span> 搭機返台</p>
+                    <p><span class="time-tag">17:00</span> 搭機返台 (仙台空港) <a href="https://www.google.com/maps/dir/?api=1&destination=Sendai+Airport" target="_blank" class="map-link">📍 導航</a></p>
                     <div class="hotel-box">✈️ <strong>航班：</strong>甜蜜的家</div>
                 </div>
             </div>
