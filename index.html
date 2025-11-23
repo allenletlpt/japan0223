@@ -15,18 +15,28 @@
         .day-header { background: white; padding: 15px 20px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: bold; color: #333; border-left: 5px solid #ccc; transition: all 0.3s; }
         .day-header.active { border-left: 5px solid #0d6efd; background-color: #e9f2ff; color: #0d6efd; }
         .day-body { display: none; background: white; padding: 20px; border-top: 1px solid #f0f0f0; }
+        
+        /* 標籤與文字樣式 */
         .time-tag { background: #6c757d; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; margin-right: 8px; display: inline-block; min-width: 55px; text-align: center; }
         .highlight { color: #d63384; font-weight: bold; }
-        
-        /* 資訊卡片樣式 */
-        .hotel-box { background: #f8f9fa; border-left: 4px solid #198754; padding: 10px; border-radius: 4px; margin-top: 10px; font-size: 0.9rem; }
-        .transport-note { font-size: 0.85rem; color: #0d6efd; background-color: #e7f1ff; padding: 8px; border-radius: 5px; margin-top: 5px; display: block; }
-        .restaurant-box { background-color: #fff3cd; border: 1px solid #ffecb5; padding: 10px; border-radius: 8px; margin-top: 5px; font-size: 0.9rem; color: #664d03; }
-        
-        /* 導航連結樣式 */
-        .map-link { text-decoration: none; color: #0d6efd; font-weight: bold; margin-left: 5px; font-size: 0.85rem; background: #e7f1ff; padding: 2px 6px; border-radius: 4px; }
-        .map-link:hover { background: #0d6efd; color: white; }
         .addr-text { display: block; font-size: 0.8rem; color: #666; margin-top: 2px; }
+        
+        /* 按鈕樣式 */
+        .map-link { text-decoration: none; color: #0d6efd; font-weight: bold; margin-left: 5px; font-size: 0.85rem; background: #e7f1ff; padding: 2px 8px; border-radius: 15px; border: 1px solid transparent; }
+        .map-link:hover { background: #0d6efd; color: white; }
+        
+        .intro-btn { cursor: pointer; color: #198754; font-weight: bold; margin-left: 5px; font-size: 0.85rem; background: #e8f5e9; padding: 2px 8px; border-radius: 15px; border: 1px solid #c3e6cb; }
+        .intro-btn:hover { background: #198754; color: white; }
+
+        /* 詳細介紹區塊 (預設隱藏) */
+        .spot-detail { display: none; background-color: #f8fff9; border-left: 4px solid #198754; padding: 10px 15px; margin-top: 8px; margin-bottom: 15px; border-radius: 4px; font-size: 0.9rem; color: #333; }
+        .spot-detail h6 { font-weight: bold; color: #198754; font-size: 0.95rem; margin-bottom: 5px; }
+        .spot-detail ul { margin-bottom: 0; padding-left: 20px; }
+
+        /* 其他區塊 */
+        .hotel-box { background: #f8f9fa; border-left: 4px solid #0d6efd; padding: 10px; border-radius: 4px; margin-top: 10px; font-size: 0.9rem; }
+        .transport-note { font-size: 0.85rem; color: #495057; background-color: #e9ecef; padding: 8px; border-radius: 5px; margin-top: 5px; display: block; }
+        .restaurant-box { background-color: #fff3cd; border: 1px solid #ffecb5; padding: 10px; border-radius: 8px; margin-top: 5px; font-size: 0.9rem; color: #664d03; }
     </style>
 </head>
 <body>
@@ -51,14 +61,30 @@
                     <span class="badge bg-secondary">Day 1</span>
                 </div>
                 <div class="day-body">
-                    <p><span class="time-tag">16:00</span> 抵達仙台機場 (SDJ) <a href="https://www.google.com/maps/dir/?api=1&destination=Sendai+Airport" target="_blank" class="map-link">📍 導航</a></p>
+                    <p>
+                        <span class="time-tag">16:00</span> 抵達仙台機場 (SDJ) 
+                        <a href="https://www.google.com/maps/search/?api=1&query=仙台空港" target="_blank" class="map-link">📍 導航</a>
+                    </p>
                     <p><span class="time-tag">17:00</span> <span class="highlight">交通：前往市區</span></p>
                     <span class="transport-note">
                         🚄 <strong>搭乘：</strong>仙台機場聯絡線<br>
-                        📍 <strong>路線：</strong>仙台空港站 → JR仙台站 <a href="https://www.google.com/maps/dir/?api=1&destination=JR+Sendai+Station" target="_blank" class="map-link">📍 導航</a><br>
+                        📍 <strong>路線：</strong>仙台空港站 → JR仙台站 <a href="https://www.google.com/maps/search/?api=1&query=JR仙台站" target="_blank" class="map-link">📍 導航</a><br>
                         ⏱ <strong>時間：</strong>約 25 分鐘 (票價 660円)
                     </span>
-                    <p class="mt-3"><span class="time-tag">17:30</span> 抵達 JR 仙台站 (東口)</p>
+                    
+                    <p class="mt-3">
+                        <span class="time-tag">17:30</span> 抵達 JR 仙台站
+                        <span class="intro-btn" onclick="toggleDetail(this)">ℹ️ 車站建議</span>
+                    </p>
+                    <div class="spot-detail">
+                        <h6>📌 仙台車站小撇步</h6>
+                        <ul>
+                            <li>飯店在「東口」，請依指標往東口連通橋移動。</li>
+                            <li>車站內人潮多，長輩請留意腳步，建議使用電梯。</li>
+                            <li>若想買飲料，車站內有著名的「毛豆奶昔」可以嘗鮮。</li>
+                        </ul>
+                    </div>
+
                     <span class="transport-note">
                         🚶 <strong>步行：</strong>往「東口」方向，步行約 5 分鐘抵達飯店
                     </span>
@@ -66,16 +92,29 @@
                     
                     <hr>
                     
-                    <p class="mt-3"><span class="time-tag">19:00</span> <span class="highlight">晚餐：牛舌 善治郎</span> <a href="https://www.google.com/maps/dir/?api=1&destination=牛舌善治郎+仙台站前本店" target="_blank" class="map-link">📍 導航</a></p>
+                    <p class="mt-3">
+                        <span class="time-tag">19:00</span> <span class="highlight">晚餐：牛舌 善治郎</span> 
+                        <a href="https://www.google.com/maps/search/?api=1&query=たんや善治郎+仙台駅前本店" target="_blank" class="map-link">📍 導航</a>
+                        <span class="intro-btn" onclick="toggleDetail(this)">ℹ️ 介紹/建議</span>
+                    </p>
+                    <div class="spot-detail">
+                        <h6>📌 仙台牛舌名店</h6>
+                        <ul>
+                            <li><strong>特色：</strong>仙台必吃美食，炭火燒烤厚切牛舌，口感脆彈。</li>
+                            <li><strong>點餐建議：</strong>若長輩擔心肉太韌，可點「燉煮牛舌(ゆでたん)」或「薄切」，比較好入口。</li>
+                            <li><strong>注意：</strong>本店位於站前大樓3樓，需搭電梯。</li>
+                        </ul>
+                    </div>
+
                     <div class="restaurant-box">
                         <strong>🍽 餐廳：</strong>たんや善治郎 (仙台站前本店)<br>
                         <span class="addr-text">📍 仙台市青葉区中央1-8-38 AKビル 3F</span>
-                        <strong>📞 電話：</strong>+81-22-723-1877<br>
-                        <small>※ 位於仙台站西口對面，需從飯店(東口)穿越車站，步行約8-10分。</small>
+                        <strong>📞 電話：</strong>+81-22-723-1877
                     </div>
 
                     <div class="hotel-box">
-                        🏨 <strong>住宿：</strong>Hotel GrandBach Sendai <a href="https://www.google.com/maps/dir/?api=1&destination=Hotel+GrandBach+Sendai" target="_blank" class="map-link">📍 導航</a><br>
+                        🏨 <strong>住宿：</strong>Hotel GrandBach Sendai<br>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Hotel+GrandBach+Sendai" target="_blank" class="map-link">📍 導航</a><br>
                         <span class="addr-text">📍 仙台市宮城野区榴岡3丁目7-33</span>
                         <strong>📞 電話：</strong>+81-22-296-0660
                     </div>
@@ -89,9 +128,36 @@
                 </div>
                 <div class="day-body">
                     <p><span class="time-tag">09:00</span> <strong>包車司機至飯店接駁</strong></p>
-                    <p><span class="time-tag">10:30</span> <span class="highlight">藏王樹冰 (雪怪車)</span> <a href="https://www.google.com/maps/dir/?api=1&destination=Sumikawa+Snow+Park" target="_blank" class="map-link">📍 導航</a><br><small class="text-muted">*宮城藏王 Sumikawa Snow Park</small></p>
-                    <p><span class="time-tag">13:00</span> 午餐：遠刈田溫泉區 <a href="https://www.google.com/maps/dir/?api=1&destination=Togatta+Onsen" target="_blank" class="map-link">📍 導航</a></p>
-                    <p><span class="time-tag">15:30</span> 抵達銀山溫泉 <a href="https://www.google.com/maps/dir/?api=1&destination=Ginzan+Onsen" target="_blank" class="map-link">📍 導航</a></p>
+                    
+                    <p>
+                        <span class="time-tag">10:30</span> <span class="highlight">藏王樹冰 (雪怪車)</span> 
+                        <a href="https://www.google.com/maps/search/?api=1&query=Sumikawa+Snow+Park" target="_blank" class="map-link">📍 導航</a>
+                        <span class="intro-btn" onclick="toggleDetail(this)">ℹ️ 介紹/建議</span>
+                    </p>
+                    <div class="spot-detail">
+                        <h6>📌 宮城藏王 Sumikawa Snow Park</h6>
+                        <ul>
+                            <li><strong>特色：</strong>搭乘有暖氣的「WILD MONSTER」雪車，輕鬆開上海拔1600m，近距離看冰雪包覆的針葉林（樹冰/雪怪）。</li>
+                            <li><strong>長輩建議：</strong>車內溫暖但下車拍照很冷，請戴好毛帽、圍巾手套。</li>
+                            <li><strong>重要：</strong>雪地陽光反射強，建議佩戴墨鏡保護眼睛。</li>
+                        </ul>
+                    </div>
+
+                    <p><span class="time-tag">13:00</span> 午餐：遠刈田溫泉區 <a href="https://www.google.com/maps/search/?api=1&query=遠刈田温泉" target="_blank" class="map-link">📍 導航</a></p>
+                    
+                    <p>
+                        <span class="time-tag">15:30</span> 抵達銀山溫泉 
+                        <a href="https://www.google.com/maps/search/?api=1&query=銀山溫泉" target="_blank" class="map-link">📍 導航</a>
+                        <span class="intro-btn" onclick="toggleDetail(this)">ℹ️ 介紹/建議</span>
+                    </p>
+                    <div class="spot-detail">
+                        <h6>📌 夢幻大正浪漫 銀山溫泉</h6>
+                        <ul>
+                            <li><strong>特色：</strong>日劇《阿信》拍攝地，木造建築與煤氣燈，黃昏時(Blue Hour)拍照最美。</li>
+                            <li><strong>⚠️ 安全第一：</strong>冬季街道積雪結冰「非常滑」！請務必幫長輩裝上防滑鞋套，或行走於鋪有止滑墊的區域。</li>
+                        </ul>
+                    </div>
+
                     <div class="hotel-box">
                         🏨 <strong>住宿：</strong>銀山溫泉 (指定)<br>
                         <span class="addr-text">📍 山形県尾花沢市銀山新畑</span>
@@ -107,14 +173,39 @@
                 </div>
                 <div class="day-body">
                     <p><span class="time-tag">09:30</span> 感受早晨銀山，出發</p>
-                    <p><span class="time-tag">10:45</span> <span class="highlight">最上川 芭蕉遊船</span> <a href="https://www.google.com/maps/dir/?api=1&destination=Mogami+River+Basho+Line+Boat+Ride" target="_blank" class="map-link">📍 導航</a><br><small class="text-muted">*古口港搭乘</small></p>
-                    <p><span class="time-tag">14:00</span> 酒田 山居倉庫 <a href="https://www.google.com/maps/dir/?api=1&destination=Sankyo+Rice+Storehouses" target="_blank" class="map-link">📍 導航</a></p>
-                    <p><span class="time-tag">17:00</span> 前往湯野濱溫泉 <a href="https://www.google.com/maps/dir/?api=1&destination=Yunohama+Onsen" target="_blank" class="map-link">📍 導航</a></p>
+                    
+                    <p>
+                        <span class="time-tag">10:45</span> <span class="highlight">最上川 芭蕉遊船</span> 
+                        <a href="https://www.google.com/maps/search/?api=1&query=最上川芭蕉ライン舟下り+古口港" target="_blank" class="map-link">📍 導航</a>
+                        <span class="intro-btn" onclick="toggleDetail(this)">ℹ️ 介紹/建議</span>
+                    </p>
+                    <div class="spot-detail">
+                        <h6>📌 冬季暖桌遊船</h6>
+                        <ul>
+                            <li><strong>特色：</strong>搭乘復古屋形船，順流而下欣賞如水墨畫般的雪見峽谷。</li>
+                            <li><strong>體驗：</strong>船上有「暖被桌 (Kotatsu)」，雙腳溫暖舒適，不用擔心受凍。</li>
+                            <li><strong>文化：</strong>船夫會吟唱傳統「最上川船歌」，非常有氣氛。</li>
+                        </ul>
+                    </div>
+
+                    <p>
+                        <span class="time-tag">14:00</span> 酒田 山居倉庫 
+                        <a href="https://www.google.com/maps/search/?api=1&query=酒田+山居倉庫" target="_blank" class="map-link">📍 導航</a>
+                        <span class="intro-btn" onclick="toggleDetail(this)">ℹ️ 介紹/建議</span>
+                    </p>
+                    <div class="spot-detail">
+                        <h6>📌 山居倉庫 (夢之俱樂)</h6>
+                        <ul>
+                            <li><strong>特色：</strong>建於1893年的米倉，成排的櫸木並木是經典拍照點。</li>
+                            <li><strong>購物：</strong>內有大型物產館「夢之俱樂」，非常好買庄內地區的伴手禮（米果、清酒）。</li>
+                        </ul>
+                    </div>
+
+                    <p><span class="time-tag">17:00</span> 前往湯野濱溫泉 <a href="https://www.google.com/maps/search/?api=1&query=湯野濱溫泉" target="_blank" class="map-link">📍 導航</a></p>
                     <div class="hotel-box">
                         🏨 <strong>住宿：</strong>湯野濱溫泉 (龜屋/遊水亭)<br>
-                        <small>預備連結：</small>
-                        <a href="https://www.google.com/maps/dir/?api=1&destination=Kameya+Yunohama" target="_blank" class="map-link">龜屋</a>
-                        <a href="https://www.google.com/maps/dir/?api=1&destination=Isagoja" target="_blank" class="map-link">遊水亭</a>
+                        <a href="https://www.google.com/maps/search/?api=1&query=湯野浜温泉+亀や" target="_blank" class="map-link">龜屋</a>
+                        <a href="https://www.google.com/maps/search/?api=1&query=湯野浜温泉+遊水亭いさごや" target="_blank" class="map-link">遊水亭</a>
                     </div>
                 </div>
             </div>
@@ -125,11 +216,34 @@
                     <span class="badge bg-secondary">Day 4</span>
                 </div>
                 <div class="day-body">
-                    <p><span class="time-tag">10:00</span> <span class="highlight">加茂水族館</span> <a href="https://www.google.com/maps/dir/?api=1&destination=Kamo+Aquarium" target="_blank" class="map-link">📍 導航</a></p>
-                    <p><span class="time-tag">12:30</span> 午餐：鶴岡在地料理 <a href="https://www.google.com/maps/dir/?api=1&destination=Tsuruoka+Station" target="_blank" class="map-link">📍 導航</a></p>
+                    <p>
+                        <span class="time-tag">10:00</span> <span class="highlight">加茂水族館</span> 
+                        <a href="https://www.google.com/maps/search/?api=1&query=加茂水族館" target="_blank" class="map-link">📍 導航</a>
+                        <span class="intro-btn" onclick="toggleDetail(this)">ℹ️ 介紹/建議</span>
+                    </p>
+                    <div class="spot-detail">
+                        <h6>📌 金氏世界紀錄 水母夢幻劇場</h6>
+                        <ul>
+                            <li><strong>特色：</strong>世界第一的水母展示種類，直徑5公尺的「水母夢幻劇場」非常療癒。</li>
+                            <li><strong>長輩建議：</strong>館內皆為室內行程，無障礙設施完善，步調緩慢舒適。</li>
+                            <li><strong>趣聞：</strong>可以嘗試買「水母冰淇淋」吃吃看喔！</li>
+                        </ul>
+                    </div>
+
+                    <p><span class="time-tag">12:30</span> 午餐：鶴岡在地料理</p>
                     <p><span class="time-tag">14:30</span> 提早入住溫泉旅館享受設施</p>
+                    
                     <div class="hotel-box">
-                        🏨 <strong>住宿：</strong>溫海溫泉 萬國屋 <a href="https://www.google.com/maps/dir/?api=1&destination=Bankokuya+Atsumi+Onsen" target="_blank" class="map-link">📍 導航</a><br>
+                        🏨 <strong>住宿：</strong>溫海溫泉 萬國屋<br>
+                        <a href="https://www.google.com/maps/search/?api=1&query=温海温泉+萬国屋" target="_blank" class="map-link">📍 導航</a><br>
+                        <span class="intro-btn" onclick="toggleDetail(this)">ℹ️ 飯店介紹</span>
+                        <div class="spot-detail">
+                            <h6>📌 日本百選溫泉 萬國屋</h6>
+                            <ul>
+                                <li>創業300年的老字號旅館，連續多年入選「專家票選日本旅館百選」。</li>
+                                <li>擁有庭園露天風呂，晚餐通常為精緻的懷石料理，請放慢腳步享受。</li>
+                            </ul>
+                        </div>
                         <span class="addr-text">📍 山形県鶴岡市温海丁1</span>
                         <strong>📞 電話：</strong>+81-235-43-3333
                     </div>
@@ -142,15 +256,39 @@
                     <span class="badge bg-secondary">Day 5</span>
                 </div>
                 <div class="day-body">
-                    <p><span class="time-tag">11:00</span> <span class="highlight">採草莓體驗</span> <a href="https://www.google.com/maps/dir/?api=1&destination=JA+Sagae+Nishimurayama+Cherry+Land" target="_blank" class="map-link">📍 導航</a><br><small class="text-muted">*寒河江/天童地區</small></p>
+                    <p>
+                        <span class="time-tag">11:00</span> <span class="highlight">採草莓體驗</span> 
+                        <a href="https://www.google.com/maps/search/?api=1&query=山形+草莓園" target="_blank" class="map-link">📍 導航</a>
+                        <span class="intro-btn" onclick="toggleDetail(this)">ℹ️ 介紹/建議</span>
+                    </p>
+                    <div class="spot-detail">
+                        <h6>📌 溫室高架草莓</h6>
+                        <ul>
+                            <li><strong>特色：</strong>山形縣是草莓王國，品種如「乙女心」鮮甜多汁。</li>
+                            <li><strong>長輩建議：</strong>多數農園採「高架栽培」，不用彎腰也不用蹲下，對長輩膝蓋非常友善。</li>
+                        </ul>
+                    </div>
+
                     <p><span class="time-tag">12:30</span> 午餐：冷肉蕎麥麵或壽喜燒</p>
-                    <p><span class="time-tag">14:30</span> <span class="highlight">仙台 大崎八幡宮</span> <a href="https://www.google.com/maps/dir/?api=1&destination=Osaki+Hachimangu" target="_blank" class="map-link">📍 導航</a></p>
+                    
+                    <p>
+                        <span class="time-tag">14:30</span> <span class="highlight">仙台 大崎八幡宮</span> 
+                        <a href="https://www.google.com/maps/search/?api=1&query=大崎八幡宮" target="_blank" class="map-link">📍 導航</a>
+                        <span class="intro-btn" onclick="toggleDetail(this)">ℹ️ 介紹/建議</span>
+                    </p>
+                    <div class="spot-detail">
+                        <h6>📌 國寶 大崎八幡宮</h6>
+                        <ul>
+                            <li><strong>特色：</strong>仙台第一守護神社，建築華麗，漆黑與金箔的配色象徵伊達政宗的風格。</li>
+                            <li><strong>長輩建議：</strong>正門有長階梯，請司機大哥直接開車到「北側停車場」或側邊入口，可避開樓梯。</li>
+                        </ul>
+                    </div>
+
                     <p><span class="time-tag">17:30</span> 晚餐：仙台市區自由活動</p>
                     <div class="hotel-box">
                         🏨 <strong>住宿：</strong>仙台市區<br>
-                        <small>預備連結：</small>
-                        <a href="https://www.google.com/maps/dir/?api=1&destination=The+Westin+Sendai" target="_blank" class="map-link">威斯汀</a>
-                        <a href="https://www.google.com/maps/dir/?api=1&destination=Hotel+Monterey+Sendai" target="_blank" class="map-link">蒙特利</a>
+                        <a href="https://www.google.com/maps/search/?api=1&query=仙台+威斯汀酒店" target="_blank" class="map-link">威斯汀</a>
+                        <a href="https://www.google.com/maps/search/?api=1&query=仙台+蒙特利飯店" target="_blank" class="map-link">蒙特利</a>
                     </div>
                 </div>
             </div>
@@ -161,9 +299,23 @@
                     <span class="badge bg-secondary">Day 6</span>
                 </div>
                 <div class="day-body">
-                    <p><span class="time-tag">上午</span> 仙台朝市 <a href="https://www.google.com/maps/dir/?api=1&destination=Sendai+Morning+Market" target="_blank" class="map-link">📍 導航</a> / S-PAL <a href="https://www.google.com/maps/dir/?api=1&destination=S-PAL+Sendai" target="_blank" class="map-link">📍 導航</a></p>
+                    <p>
+                        <span class="time-tag">上午</span> 仙台朝市 
+                        <a href="https://www.google.com/maps/search/?api=1&query=仙台朝市" target="_blank" class="map-link">📍 導航</a>
+                        / S-PAL 
+                        <a href="https://www.google.com/maps/search/?api=1&query=S-PAL仙台" target="_blank" class="map-link">📍 導航</a>
+                        <span class="intro-btn" onclick="toggleDetail(this)">ℹ️ 介紹/建議</span>
+                    </p>
+                    <div class="spot-detail">
+                        <h6>📌 最後採買</h6>
+                        <ul>
+                            <li><strong>仙台朝市：</strong>感受在地活力，可買當季水果（如草莓、蘋果）帶去機場吃（不能帶回台灣喔）。</li>
+                            <li><strong>S-PAL百貨：</strong>就在車站內，伴手禮最齊全（萩之月、毛豆泥麻糬、牛舌真空包）。</li>
+                        </ul>
+                    </div>
+
                     <p><span class="time-tag">14:30</span> 專車送往機場</p>
-                    <p><span class="time-tag">17:00</span> 搭機返台 (仙台空港) <a href="https://www.google.com/maps/dir/?api=1&destination=Sendai+Airport" target="_blank" class="map-link">📍 導航</a></p>
+                    <p><span class="time-tag">17:00</span> 搭機返台 (仙台空港)</p>
                     <div class="hotel-box">✈️ <strong>航班：</strong>甜蜜的家</div>
                 </div>
             </div>
@@ -172,7 +324,7 @@
     </div>
 
     <script>
-        // Jquery 控制展開收合
+        // 1. 展開/收合行程卡片
         function toggleDay(element) {
             $(".day-body").slideUp();
             $(".day-header").removeClass("active");
@@ -182,6 +334,20 @@
                 content.slideDown();
             }
         }
+        
+        // 2. 展開/收合 詳細介紹 (點擊介紹按鈕)
+        function toggleDetail(btnElement) {
+            // 找到按鈕下方的 .spot-detail 區塊
+            var detailBox = $(btnElement).parent().next(".spot-detail");
+            // 該區塊內部的 .spot-detail (針對放在 hotel-box 裡面的情況)
+            if(detailBox.length === 0) {
+                detailBox = $(btnElement).next(".spot-detail");
+            }
+            
+            detailBox.slideToggle();
+        }
+
+        // 預設打開第一天
         $(document).ready(function(){
             $(".day-header").first().click();
         });
