@@ -245,8 +245,9 @@
 
         // --- 核心功能：上傳資料到 GitHub ---
         function uploadToGitHub() {
-            var user = localStorage.getItem("gh_user");
-            var repo = localStorage.getItem("gh_repo");
+            //var user = localStorage.getItem("gh_user");
+            var user = "allenletlpt";
+            var repo = "japan0223";
             var token = localStorage.getItem("gh_token");
 
             if(!user || !repo || !token) {
