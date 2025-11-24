@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2026 日本東北家族旅行3</title>
+    <title>2026 日本東北家族旅行0</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Noto+Serif+TC:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -12,6 +12,7 @@
         body { 
             font-family: "Noto Sans JP", "Noto Serif TC", "Microsoft JhengHei", sans-serif;
             background-color: #f4f7f6;
+            /* 矢絣紋樣背景 */
             background-image: radial-gradient(#dbeaf9 1px, transparent 1px), radial-gradient(#dbeaf9 1px, transparent 1px);
             background-size: 20px 20px;
             background-position: 0 0, 10px 10px;
@@ -20,35 +21,35 @@
         }
 
         .hero { 
-            background: linear-gradient(135deg, #2b5876 0%, #4e4376 100%);
+            background: linear-gradient(135deg, #1c3b57 0%, #607d8b 100%);
             color: white; 
             padding: 50px 20px; 
             text-align: center; 
             border-radius: 0 0 30px 30px; 
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15); 
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2); 
             position: relative;
             overflow: hidden;
         }
-        /* 雪花裝飾 */
+        /* 雪花動畫 */
         .hero::before { content: "❄️"; position: absolute; top: 10%; left: 10%; font-size: 2rem; opacity: 0.3; animation: float 3s ease-in-out infinite; }
         .hero::after { content: "❄️"; position: absolute; bottom: 20%; right: 15%; font-size: 1.5rem; opacity: 0.3; animation: float 4s ease-in-out infinite reverse; }
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
-        .hero h1 { font-family: "Noto Serif TC", serif; font-size: 2rem; font-weight: 700; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
+        .hero h1 { font-family: "Noto Serif TC", serif; font-size: 2rem; font-weight: 700; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
 
         .info-box { 
             background: rgba(255, 255, 255, 0.95); 
             margin: -30px 20px 20px 20px; 
             padding: 20px; 
             border-radius: 15px; 
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05); 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08); 
             position: relative; 
             font-size: 0.95rem; 
-            border: 1px solid #eef;
+            border: 1px solid #dde;
         }
 
         /* --- 行程卡片 --- */
-        .day-card { border: none; border-radius: 16px; margin-bottom: 20px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.03); background: #fff; }
+        .day-card { border: none; border-radius: 16px; margin-bottom: 20px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05); background: #fff; }
         
         .day-header { 
             background: #fff; 
@@ -59,46 +60,49 @@
             border-left: 6px solid #ccc; 
             transition: all 0.3s;
         }
-        .day-header.active { border-left: 6px solid #2b5876; background-color: #f8fbff; }
+        .day-header.active { border-left: 6px solid #2b5876; background-color: #f0f8ff; }
         
-        /* 每日特色小圖 (改為 Q版圖) */
+        /* 每日特色小圖 */
         .day-thumb {
-            width: 50px; height: 50px; border-radius: 50%; object-fit: cover; margin-right: 15px; border: 2px solid #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.1); flex-shrink: 0; background: #eef;
+            width: 55px; height: 55px; border-radius: 12px; object-fit: cover; margin-right: 15px; border: 2px solid #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.15); flex-shrink: 0; background: #eee;
         }
-        .day-title-text { flex-grow: 1; font-weight: bold; color: #333; font-size: 1.05rem; }
+        .day-title-text { flex-grow: 1; font-weight: bold; color: #333; font-size: 1.1rem; }
         .day-badge { background-color: #2b5876; color: white; padding: 4px 10px; border-radius: 20px; font-size: 0.8rem; white-space: nowrap; }
 
         .day-body { display: none; background: white; padding: 25px 20px; border-top: 1px solid #f0f0f0; }
 
         /* --- 內容元件 --- */
-        .time-tag { background: #6c757d; color: white; padding: 2px 8px; border-radius: 6px; font-size: 0.85rem; margin-right: 10px; display: inline-block; min-width: 60px; text-align: center; }
-        .highlight { color: #d63384; font-weight: bold; position: relative; display: inline-block; }
-        .highlight::after { content: ""; position: absolute; bottom: 0; left: 0; width: 100%; height: 8px; background: rgba(214, 51, 132, 0.15); z-index: -1; }
+        .time-tag { background: #78909c; color: white; padding: 2px 8px; border-radius: 6px; font-size: 0.85rem; margin-right: 10px; display: inline-block; min-width: 60px; text-align: center; }
+        .highlight { color: #c2185b; font-weight: bold; position: relative; display: inline-block; }
+        .highlight::after { content: ""; position: absolute; bottom: 0; left: 0; width: 100%; height: 6px; background: rgba(194, 24, 91, 0.1); z-index: -1; }
 
         .map-link { text-decoration: none; color: #2b5876; font-weight: bold; margin-left: 8px; font-size: 0.8rem; background: #eef4f9; padding: 3px 10px; border-radius: 20px; transition: 0.2s; }
         .map-link:hover { background: #2b5876; color: white; }
 
-        .intro-btn { cursor: pointer; color: #198754; font-weight: bold; margin-left: 8px; font-size: 0.8rem; background: #e8f5e9; padding: 3px 10px; border-radius: 20px; border: 1px solid #c3e6cb; transition: 0.2s; }
-        .intro-btn:hover { background: #198754; color: white; }
+        .intro-btn { cursor: pointer; color: #2e7d32; font-weight: bold; margin-left: 8px; font-size: 0.8rem; background: #e8f5e9; padding: 3px 10px; border-radius: 20px; border: 1px solid #c8e6c9; transition: 0.2s; }
+        .intro-btn:hover { background: #2e7d32; color: white; }
 
         /* --- 詳細介紹區塊 --- */
         .spot-detail { 
             display: none; 
-            background-color: #fdfdfd; 
+            background-color: #fff; 
             border: 1px solid #eee;
-            border-left: 4px solid #198754; 
+            border-left: 4px solid #2e7d32; 
             padding: 15px; 
             margin-top: 10px; 
             margin-bottom: 20px; 
             border-radius: 8px; 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
-        .spot-img { width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); background-color: #eee; }
-        .spot-detail h6 { font-weight: bold; color: #198754; margin-bottom: 8px; border-bottom: 1px dashed #ccc; padding-bottom: 5px; }
+        /* 圖片樣式 */
+        .spot-img { width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); background-color: #eee; transition: transform 0.3s; }
+        
+        .spot-detail h6 { font-weight: bold; color: #2e7d32; margin-bottom: 8px; border-bottom: 1px dashed #ccc; padding-bottom: 5px; font-size: 1rem; }
         .spot-detail ul { padding-left: 20px; margin-bottom: 0; font-size: 0.9rem; color: #555; line-height: 1.6; }
 
         /* --- 編輯模式 --- */
-        body.edit-mode .time-tag { background-color: #dc3545; cursor: text; border: 2px dashed #ffc107; }
-        .user-note { margin-top: 5px; margin-bottom: 15px; font-size: 0.9rem; color: #6610f2; border-left: 3px solid #6f42c1; padding: 5px 10px; background: #f8f0ff; border-radius: 0 4px 4px 0; white-space: pre-wrap; display: none; }
+        body.edit-mode .time-tag { background-color: #d32f2f; cursor: text; border: 2px dashed #ffc107; }
+        .user-note { margin-top: 5px; margin-bottom: 15px; font-size: 0.9rem; color: #4527a0; border-left: 3px solid #7e57c2; padding: 5px 10px; background: #ede7f6; border-radius: 0 4px 4px 0; white-space: pre-wrap; display: none; }
         .user-note:not(:empty) { display: block; }
         body.edit-mode .user-note { display: block; min-height: 30px; cursor: text; outline: 1px dashed #6610f2; }
 
@@ -138,7 +142,7 @@
             
             <div class="day-card">
                 <div class="day-header" onclick="toggleDay(this)">
-                    <img src="https://imgur.com/8JkQ6lX.png" class="day-thumb" alt="仙台車站Q版">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Sendai_Station_West_2023.jpg/300px-Sendai_Station_West_2023.jpg" class="day-thumb" alt="仙台車站">
                     <span class="day-title-text">2/23 (一) 抵達仙台</span>
                     <span class="day-badge">Day 1</span>
                 </div>
@@ -155,7 +159,7 @@
 
                     <p class="mt-3"><span class="time-tag" id="d1-t3">17:30</span> 抵達 JR 仙台站 <span class="intro-btn" onclick="toggleDetail(this)">ℹ️ 車站建議</span></p>
                     <div class="spot-detail">
-                        <img src="https://imgur.com/8JkQ6lX.png" loading="lazy" class="spot-img" alt="Q版仙台車站">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Sendai_Station_West_2023.jpg/800px-Sendai_Station_West_2023.jpg" loading="lazy" class="spot-img" alt="仙台車站">
                         <h6>📌 仙台車站小撇步</h6>
                         <ul>
                             <li>飯店在「東口」，出閘門後請依指標往「東口」連通橋移動。</li>
@@ -169,7 +173,7 @@
                     <hr>
                     <p class="mt-3"><span class="time-tag" id="d1-t5">19:00</span> <span class="highlight">晚餐：牛舌 善治郎</span> <a href="https://www.google.com/maps/search/?api=1&query=たんや善治郎+仙台駅前本店" class="map-link">📍 導航</a> <span class="intro-btn" onclick="toggleDetail(this)">ℹ️ 介紹/建議</span></p>
                     <div class="spot-detail">
-                        <img src="https://imgur.com/9mCqKqH.png" loading="lazy" class="spot-img" alt="Q版牛舌定食">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Gyutan_teishoku_by_ume-y_in_Sendai.jpg/800px-Gyutan_teishoku_by_ume-y_in_Sendai.jpg" loading="lazy" class="spot-img" alt="牛舌料理">
                         <h6>📌 仙台必吃：炭燒牛舌</h6>
                         <ul>
                             <li><strong>特色：</strong>善治郎以其獨特的鹽燒風味和厚切口感聞名。</li>
@@ -189,7 +193,7 @@
 
             <div class="day-card">
                 <div class="day-header" onclick="toggleDay(this)">
-                    <img src="https://imgur.com/Gj3aL9b.png" class="day-thumb" alt="樹冰Q版">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Zao_Juhyo.jpg/300px-Zao_Juhyo.jpg" class="day-thumb" alt="樹冰">
                     <span class="day-title-text">2/24 (二) 樹冰 & 銀山</span>
                     <span class="day-badge">Day 2</span>
                 </div>
@@ -199,7 +203,7 @@
 
                     <p><span class="time-tag" id="d2-t2">10:30</span> <span class="highlight">藏王樹冰 (雪怪車)</span> <a href="https://www.google.com/maps/search/?api=1&query=Sumikawa+Snow+Park" class="map-link">📍 導航</a> <span class="intro-btn" onclick="toggleDetail(this)">ℹ️ 介紹/建議</span></p>
                     <div class="spot-detail">
-                        <img src="https://imgur.com/Gj3aL9b.png" loading="lazy" class="spot-img" alt="Q版藏王樹冰與雪車">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Zao_Juhyo.jpg/800px-Zao_Juhyo.jpg" loading="lazy" class="spot-img" alt="藏王樹冰">
                         <h6>📌 宮城藏王 Sumikawa Snow Park</h6>
                         <ul>
                             <li><strong>特色：</strong>搭乘附暖氣的「WILD MONSTER」履帶雪車，直攻海拔1600公尺，輕鬆欣賞世界級奇景「雪怪 (Ice Monster)」。</li>
@@ -213,7 +217,7 @@
                     
                     <p><span class="time-tag" id="d2-t4">15:30</span> 抵達銀山溫泉 <a href="https://www.google.com/maps/search/?api=1&query=銀山溫泉" class="map-link">📍 導航</a> <span class="intro-btn" onclick="toggleDetail(this)">ℹ️ 介紹/建議</span></p>
                     <div class="spot-detail">
-                        <img src="https://imgur.com/4uR1wzP.png" loading="lazy" class="spot-img" alt="Q版銀山溫泉夜景">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Ginzan_Onsen_night_view.jpg/800px-Ginzan_Onsen_night_view.jpg" loading="lazy" class="spot-img" alt="銀山溫泉">
                         <h6>📌 夢幻大正浪漫 銀山溫泉</h6>
                         <ul>
                             <li><strong>攝影時機：</strong>傍晚天色轉為深藍色 (Blue Hour) 加上煤氣燈亮起時，是拍照最夢幻的時刻。</li>
@@ -230,7 +234,7 @@
 
             <div class="day-card">
                 <div class="day-header" onclick="toggleDay(this)">
-                    <img src="https://imgur.com/e5Y1v8Q.png" class="day-thumb" alt="遊船Q版">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Mogami_River_Basho_Line_Descent.jpg/300px-Mogami_River_Basho_Line_Descent.jpg" class="day-thumb" alt="遊船">
                     <span class="day-title-text">2/25 (三) 最上川遊船</span>
                     <span class="day-badge">Day 3</span>
                 </div>
@@ -239,7 +243,7 @@
                     <div class="user-note" id="d3-n1"></div>
                     <p><span class="time-tag" id="d3-t2">10:45</span> <span class="highlight">最上川 芭蕉遊船</span> <span class="intro-btn" onclick="toggleDetail(this)">ℹ️ 介紹/建議</span></p>
                     <div class="spot-detail">
-                        <img src="https://imgur.com/e5Y1v8Q.png" loading="lazy" class="spot-img" alt="Q版最上川暖桌船">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Mogami_River_Basho_Line_Descent.jpg/800px-Mogami_River_Basho_Line_Descent.jpg" loading="lazy" class="spot-img" alt="最上川遊船">
                         <h6>📌 冬季暖桌遊船 (Kotatsu Boat)</h6>
                         <ul>
                             <li><strong>特色：</strong>搭乘復古屋形船，順流而下欣賞如水墨畫般的雪見峽谷。</li>
@@ -250,7 +254,7 @@
                     
                     <p><span class="time-tag" id="d3-t3">14:00</span> 酒田 山居倉庫 <a href="https://www.google.com/maps/search/?api=1&query=酒田+山居倉庫" class="map-link">📍 導航</a> <span class="intro-btn" onclick="toggleDetail(this)">ℹ️ 介紹/建議</span></p>
                     <div class="spot-detail">
-                        <img src="https://imgur.com/r2B7k6Y.png" loading="lazy" class="spot-img" alt="Q版山居倉庫">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Sankyo_soko.jpg/800px-Sankyo_soko.jpg" loading="lazy" class="spot-img" alt="山居倉庫">
                         <h6>📌 山居倉庫 (夢之俱樂)</h6>
                         <ul>
                             <li><strong>特色：</strong>建於1893年的米倉群，成排的櫸木並木與黑瓦白牆是經典場景，也是日劇《阿信》拍攝地。</li>
@@ -266,14 +270,14 @@
 
             <div class="day-card">
                 <div class="day-header" onclick="toggleDay(this)">
-                    <img src="https://imgur.com/9lP4s5g.png" class="day-thumb" alt="水母Q版">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Kamo_Aquarium_Jellyfish_Dream_Theater.jpg/300px-Kamo_Aquarium_Jellyfish_Dream_Theater.jpg" class="day-thumb" alt="水母">
                     <span class="day-title-text">2/26 (四) 水母館 & 萬國屋</span>
                     <span class="day-badge">Day 4</span>
                 </div>
                 <div class="day-body">
                     <p><span class="time-tag" id="d4-t1">10:00</span> <span class="highlight">加茂水族館</span> <a href="https://www.google.com/maps/search/?api=1&query=加茂水族館" class="map-link">📍 導航</a> <span class="intro-btn" onclick="toggleDetail(this)">ℹ️ 介紹/建議</span></p>
                     <div class="spot-detail">
-                        <img src="https://imgur.com/9lP4s5g.png" loading="lazy" class="spot-img" alt="Q版水母夢幻劇場">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Kamo_Aquarium_Jellyfish_Dream_Theater.jpg/800px-Kamo_Aquarium_Jellyfish_Dream_Theater.jpg" loading="lazy" class="spot-img" alt="加茂水族館">
                         <h6>📌 世界第一 水母夢幻劇場</h6>
                         <ul>
                             <li><strong>特色：</strong>擁有金氏世界紀錄的水母展示種類，直徑5公尺的巨大「水母夢幻劇場」非常壯觀且療癒。</li>
@@ -285,7 +289,7 @@
                     <p><span class="time-tag" id="d4-t2">12:30</span> 午餐：鶴岡在地料理</p>
                     <p><span class="time-tag" id="d4-t3">14:30</span> 入住萬國屋 <span class="intro-btn" onclick="toggleDetail(this)">ℹ️ 飯店介紹</span></p>
                     <div class="spot-detail">
-                        <img src="https://imgur.com/7yH5n4Q.png" loading="lazy" class="spot-img" alt="Q版日式溫泉旅館">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Atsumi_Onsen.jpg/800px-Atsumi_Onsen.jpg" loading="lazy" class="spot-img" alt="溫海溫泉">
                         <h6>📌 日本百選溫泉 萬國屋</h6>
                         <ul>
                             <li><strong>特色：</strong>創業300年的老字號旅館，連續多年入選「專家票選日本旅館百選」，以精緻的服務與庭園露天風呂聞名。</li>
@@ -303,14 +307,14 @@
 
              <div class="day-card">
                 <div class="day-header" onclick="toggleDay(this)">
-                    <img src="https://imgur.com/3F1x7bE.png" class="day-thumb" alt="草莓Q版">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Strawberry_greenhouse.jpg/300px-Strawberry_greenhouse.jpg" class="day-thumb" alt="草莓">
                     <span class="day-title-text">2/27 (五) 採草莓 & 神社</span>
                     <span class="day-badge">Day 5</span>
                 </div>
                 <div class="day-body">
                     <p><span class="time-tag" id="d5-t1">11:00</span> <span class="highlight">採草莓體驗</span> <span class="intro-btn" onclick="toggleDetail(this)">ℹ️ 介紹/建議</span></p>
                     <div class="spot-detail">
-                        <img src="https://imgur.com/3F1x7bE.png" loading="lazy" class="spot-img" alt="Q版採草莓">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Strawberry_greenhouse.jpg/800px-Strawberry_greenhouse.jpg" loading="lazy" class="spot-img" alt="採草莓">
                         <h6>📌 溫室高架草莓</h6>
                         <ul>
                             <li><strong>特色：</strong>山形縣也是水果王國，品種如「乙女心」鮮甜多汁，現場煉乳無限供應。</li>
@@ -322,7 +326,7 @@
                     <p><span class="time-tag" id="d5-t2">12:30</span> 午餐：冷肉蕎麥麵</p>
                     <p><span class="time-tag" id="d5-t3">14:30</span> <span class="highlight">大崎八幡宮</span> <a href="https://www.google.com/maps/search/?api=1&query=大崎八幡宮" class="map-link">📍 導航</a> <span class="intro-btn" onclick="toggleDetail(this)">ℹ️ 介紹/建議</span></p>
                     <div class="spot-detail">
-                        <img src="https://imgur.com/2xQ6k5V.png" loading="lazy" class="spot-img" alt="Q版大崎八幡宮">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Osaki_Hachiman-gu_Haiden_2009.JPG/800px-Osaki_Hachiman-gu_Haiden_2009.JPG" loading="lazy" class="spot-img" alt="大崎八幡宮">
                         <h6>📌 國寶 大崎八幡宮</h6>
                         <ul>
                             <li><strong>特色：</strong>仙台第一守護神社，建築金碧輝煌，黑色漆面搭配金箔，展現伊達政宗的華麗風格。</li>
@@ -337,14 +341,14 @@
 
             <div class="day-card">
                 <div class="day-header" onclick="toggleDay(this)">
-                    <img src="https://imgur.com/5b8a4dC.png" class="day-thumb" alt="購物Q版">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Sendai_asaichi_2009.jpg/300px-Sendai_asaichi_2009.jpg" class="day-thumb" alt="購物">
                     <span class="day-title-text">2/28 (六) 返台</span>
                     <span class="day-badge">Day 6</span>
                 </div>
                 <div class="day-body">
                     <p><span class="time-tag" id="d6-t1">上午</span> 仙台朝市 / S-PAL <span class="intro-btn" onclick="toggleDetail(this)">ℹ️ 介紹/建議</span></p>
                     <div class="spot-detail">
-                        <img src="https://imgur.com/5b8a4dC.png" loading="lazy" class="spot-img" alt="Q版市場購物">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Sendai_asaichi_2009.jpg/800px-Sendai_asaichi_2009.jpg" loading="lazy" class="spot-img" alt="仙台朝市">
                         <h6>📌 最後採買時光</h6>
                         <ul>
                             <li><strong>仙台朝市：</strong>就在車站旁，充滿在地活力，可以買一些當季水果（如草莓、蘋果）帶去機場吃（提醒：生鮮水果不能帶回台灣）。</li>
@@ -375,7 +379,7 @@
         const FILE_PATH = "data.json";
 
         // ↓↓↓ 請在下方雙引號內貼上「去頭(ghp_)的 Base64 亂碼」 ↓↓↓
-        const PART_B_ENCODED = "bDV6TFpnTkRLRUZZcG1xZW5mb3BISUlMQVBQUlpSMk1oSHhI"; 
+        const PART_B_ENCODED = "在此處貼上您_去頭後_的Base64亂碼"; 
         // ============================================
 
         var currentSha = "";
@@ -391,11 +395,11 @@
             }
         }
         
-        // 圖片載入失敗時的後備機制 (顯示一個通用的可愛圖)
+        // 圖片載入失敗時的後備機制 (顯示一個通用的風景圖)
         document.addEventListener('error', function(e){
             if(e.target.tagName.toLowerCase() === 'img'){
-                e.target.src = 'https://imgur.com/8JkQ6lX.png'; 
-                e.target.alt = '圖片載入中';
+                e.target.src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Sendai_City_War_Reconstruction_Memorial_Hall_2010.jpg/800px-Sendai_City_War_Reconstruction_Memorial_Hall_2010.jpg'; 
+                e.target.alt = '暫無圖片';
             }
         }, true);
 
