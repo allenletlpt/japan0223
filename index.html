@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2026 日本東北家族旅行j3</title>
+    <title>2026 日本東北家族旅行</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
@@ -41,9 +41,9 @@
         
         /* 設定視窗 */
         .settings-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; justify-content: center; align-items: center; }
-        .settings-box { background: white; padding: 20px; border-radius: 10px; width: 90%; max-width: 400px; }
-        .settings-box input { width: 100%; margin-bottom: 10px; padding: 8px; border: 1px solid #ddd; border-radius: 5px; }
-
+        .settings-box { background: white; padding: 20px; border-radius: 10px; width: 90%; max-width: 350px; text-align: center; }
+        .settings-box input { width: 100%; margin: 15px 0; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem; }
+        
         #toast-msg { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.8); color: white; padding: 10px 20px; border-radius: 20px; z-index: 3000; display: none; }
         .loading-overlay { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(255,255,255,0.8); z-index: 2500; text-align: center; padding-top: 50vh; font-weight: bold; color: #333; }
     </style>
@@ -66,6 +66,7 @@
 
     <div class="container">
         <div id="itinerary">
+            
             <div class="day-card">
                 <div class="day-header" onclick="toggleDay(this)"><span>2/23 (一) 抵達仙台</span><span class="badge bg-secondary">Day 1</span></div>
                 <div class="day-body">
@@ -170,13 +171,8 @@
 
     <div class="settings-modal" id="settingsModal">
         <div class="settings-box">
-            <h4>🔑 管理員設定</h4>
-            <p class="text-muted small">請輸入 GitHub 資訊以啟用雲端儲存</p>
-            <label>GitHub Username (帳號):</label>
-            <input type="text" id="gh-username" placeholder="例如: yourname">
-            <label>Repository Name (專案名):</label>
-            <input type="text" id="gh-repo" placeholder="例如: japan2026">
-            <label>Access Token (鑰匙):</label>
+            <h4>🔑 身份驗證</h4>
+            <p>請輸入 GitHub Token 以啟用雲端同步</p>
             <input type="password" id="gh-token" placeholder="ghp_xxxxxx...">
             <button class="btn btn-primary w-100" onclick="saveSettings()">確定</button>
             <button class="btn btn-secondary w-100 mt-2" onclick="$('#settingsModal').fadeOut()">取消</button>
@@ -184,13 +180,19 @@
     </div>
 
     <script>
-        // 設定 GitHub 檔案路徑
-        var FILE_PATH = "data.json";
-        var currentSha = ""; // 用來記錄檔案版本，更新時需要
+        // ============================================
+        // ⚠️ 設定區：固定帳號與倉庫
+        // ============================================
+        const GH_USER = "allenletlpt";
+        const GH_REPO = "japan0223";
+        const FILE_PATH = "data.json";
+        // ============================================
+
+        var currentSha = "";
 
         $(document).ready(function(){
             $(".day-header").first().click();
-            fetchDataFromGitHub(); // 一載入就去抓最新的資料
+            checkAndFetchData(); // 檢查 Token 並抓資料
 
             $("#btnEdit").click(toggleEditMode);
             $("#btnSave").click(uploadToGitHub);
@@ -205,79 +207,102 @@
 
         function toggleDetail(btn) { $(btn).parent().next(".spot-detail").slideToggle(); }
 
+        // --- 檢查 Token 是否存在 ---
+        function checkAndFetchData() {
+            var token = localStorage.getItem("gh_token");
+            if (token) {
+                fetchDataFromGitHub(token);
+            } else {
+                // 沒有 Token 時，因為是 Private Repo，讀不到資料
+                // 這裡選擇不跳視窗，只顯示預設 HTML，等使用者想編輯時再跳視窗
+                console.log("尚未輸入 Token，顯示預設內容");
+            }
+        }
+
         // --- 核心功能：從 GitHub 讀取資料 ---
-        function fetchDataFromGitHub() {
-            // 讀取 LocalStorage 裡的設定
-            var user = "allenletlpt";
-            var repo = "japan0223";
-            
-            // 如果還沒設定過，就不去讀 GitHub (避免錯誤)，顯示預設 HTML
-            if(!user || !repo) return; 
-            
-            var url = `https://api.github.com/repos/${user}/${repo}/contents/${FILE_PATH}`;
+        function fetchDataFromGitHub(token) {
+            var url = `https://api.github.com/repos/${GH_USER}/${GH_REPO}/contents/${FILE_PATH}`;
             
             $.ajax({
                 url: url,
                 type: "GET",
-                cache: false, // 確保不讀快取
+                headers: { "Authorization": "token " + token },
+                cache: false,
                 success: function(response) {
-                    currentSha = response.sha; // 記住這個 SHA，下次更新要用
-                    // GitHub API 回傳的內容是 Base64 編碼，要解碼
-                    // 解決中文亂碼問題，使用 decodeURIComponent(escape(window.atob(...)))
+                    currentSha = response.sha;
                     var decodedContent = decodeURIComponent(escape(window.atob(response.content)));
                     var data = JSON.parse(decodedContent);
                     applyDataToPage(data);
                 },
-                error: function() {
-                    console.log("尚無雲端資料，使用預設內容");
+                error: function(xhr) {
+                    if(xhr.status === 404) console.log("雲端無資料，使用預設值");
+                    else if(xhr.status === 401) {
+                        localStorage.removeItem("gh_token"); // Token 失效，清除之
+                        console.log("Token 無效");
+                    }
                 }
             });
         }
 
         function applyDataToPage(data) {
-            // 把讀到的資料填入對應 ID 的格子
             $.each(data, function(id, value) {
-                if($("#" + id).length > 0) {
-                    $("#" + id).html(value); // 使用 html() 支援換行符號
-                }
+                if($("#" + id).length > 0) { $("#" + id).html(value); }
             });
         }
 
         // --- 核心功能：上傳資料到 GitHub ---
         function uploadToGitHub() {
-            //var user = localStorage.getItem("gh_user");
-            var user = "allenletlpt";
-            var repo = "japan0223";
             var token = localStorage.getItem("gh_token");
-
-            if(!user || !repo || !token) {
-                $("#settingsModal").fadeIn(); // 沒設定過就跳出設定視窗
+            
+            if(!token) {
+                $("#settingsModal").fadeIn();
                 return;
             }
 
-            $("#loadingOverlay").fadeIn();
+            $("#loadingOverlay").fadeIn().text("正在取得最新版本...");
 
-            // 1. 蒐集頁面上所有有 ID 的可編輯內容
+            // 1. 蒐集資料
             var dataToSave = {};
             $(".time-tag[id], .user-note[id]").each(function() {
                 var id = $(this).attr("id");
                 var content = $(this).html();
-                if(content.trim() !== "") {
-                    dataToSave[id] = content;
-                }
+                if(content.trim() !== "") { dataToSave[id] = content; }
             });
 
-            // 2. 轉成 JSON 字串，再轉成 Base64 (解決中文編碼)
             var jsonString = JSON.stringify(dataToSave);
             var base64Content = window.btoa(unescape(encodeURIComponent(jsonString)));
+            var url = `https://api.github.com/repos/${GH_USER}/${GH_REPO}/contents/${FILE_PATH}`;
 
-            var url = `https://api.github.com/repos/${user}/${repo}/contents/${FILE_PATH}`;
+            // 2. 先抓最新 SHA
+            $.ajax({
+                url: url,
+                type: "GET",
+                headers: { "Authorization": "token " + token },
+                cache: false,
+                success: function(response) {
+                    performPut(url, token, base64Content, response.sha);
+                },
+                error: function(xhr) {
+                    if(xhr.status === 404) {
+                        console.log("檔案不存在，建立新檔");
+                        performPut(url, token, base64Content, null);
+                    } else {
+                        $("#loadingOverlay").fadeOut();
+                        alert("連線失敗，請檢查 Token");
+                        $("#settingsModal").fadeIn();
+                    }
+                }
+            });
+        }
+
+        function performPut(url, token, content, sha) {
+            $("#loadingOverlay").text("正在寫入資料...");
             
             var payload = {
                 message: "Update itinerary via web",
-                content: base64Content,
-                sha: currentSha // 更新檔案必須附上原本的 SHA
+                content: content
             };
+            if (sha) payload.sha = sha;
 
             $.ajax({
                 url: url,
@@ -288,16 +313,29 @@
                 },
                 data: JSON.stringify(payload),
                 success: function(response) {
-                    currentSha = response.content.sha; // 更新 SHA
+                    currentSha = response.content.sha;
                     $("#loadingOverlay").fadeOut();
-                    showToast("✅ 雲端更新成功！家人重整即可看到");
-                    toggleEditMode(); // 關閉編輯模式
+                    showToast("✅ 雲端更新成功！");
+                    toggleEditMode();
                 },
                 error: function(xhr) {
                     $("#loadingOverlay").fadeOut();
-                    alert("上傳失敗！請檢查 Token 是否過期或權限不足。\n錯誤訊息: " + xhr.status);
+                    if(xhr.status === 409) alert("版本衝突，請重整後再試。");
+                    else alert("上傳失敗: " + xhr.status);
                 }
             });
+        }
+
+        // --- 儲存 Token ---
+        function saveSettings() {
+            var t = $("#gh-token").val().trim();
+            if(t) {
+                localStorage.setItem("gh_token", t);
+                $("#settingsModal").fadeOut();
+                uploadToGitHub(); // 儲存後直接嘗試上傳
+            } else {
+                alert("請輸入 Token");
+            }
         }
 
         function toggleEditMode() {
@@ -308,29 +346,18 @@
                 $(".time-tag, .user-note").attr("contenteditable", "true");
                 $("#btnEdit").text("❌");
                 $("#btnSave").fadeIn();
-                $(".day-body").slideDown(); // 展開方便編輯
-                showToast("編輯模式：點擊文字修改，按雲端圖示儲存");
+                $(".day-body").slideDown();
+                
+                // 如果沒有 Token，編輯時就先提示輸入
+                if(!localStorage.getItem("gh_token")) {
+                    $("#settingsModal").fadeIn();
+                } else {
+                    showToast("編輯模式：點擊文字修改，按雲端圖示儲存");
+                }
             } else {
                 $(".time-tag, .user-note").attr("contenteditable", "false");
                 $("#btnEdit").text("✏️");
                 $("#btnSave").hide();
-            }
-        }
-
-        function saveSettings() {
-            var u = $("#gh-username").val().trim();
-            var r = $("#gh-repo").val().trim();
-            var t = $("#gh-token").val().trim();
-
-            if(u && r && t) {
-                localStorage.setItem("gh_user", u);
-                localStorage.setItem("gh_repo", r);
-                localStorage.setItem("gh_token", t);
-                $("#settingsModal").fadeOut();
-                // 設定完馬上試著上傳
-                uploadToGitHub(); 
-            } else {
-                alert("請填寫完整資訊");
             }
         }
 
