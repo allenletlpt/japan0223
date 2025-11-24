@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2026 日本東北家族旅行2</title>
+    <title>2026 日本東北家族旅行1</itle>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Noto+Serif+TC:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -61,9 +61,9 @@
         }
         .day-header.active { border-left: 6px solid #2b5876; background-color: #f8fbff; }
         
-        /* 每日特色小圖 */
+        /* 每日特色小圖 (改為 Q版圖) */
         .day-thumb {
-            width: 50px; height: 50px; border-radius: 50%; object-fit: cover; margin-right: 15px; border: 2px solid #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.1); flex-shrink: 0;
+            width: 50px; height: 50px; border-radius: 50%; object-fit: cover; margin-right: 15px; border: 2px solid #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.1); flex-shrink: 0; background: #eef;
         }
         .day-title-text { flex-grow: 1; font-weight: bold; color: #333; font-size: 1.05rem; }
         .day-badge { background-color: #2b5876; color: white; padding: 4px 10px; border-radius: 20px; font-size: 0.8rem; white-space: nowrap; }
@@ -138,7 +138,7 @@
             
             <div class="day-card">
                 <div class="day-header" onclick="toggleDay(this)">
-                    <img src="https://images.unsplash.com/photo-1549692520-acc6669e2f0c?w=100&q=80" class="day-thumb" alt="仙台">
+                    <img src="https://imgur.com/8JkQ6lX.png" class="day-thumb" alt="仙台車站Q版">
                     <span class="day-title-text">2/23 (一) 抵達仙台</span>
                     <span class="day-badge">Day 1</span>
                 </div>
@@ -148,14 +148,14 @@
                     
                     <p><span class="time-tag" id="d1-t2">17:00</span> <span class="highlight">交通：前往市區</span></p>
                     <div class="alert alert-light border">
-                        🚄 <strong>搭乘：</strong>仙台機場聯絡線<br>
+                        🚄 <strong>搭乘：</strong>仙台機場聯絡線 (Sendai Airport Access Line)<br>
                         ⏱ <strong>時間：</strong>約 25 分鐘 (票價 660円)
                     </div>
                     <div class="user-note" id="d1-n2"></div>
 
                     <p class="mt-3"><span class="time-tag" id="d1-t3">17:30</span> 抵達 JR 仙台站 <span class="intro-btn" onclick="toggleDetail(this)">ℹ️ 車站建議</span></p>
                     <div class="spot-detail">
-                        <img src="https://images.unsplash.com/photo-1540321262770-0728c0055745?w=600&q=80" loading="lazy" class="spot-img" alt="仙台車站">
+                        <img src="https://imgur.com/8JkQ6lX.png" loading="lazy" class="spot-img" alt="Q版仙台車站">
                         <h6>📌 仙台車站小撇步</h6>
                         <ul>
                             <li>飯店在「東口」，出閘門後請依指標往「東口」連通橋移動。</li>
@@ -169,7 +169,7 @@
                     <hr>
                     <p class="mt-3"><span class="time-tag" id="d1-t5">19:00</span> <span class="highlight">晚餐：牛舌 善治郎</span> <a href="https://www.google.com/maps/search/?api=1&query=たんや善治郎+仙台駅前本店" class="map-link">📍 導航</a> <span class="intro-btn" onclick="toggleDetail(this)">ℹ️ 介紹/建議</span></p>
                     <div class="spot-detail">
-                        <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=600&q=80" loading="lazy" class="spot-img" alt="牛舌料理">
+                        <img src="https://imgur.com/9mCqKqH.png" loading="lazy" class="spot-img" alt="Q版牛舌定食">
                         <h6>📌 仙台必吃：炭燒牛舌</h6>
                         <ul>
                             <li><strong>特色：</strong>善治郎以其獨特的鹽燒風味和厚切口感聞名。</li>
@@ -189,7 +189,7 @@
 
             <div class="day-card">
                 <div class="day-header" onclick="toggleDay(this)">
-                    <img src="https://images.unsplash.com/photo-1485594050903-8e8ee5326c90?w=100&q=80" class="day-thumb" alt="樹冰">
+                    <img src="https://imgur.com/Gj3aL9b.png" class="day-thumb" alt="樹冰Q版">
                     <span class="day-title-text">2/24 (二) 樹冰 & 銀山</span>
                     <span class="day-badge">Day 2</span>
                 </div>
@@ -199,7 +199,7 @@
 
                     <p><span class="time-tag" id="d2-t2">10:30</span> <span class="highlight">藏王樹冰 (雪怪車)</span> <a href="https://www.google.com/maps/search/?api=1&query=Sumikawa+Snow+Park" class="map-link">📍 導航</a> <span class="intro-btn" onclick="toggleDetail(this)">ℹ️ 介紹/建議</span></p>
                     <div class="spot-detail">
-                        <img src="https://images.unsplash.com/photo-1613994519736-218d669e403d?w=600&q=80" loading="lazy" class="spot-img" alt="藏王樹冰">
+                        <img src="https://imgur.com/Gj3aL9b.png" loading="lazy" class="spot-img" alt="Q版藏王樹冰與雪車">
                         <h6>📌 宮城藏王 Sumikawa Snow Park</h6>
                         <ul>
                             <li><strong>特色：</strong>搭乘附暖氣的「WILD MONSTER」履帶雪車，直攻海拔1600公尺，輕鬆欣賞世界級奇景「雪怪 (Ice Monster)」。</li>
@@ -213,7 +213,7 @@
                     
                     <p><span class="time-tag" id="d2-t4">15:30</span> 抵達銀山溫泉 <a href="https://www.google.com/maps/search/?api=1&query=銀山溫泉" class="map-link">📍 導航</a> <span class="intro-btn" onclick="toggleDetail(this)">ℹ️ 介紹/建議</span></p>
                     <div class="spot-detail">
-                        <img src="https://images.unsplash.com/photo-1545625624-9b57e1c258d3?w=600&q=80" loading="lazy" class="spot-img" alt="銀山溫泉">
+                        <img src="https://imgur.com/4uR1wzP.png" loading="lazy" class="spot-img" alt="Q版銀山溫泉夜景">
                         <h6>📌 夢幻大正浪漫 銀山溫泉</h6>
                         <ul>
                             <li><strong>攝影時機：</strong>傍晚天色轉為深藍色 (Blue Hour) 加上煤氣燈亮起時，是拍照最夢幻的時刻。</li>
@@ -230,7 +230,7 @@
 
             <div class="day-card">
                 <div class="day-header" onclick="toggleDay(this)">
-                    <img src="https://images.unsplash.com/photo-1533050487297-09b450131914?w=100&q=80" class="day-thumb" alt="遊船">
+                    <img src="https://imgur.com/e5Y1v8Q.png" class="day-thumb" alt="遊船Q版">
                     <span class="day-title-text">2/25 (三) 最上川遊船</span>
                     <span class="day-badge">Day 3</span>
                 </div>
@@ -239,7 +239,7 @@
                     <div class="user-note" id="d3-n1"></div>
                     <p><span class="time-tag" id="d3-t2">10:45</span> <span class="highlight">最上川 芭蕉遊船</span> <span class="intro-btn" onclick="toggleDetail(this)">ℹ️ 介紹/建議</span></p>
                     <div class="spot-detail">
-                        <img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=600&q=80" loading="lazy" class="spot-img" alt="最上川遊船">
+                        <img src="https://imgur.com/e5Y1v8Q.png" loading="lazy" class="spot-img" alt="Q版最上川暖桌船">
                         <h6>📌 冬季暖桌遊船 (Kotatsu Boat)</h6>
                         <ul>
                             <li><strong>特色：</strong>搭乘復古屋形船，順流而下欣賞如水墨畫般的雪見峽谷。</li>
@@ -250,7 +250,7 @@
                     
                     <p><span class="time-tag" id="d3-t3">14:00</span> 酒田 山居倉庫 <a href="https://www.google.com/maps/search/?api=1&query=酒田+山居倉庫" class="map-link">📍 導航</a> <span class="intro-btn" onclick="toggleDetail(this)">ℹ️ 介紹/建議</span></p>
                     <div class="spot-detail">
-                        <img src="https://images.unsplash.com/photo-1624866679549-b5c92c81534e?w=600&q=80" loading="lazy" class="spot-img" alt="山居倉庫">
+                        <img src="https://imgur.com/r2B7k6Y.png" loading="lazy" class="spot-img" alt="Q版山居倉庫">
                         <h6>📌 山居倉庫 (夢之俱樂)</h6>
                         <ul>
                             <li><strong>特色：</strong>建於1893年的米倉群，成排的櫸木並木與黑瓦白牆是經典場景，也是日劇《阿信》拍攝地。</li>
@@ -266,14 +266,14 @@
 
             <div class="day-card">
                 <div class="day-header" onclick="toggleDay(this)">
-                    <img src="https://images.unsplash.com/photo-1505244783060-93a4b08c6970?w=100&q=80" class="day-thumb" alt="水母">
+                    <img src="https://imgur.com/9lP4s5g.png" class="day-thumb" alt="水母Q版">
                     <span class="day-title-text">2/26 (四) 水母館 & 萬國屋</span>
                     <span class="day-badge">Day 4</span>
                 </div>
                 <div class="day-body">
                     <p><span class="time-tag" id="d4-t1">10:00</span> <span class="highlight">加茂水族館</span> <a href="https://www.google.com/maps/search/?api=1&query=加茂水族館" class="map-link">📍 導航</a> <span class="intro-btn" onclick="toggleDetail(this)">ℹ️ 介紹/建議</span></p>
                     <div class="spot-detail">
-                        <img src="https://images.unsplash.com/photo-1507705470769-e0871317dc32?w=600&q=80" loading="lazy" class="spot-img" alt="加茂水族館">
+                        <img src="https://imgur.com/9lP4s5g.png" loading="lazy" class="spot-img" alt="Q版水母夢幻劇場">
                         <h6>📌 世界第一 水母夢幻劇場</h6>
                         <ul>
                             <li><strong>特色：</strong>擁有金氏世界紀錄的水母展示種類，直徑5公尺的巨大「水母夢幻劇場」非常壯觀且療癒。</li>
@@ -285,7 +285,7 @@
                     <p><span class="time-tag" id="d4-t2">12:30</span> 午餐：鶴岡在地料理</p>
                     <p><span class="time-tag" id="d4-t3">14:30</span> 入住萬國屋 <span class="intro-btn" onclick="toggleDetail(this)">ℹ️ 飯店介紹</span></p>
                     <div class="spot-detail">
-                        <img src="https://images.unsplash.com/photo-1571896349842-6e53ce41e86a?w=600&q=80" loading="lazy" class="spot-img" alt="萬國屋">
+                        <img src="https://imgur.com/7yH5n4Q.png" loading="lazy" class="spot-img" alt="Q版日式溫泉旅館">
                         <h6>📌 日本百選溫泉 萬國屋</h6>
                         <ul>
                             <li><strong>特色：</strong>創業300年的老字號旅館，連續多年入選「專家票選日本旅館百選」，以精緻的服務與庭園露天風呂聞名。</li>
@@ -303,14 +303,14 @@
 
              <div class="day-card">
                 <div class="day-header" onclick="toggleDay(this)">
-                    <img src="https://images.unsplash.com/photo-1543158266-0066955047b1?w=100&q=80" class="day-thumb" alt="草莓">
+                    <img src="https://imgur.com/3F1x7bE.png" class="day-thumb" alt="草莓Q版">
                     <span class="day-title-text">2/27 (五) 採草莓 & 神社</span>
                     <span class="day-badge">Day 5</span>
                 </div>
                 <div class="day-body">
                     <p><span class="time-tag" id="d5-t1">11:00</span> <span class="highlight">採草莓體驗</span> <span class="intro-btn" onclick="toggleDetail(this)">ℹ️ 介紹/建議</span></p>
                     <div class="spot-detail">
-                        <img src="https://images.unsplash.com/photo-1518635017498-87f514b751ba?w=600&q=80" loading="lazy" class="spot-img" alt="採草莓">
+                        <img src="https://imgur.com/3F1x7bE.png" loading="lazy" class="spot-img" alt="Q版採草莓">
                         <h6>📌 溫室高架草莓</h6>
                         <ul>
                             <li><strong>特色：</strong>山形縣也是水果王國，品種如「乙女心」鮮甜多汁，現場煉乳無限供應。</li>
@@ -322,7 +322,7 @@
                     <p><span class="time-tag" id="d5-t2">12:30</span> 午餐：冷肉蕎麥麵</p>
                     <p><span class="time-tag" id="d5-t3">14:30</span> <span class="highlight">大崎八幡宮</span> <a href="https://www.google.com/maps/search/?api=1&query=大崎八幡宮" class="map-link">📍 導航</a> <span class="intro-btn" onclick="toggleDetail(this)">ℹ️ 介紹/建議</span></p>
                     <div class="spot-detail">
-                        <img src="https://images.unsplash.com/photo-1599579730594-e0e64983057e?w=600&q=80" loading="lazy" class="spot-img" alt="大崎八幡宮">
+                        <img src="https://imgur.com/2xQ6k5V.png" loading="lazy" class="spot-img" alt="Q版大崎八幡宮">
                         <h6>📌 國寶 大崎八幡宮</h6>
                         <ul>
                             <li><strong>特色：</strong>仙台第一守護神社，建築金碧輝煌，黑色漆面搭配金箔，展現伊達政宗的華麗風格。</li>
@@ -337,14 +337,14 @@
 
             <div class="day-card">
                 <div class="day-header" onclick="toggleDay(this)">
-                    <img src="https://images.unsplash.com/photo-1627995166649-16625893d556?w=100&q=80" class="day-thumb" alt="機場">
+                    <img src="https://imgur.com/5b8a4dC.png" class="day-thumb" alt="購物Q版">
                     <span class="day-title-text">2/28 (六) 返台</span>
                     <span class="day-badge">Day 6</span>
                 </div>
                 <div class="day-body">
                     <p><span class="time-tag" id="d6-t1">上午</span> 仙台朝市 / S-PAL <span class="intro-btn" onclick="toggleDetail(this)">ℹ️ 介紹/建議</span></p>
                     <div class="spot-detail">
-                        <img src="https://images.unsplash.com/photo-1579295553535-643c16223849?w=600&q=80" loading="lazy" class="spot-img" alt="購物">
+                        <img src="https://imgur.com/5b8a4dC.png" loading="lazy" class="spot-img" alt="Q版市場購物">
                         <h6>📌 最後採買時光</h6>
                         <ul>
                             <li><strong>仙台朝市：</strong>就在車站旁，充滿在地活力，可以買一些當季水果（如草莓、蘋果）帶去機場吃（提醒：生鮮水果不能帶回台灣）。</li>
@@ -391,11 +391,11 @@
             }
         }
         
-        // 圖片載入失敗時的後備機制
+        // 圖片載入失敗時的後備機制 (顯示一個通用的可愛圖)
         document.addEventListener('error', function(e){
             if(e.target.tagName.toLowerCase() === 'img'){
-                e.target.src = 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&q=80'; // 預設旅行圖片
-                e.target.alt = 'Image not available';
+                e.target.src = 'https://imgur.com/8JkQ6lX.png'; 
+                e.target.alt = '圖片載入中';
             }
         }, true);
 
