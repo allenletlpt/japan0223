@@ -3,119 +3,147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2026 日本東北家族旅行0</title>
+    <title>2026 日本東北家族旅行</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Noto+Serif+TC:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
-        /* --- 全域風格設計：東北雪國 --- */
+        /* --- 全域設定 --- */
         body { 
-            font-family: "Noto Sans JP", "Noto Serif TC", "Microsoft JhengHei", sans-serif;
-            background-color: #f4f7f6;
-            /* 矢絣紋樣背景 */
-            background-image: radial-gradient(#dbeaf9 1px, transparent 1px), radial-gradient(#dbeaf9 1px, transparent 1px);
+            font-family: "Kosugi Maru", "Noto Sans TC", sans-serif;
+            background-color: #fff9f0; /* 溫暖米色背景 */
+            background-image: radial-gradient(#ddd 1px, transparent 1px);
             background-size: 20px 20px;
-            background-position: 0 0, 10px 10px;
             padding-bottom: 100px; 
-            color: #444;
+            color: #555;
         }
 
+        /* 頂部 Hero 區塊 */
         .hero { 
-            background: linear-gradient(135deg, #1c3b57 0%, #607d8b 100%);
+            background: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%);
             color: white; 
-            padding: 50px 20px; 
+            padding: 40px 20px 60px 20px; 
             text-align: center; 
-            border-radius: 0 0 30px 30px; 
-            box-shadow: 0 4px 20px rgba(0,0,0,0.2); 
+            border-radius: 0 0 50% 50% / 20px; 
+            box-shadow: 0 4px 15px rgba(100,149,237,0.3); 
             position: relative;
-            overflow: hidden;
         }
-        /* 雪花動畫 */
-        .hero::before { content: "❄️"; position: absolute; top: 10%; left: 10%; font-size: 2rem; opacity: 0.3; animation: float 3s ease-in-out infinite; }
-        .hero::after { content: "❄️"; position: absolute; bottom: 20%; right: 15%; font-size: 1.5rem; opacity: 0.3; animation: float 4s ease-in-out infinite reverse; }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        .hero h1 { font-weight: bold; letter-spacing: 2px; text-shadow: 2px 2px 0px rgba(0,0,0,0.1); }
+        .hero-icon { font-size: 3rem; display: block; margin-bottom: 10px; animation: bounce 2s infinite; }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
-        .hero h1 { font-family: "Noto Serif TC", serif; font-size: 2rem; font-weight: 700; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
-
+        /* 資訊卡 */
         .info-box { 
-            background: rgba(255, 255, 255, 0.95); 
-            margin: -30px 20px 20px 20px; 
+            background: white; 
+            width: 90%;
+            max-width: 600px;
+            margin: -40px auto 30px auto; 
             padding: 20px; 
-            border-radius: 15px; 
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08); 
+            border-radius: 20px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05); 
             position: relative; 
-            font-size: 0.95rem; 
-            border: 1px solid #dde;
+            border: 2px solid #fff;
+            text-align: center;
         }
+        .info-pill { display: inline-block; background: #f0f4f8; padding: 5px 15px; border-radius: 20px; margin: 5px; font-size: 0.9rem; color: #666; border: 1px solid #e1e8ed; }
+
+        /* --- 每日色彩主題設定 (CSS 變數) --- */
+        .theme-d1 { --main-color: #ff9f43; --bg-color: #fff5e6; --icon: "🐮"; } /* 橘色 (牛舌) */
+        .theme-d2 { --main-color: #0abde3; --bg-color: #e0fbff; --icon: "❄️"; } /* 冰藍 (樹冰) */
+        .theme-d3 { --main-color: #10ac84; --bg-color: #e3fff5; --icon: "🛶"; } /* 綠色 (遊船) */
+        .theme-d4 { --main-color: #5f27cd; --bg-color: #f3eaff; --icon: "🪼"; } /* 紫色 (水母) */
+        .theme-d5 { --main-color: #ff6b6b; --bg-color: #ffebeb; --icon: "🍓"; } /* 紅色 (草莓) */
+        .theme-d6 { --main-color: #feca57; --bg-color: #fffbf0; --icon: "🎁"; } /* 黃色 (購物) */
 
         /* --- 行程卡片 --- */
-        .day-card { border: none; border-radius: 16px; margin-bottom: 20px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05); background: #fff; }
+        .day-card { 
+            border: none; border-radius: 20px; margin-bottom: 25px; overflow: hidden; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03); background: white;
+            transition: transform 0.2s;
+        }
         
         .day-header { 
-            background: #fff; 
+            background: white; 
             padding: 15px 20px; 
             cursor: pointer; 
             display: flex; 
             align-items: center; 
-            border-left: 6px solid #ccc; 
-            transition: all 0.3s;
+            border-bottom: 2px dashed #eee;
         }
-        .day-header.active { border-left: 6px solid #2b5876; background-color: #f0f8ff; }
+        /* 每日 Emoji 圖示 */
+        .day-emoji-box {
+            width: 50px; height: 50px; 
+            background-color: var(--bg-color); 
+            color: var(--main-color);
+            border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.8rem; 
+            margin-right: 15px;
+            border: 2px solid var(--main-color);
+            flex-shrink: 0;
+        }
+        .day-title-text { flex-grow: 1; font-weight: bold; color: #444; font-size: 1.1rem; }
+        .day-badge { 
+            background-color: var(--main-color); 
+            color: white; padding: 5px 12px; border-radius: 15px; font-size: 0.8rem; font-weight: bold; 
+        }
+
+        .day-body { display: none; background: white; padding: 20px; }
+
+        /* --- 內容裝飾 --- */
+        .time-tag { 
+            background: #e0e0e0; color: #555; padding: 3px 10px; border-radius: 8px; 
+            font-size: 0.85rem; margin-right: 8px; font-weight: bold; display: inline-block; min-width: 65px; text-align: center;
+        }
+        .highlight { color: #d63031; font-weight: bold; border-bottom: 2px solid #fab1a0; }
+
+        /* 按鈕樣式 */
+        .map-link, .intro-btn { 
+            text-decoration: none; font-size: 0.8rem; padding: 4px 12px; border-radius: 20px; margin-left: 5px; display: inline-block; transition: 0.2s; cursor: pointer; 
+        }
+        .map-link { color: #2980b9; background: #eaf6ff; border: 1px solid #aed6f1; }
+        .map-link:hover { background: #2980b9; color: white; }
         
-        /* 每日特色小圖 */
-        .day-thumb {
-            width: 55px; height: 55px; border-radius: 12px; object-fit: cover; margin-right: 15px; border: 2px solid #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.15); flex-shrink: 0; background: #eee;
-        }
-        .day-title-text { flex-grow: 1; font-weight: bold; color: #333; font-size: 1.1rem; }
-        .day-badge { background-color: #2b5876; color: white; padding: 4px 10px; border-radius: 20px; font-size: 0.8rem; white-space: nowrap; }
+        .intro-btn { color: #27ae60; background: #eafaf1; border: 1px solid #abebc6; }
+        .intro-btn:hover { background: #27ae60; color: white; }
 
-        .day-body { display: none; background: white; padding: 25px 20px; border-top: 1px solid #f0f0f0; }
-
-        /* --- 內容元件 --- */
-        .time-tag { background: #78909c; color: white; padding: 2px 8px; border-radius: 6px; font-size: 0.85rem; margin-right: 10px; display: inline-block; min-width: 60px; text-align: center; }
-        .highlight { color: #c2185b; font-weight: bold; position: relative; display: inline-block; }
-        .highlight::after { content: ""; position: absolute; bottom: 0; left: 0; width: 100%; height: 6px; background: rgba(194, 24, 91, 0.1); z-index: -1; }
-
-        .map-link { text-decoration: none; color: #2b5876; font-weight: bold; margin-left: 8px; font-size: 0.8rem; background: #eef4f9; padding: 3px 10px; border-radius: 20px; transition: 0.2s; }
-        .map-link:hover { background: #2b5876; color: white; }
-
-        .intro-btn { cursor: pointer; color: #2e7d32; font-weight: bold; margin-left: 8px; font-size: 0.8rem; background: #e8f5e9; padding: 3px 10px; border-radius: 20px; border: 1px solid #c8e6c9; transition: 0.2s; }
-        .intro-btn:hover { background: #2e7d32; color: white; }
-
-        /* --- 詳細介紹區塊 --- */
+        /* --- 詳細介紹區塊 (手帳便利貼風格) --- */
         .spot-detail { 
             display: none; 
-            background-color: #fff; 
-            border: 1px solid #eee;
-            border-left: 4px solid #2e7d32; 
+            background-color: var(--bg-color); 
+            border: 2px solid var(--main-color);
+            border-radius: 15px;
             padding: 15px; 
-            margin-top: 10px; 
-            margin-bottom: 20px; 
-            border-radius: 8px; 
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            margin: 10px 0 20px 0; 
+            position: relative;
         }
-        /* 圖片樣式 */
-        .spot-img { width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); background-color: #eee; transition: transform 0.3s; }
-        
-        .spot-detail h6 { font-weight: bold; color: #2e7d32; margin-bottom: 8px; border-bottom: 1px dashed #ccc; padding-bottom: 5px; font-size: 1rem; }
-        .spot-detail ul { padding-left: 20px; margin-bottom: 0; font-size: 0.9rem; color: #555; line-height: 1.6; }
+        /* 裝飾用圖釘 */
+        .spot-detail::before {
+            content: "📌"; position: absolute; top: -12px; right: 15px; font-size: 1.2rem;
+        }
+        .spot-detail h6 { font-weight: bold; color: var(--main-color); margin-bottom: 10px; display: flex; align-items: center; }
+        .spot-detail h6::before { content: var(--icon); margin-right: 8px; font-size: 1.2rem; }
+        .spot-detail ul { padding-left: 20px; margin-bottom: 0; font-size: 0.9rem; color: #555; line-height: 1.7; }
 
         /* --- 編輯模式 --- */
-        body.edit-mode .time-tag { background-color: #d32f2f; cursor: text; border: 2px dashed #ffc107; }
-        .user-note { margin-top: 5px; margin-bottom: 15px; font-size: 0.9rem; color: #4527a0; border-left: 3px solid #7e57c2; padding: 5px 10px; background: #ede7f6; border-radius: 0 4px 4px 0; white-space: pre-wrap; display: none; }
+        body.edit-mode .time-tag { background-color: #ff7675; color: white; cursor: text; border: 2px dashed #fff; }
+        .user-note { 
+            margin-top: 5px; margin-bottom: 15px; font-size: 0.9rem; color: #6c5ce7; 
+            border-left: 3px solid #a29bfe; padding: 5px 10px; background: #f3f0ff; border-radius: 0 8px 8px 0; 
+            white-space: pre-wrap; display: none; 
+        }
         .user-note:not(:empty) { display: block; }
-        body.edit-mode .user-note { display: block; min-height: 30px; cursor: text; outline: 1px dashed #6610f2; }
+        body.edit-mode .user-note { display: block; min-height: 30px; cursor: text; outline: 1px dashed #6c5ce7; }
 
         /* 浮動按鈕 */
         .fab-container { position: fixed; bottom: 20px; right: 20px; display: flex; flex-direction: column; gap: 12px; z-index: 1000; }
         .fab-btn { width: 56px; height: 56px; border-radius: 50%; color: white; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.25); cursor: pointer; border: none; font-size: 1.3rem; transition: transform 0.2s; }
         .fab-btn:active { transform: scale(0.9); }
-        .btn-edit { background: linear-gradient(135deg, #2b5876, #4e4376); }
-        .btn-save { background: linear-gradient(135deg, #11998e, #38ef7d); display: none; }
+        .btn-edit { background: #6c5ce7; }
+        .btn-save { background: #00b894; display: none; }
 
-        /* Loading & Toast */
-        #toast-msg { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.8); color: white; padding: 10px 25px; border-radius: 50px; z-index: 3000; display: none; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
-        .loading-overlay { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(255,255,255,0.9); z-index: 2500; text-align: center; padding-top: 50vh; font-weight: bold; color: #2b5876; }
+        #toast-msg { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.8); color: white; padding: 10px 25px; border-radius: 50px; z-index: 3000; display: none; }
+        .loading-overlay { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(255,255,255,0.9); z-index: 2500; text-align: center; padding-top: 50vh; font-weight: bold; color: #555; }
     </style>
 </head>
 <body>
@@ -123,26 +151,27 @@
     <div id="toast-msg">提示訊息</div>
     <div class="loading-overlay" id="loadingOverlay">
         <div class="spinner-border text-primary mb-3" role="status"></div><br>
-        正在同步雲端資料庫...
+        雲端同步中...
     </div>
 
     <div class="hero">
-        <h1>🇯🇵 2026 東北雪見之旅</h1>
+        <div class="hero-icon">🇯🇵</div>
+        <h1>2026 東北雪見之旅</h1>
         <p>仙台・銀山溫泉・藏王樹冰</p>
     </div>
 
     <div class="info-box">
-        <div>📅 <strong>日期：</strong> 2026/2/23 - 2/28</div>
-        <div class="mt-1">🚙 <strong>交通：</strong> D1 自行前往，D2-D6 包車</div>
-        <div class="mt-1">👥 <strong>成員：</strong> 5人 (含長輩)</div>
+        <div class="info-pill">📅 2026/2/23 - 2/28</div>
+        <div class="info-pill">👥 成員：5人 (含長輩)</div>
+        <div class="info-pill">🚙 D1 自行, D2-D6 包車</div>
     </div>
 
     <div class="container">
         <div id="itinerary">
             
-            <div class="day-card">
+            <div class="day-card theme-d1">
                 <div class="day-header" onclick="toggleDay(this)">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Sendai_Station_West_2023.jpg/300px-Sendai_Station_West_2023.jpg" class="day-thumb" alt="仙台車站">
+                    <div class="day-emoji-box">🐮</div>
                     <span class="day-title-text">2/23 (一) 抵達仙台</span>
                     <span class="day-badge">Day 1</span>
                 </div>
@@ -152,48 +181,45 @@
                     
                     <p><span class="time-tag" id="d1-t2">17:00</span> <span class="highlight">交通：前往市區</span></p>
                     <div class="alert alert-light border">
-                        🚄 <strong>搭乘：</strong>仙台機場聯絡線 (Sendai Airport Access Line)<br>
+                        🚄 <strong>搭乘：</strong>仙台機場聯絡線<br>
                         ⏱ <strong>時間：</strong>約 25 分鐘 (票價 660円)
                     </div>
                     <div class="user-note" id="d1-n2"></div>
 
-                    <p class="mt-3"><span class="time-tag" id="d1-t3">17:30</span> 抵達 JR 仙台站 <span class="intro-btn" onclick="toggleDetail(this)">ℹ️ 車站建議</span></p>
+                    <p class="mt-3"><span class="time-tag" id="d1-t3">17:30</span> 抵達 JR 仙台站 <span class="intro-btn" onclick="toggleDetail(this)">💡 車站建議</span></p>
                     <div class="spot-detail">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Sendai_Station_West_2023.jpg/800px-Sendai_Station_West_2023.jpg" loading="lazy" class="spot-img" alt="仙台車站">
-                        <h6>📌 仙台車站小撇步</h6>
+                        <h6>仙台車站小撇步</h6>
                         <ul>
-                            <li>飯店在「東口」，出閘門後請依指標往「東口」連通橋移動。</li>
-                            <li>車站人潮眾多，攜帶大件行李請務必搭乘電梯。</li>
-                            <li>若想喝飲料，車站內有著名的「毛豆奶昔 (Zunda Saryo)」可以嘗鮮。</li>
+                            <li><strong>移動：</strong>飯店在「東口」，出閘門後請走連通橋，避開人潮。</li>
+                            <li><strong>電梯：</strong>攜帶大件行李請務必搭乘電梯。</li>
+                            <li><strong>美食：</strong>推薦嘗試車站內的「毛豆奶昔 (Zunda Saryo)」。</li>
                         </ul>
                     </div>
 
-                    <p class="mt-3"><span class="time-tag" id="d1-t4">18:00</span> 飯店 Check-in 休息</p>
+                    <p class="mt-3"><span class="time-tag" id="d1-t4">18:00</span> 飯店 Check-in</p>
                     
                     <hr>
-                    <p class="mt-3"><span class="time-tag" id="d1-t5">19:00</span> <span class="highlight">晚餐：牛舌 善治郎</span> <a href="https://www.google.com/maps/search/?api=1&query=たんや善治郎+仙台駅前本店" class="map-link">📍 導航</a> <span class="intro-btn" onclick="toggleDetail(this)">ℹ️ 介紹/建議</span></p>
+                    <p class="mt-3"><span class="time-tag" id="d1-t5">19:00</span> <span class="highlight">晚餐：牛舌 善治郎</span> <a href="https://www.google.com/maps/search/?api=1&query=たんや善治郎+仙台駅前本店" class="map-link">📍 導航</a> <span class="intro-btn" onclick="toggleDetail(this)">😋 美食筆記</span></p>
                     <div class="spot-detail">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Gyutan_teishoku_by_ume-y_in_Sendai.jpg/800px-Gyutan_teishoku_by_ume-y_in_Sendai.jpg" loading="lazy" class="spot-img" alt="牛舌料理">
-                        <h6>📌 仙台必吃：炭燒牛舌</h6>
+                        <h6>仙台必吃：炭燒牛舌</h6>
                         <ul>
-                            <li><strong>特色：</strong>善治郎以其獨特的鹽燒風味和厚切口感聞名。</li>
-                            <li><strong>長輩建議：</strong>厚切牛舌較有嚼勁，若長輩牙口不好，強烈建議點「燉煮牛舌 (Yude-tan)」或「薄切」，非常軟嫩好吃。</li>
-                            <li><strong>位置：</strong>位於站前大樓3樓，有電梯。</li>
+                            <li><strong>特色：</strong>獨特鹽燒風味，配麥飯和牛尾湯是絕配。</li>
+                            <li><strong>長輩建議：</strong>若擔心厚切太韌，請點「燉煮牛舌 (Yude-tan)」或「薄切」，非常軟嫩。</li>
+                            <li><strong>位置：</strong>站前大樓3樓 (有電梯)。</li>
                         </ul>
                     </div>
                     <div class="user-note" id="d1-n3"></div>
 
-                    <div class="alert alert-success mt-3">
+                    <div class="alert alert-secondary mt-3 border-0 bg-light">
                         🏨 <strong>住宿：</strong>Hotel GrandBach Sendai<br>
-                        <a href="https://www.google.com/maps/search/?api=1&query=Hotel+GrandBach+Sendai" class="map-link">📍 導航</a><br>
-                        📍 仙台市宮城野区榴岡3丁目7-33
+                        <a href="https://www.google.com/maps/search/?api=1&query=Hotel+GrandBach+Sendai" class="map-link">📍 導航</a> 仙台市宮城野区榴岡3丁目7-33
                     </div>
                 </div>
             </div>
 
-            <div class="day-card">
+            <div class="day-card theme-d2">
                 <div class="day-header" onclick="toggleDay(this)">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Zao_Juhyo.jpg/300px-Zao_Juhyo.jpg" class="day-thumb" alt="樹冰">
+                    <div class="day-emoji-box">❄️</div>
                     <span class="day-title-text">2/24 (二) 樹冰 & 銀山</span>
                     <span class="day-badge">Day 2</span>
                 </div>
@@ -201,30 +227,28 @@
                     <p><span class="time-tag" id="d2-t1">09:00</span> <strong>包車司機接駁</strong></p>
                     <div class="user-note" id="d2-n1"></div>
 
-                    <p><span class="time-tag" id="d2-t2">10:30</span> <span class="highlight">藏王樹冰 (雪怪車)</span> <a href="https://www.google.com/maps/search/?api=1&query=Sumikawa+Snow+Park" class="map-link">📍 導航</a> <span class="intro-btn" onclick="toggleDetail(this)">ℹ️ 介紹/建議</span></p>
+                    <p><span class="time-tag" id="d2-t2">10:30</span> <span class="highlight">藏王樹冰 (雪怪車)</span> <a href="https://www.google.com/maps/search/?api=1&query=Sumikawa+Snow+Park" class="map-link">📍 導航</a> <span class="intro-btn" onclick="toggleDetail(this)">🧣 穿著提醒</span></p>
                     <div class="spot-detail">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Zao_Juhyo.jpg/800px-Zao_Juhyo.jpg" loading="lazy" class="spot-img" alt="藏王樹冰">
-                        <h6>📌 宮城藏王 Sumikawa Snow Park</h6>
+                        <h6>宮城藏王 Sumikawa Snow Park</h6>
                         <ul>
-                            <li><strong>特色：</strong>搭乘附暖氣的「WILD MONSTER」履帶雪車，直攻海拔1600公尺，輕鬆欣賞世界級奇景「雪怪 (Ice Monster)」。</li>
-                            <li><strong>穿著重點：</strong>雖然車內有暖氣，但下車拍照處風大且極冷！請務必戴好<strong>毛帽 (蓋住耳朵)</strong>、<strong>圍巾</strong>、<strong>手套</strong>。</li>
-                            <li><strong>提醒：</strong>雪地反光強，建議戴墨鏡。</li>
+                            <li><strong>特色：</strong>搭乘暖氣雪車「WILD MONSTER」，輕鬆欣賞世界級奇景「雪怪」。</li>
+                            <li><strong>保暖：</strong>下車拍照處風大極冷！必備：<strong>毛帽(蓋耳)</strong>、<strong>圍巾</strong>、<strong>手套</strong>。</li>
+                            <li><strong>眼睛：</strong>雪地反光強，建議戴墨鏡。</li>
                         </ul>
                     </div>
                     <div class="user-note" id="d2-n2"></div>
 
                     <p><span class="time-tag" id="d2-t3">13:00</span> 午餐：遠刈田溫泉區</p>
                     
-                    <p><span class="time-tag" id="d2-t4">15:30</span> 抵達銀山溫泉 <a href="https://www.google.com/maps/search/?api=1&query=銀山溫泉" class="map-link">📍 導航</a> <span class="intro-btn" onclick="toggleDetail(this)">ℹ️ 介紹/建議</span></p>
+                    <p><span class="time-tag" id="d2-t4">15:30</span> 抵達銀山溫泉 <a href="https://www.google.com/maps/search/?api=1&query=銀山溫泉" class="map-link">📍 導航</a> <span class="intro-btn" onclick="toggleDetail(this)">⚠️ 安全須知</span></p>
                     <div class="spot-detail">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Ginzan_Onsen_night_view.jpg/800px-Ginzan_Onsen_night_view.jpg" loading="lazy" class="spot-img" alt="銀山溫泉">
-                        <h6>📌 夢幻大正浪漫 銀山溫泉</h6>
+                        <h6>夢幻大正浪漫 銀山溫泉</h6>
                         <ul>
-                            <li><strong>攝影時機：</strong>傍晚天色轉為深藍色 (Blue Hour) 加上煤氣燈亮起時，是拍照最夢幻的時刻。</li>
-                            <li><strong>⚠️ 安全第一：</strong>冬季街道積雪結冰「非常滑」！請務必幫長輩裝上<strong>防滑鞋套</strong>，行走時請踩在有鋪設止滑墊的地方。</li>
+                            <li><strong>拍照：</strong>天色轉藍 (Blue Hour) + 煤氣燈亮起 = 最美時刻。</li>
+                            <li><strong>防滑：</strong>街道積雪結冰「非常滑」！請務必幫長輩裝上<strong>防滑鞋套</strong>，行走小心。</li>
                         </ul>
                     </div>
-                    <div class="alert alert-success mt-3">
+                    <div class="alert alert-secondary mt-3 border-0 bg-light">
                         🏨 <strong>住宿：</strong>銀山溫泉 (指定)<br>
                         📍 山形県尾花沢市銀山新畑
                     </div>
@@ -232,72 +256,67 @@
                 </div>
             </div>
 
-            <div class="day-card">
+            <div class="day-card theme-d3">
                 <div class="day-header" onclick="toggleDay(this)">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Mogami_River_Basho_Line_Descent.jpg/300px-Mogami_River_Basho_Line_Descent.jpg" class="day-thumb" alt="遊船">
+                    <div class="day-emoji-box">🛶</div>
                     <span class="day-title-text">2/25 (三) 最上川遊船</span>
                     <span class="day-badge">Day 3</span>
                 </div>
                 <div class="day-body">
                     <p><span class="time-tag" id="d3-t1">09:30</span> 出發</p>
                     <div class="user-note" id="d3-n1"></div>
-                    <p><span class="time-tag" id="d3-t2">10:45</span> <span class="highlight">最上川 芭蕉遊船</span> <span class="intro-btn" onclick="toggleDetail(this)">ℹ️ 介紹/建議</span></p>
+                    <p><span class="time-tag" id="d3-t2">10:45</span> <span class="highlight">最上川 芭蕉遊船</span> <span class="intro-btn" onclick="toggleDetail(this)">🔥 體驗亮點</span></p>
                     <div class="spot-detail">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Mogami_River_Basho_Line_Descent.jpg/800px-Mogami_River_Basho_Line_Descent.jpg" loading="lazy" class="spot-img" alt="最上川遊船">
-                        <h6>📌 冬季暖桌遊船 (Kotatsu Boat)</h6>
+                        <h6>冬季暖桌遊船 (Kotatsu Boat)</h6>
                         <ul>
-                            <li><strong>特色：</strong>搭乘復古屋形船，順流而下欣賞如水墨畫般的雪見峽谷。</li>
-                            <li><strong>舒適度：</strong>船艙內設有「暖被桌 (Kotatsu)」，雙腳暖呼呼，完全不用擔心受凍，非常適合長輩。</li>
-                            <li><strong>文化：</strong>船夫會吟唱傳統「最上川船歌」，氣氛極佳。</li>
+                            <li><strong>舒適：</strong>船艙內有「暖被桌」，雙腳暖呼呼，適合長輩，不用擔心受凍。</li>
+                            <li><strong>風景：</strong>順流而下欣賞如水墨畫般的雪見峽谷，聆聽船夫吟唱船歌。</li>
                         </ul>
                     </div>
                     
-                    <p><span class="time-tag" id="d3-t3">14:00</span> 酒田 山居倉庫 <a href="https://www.google.com/maps/search/?api=1&query=酒田+山居倉庫" class="map-link">📍 導航</a> <span class="intro-btn" onclick="toggleDetail(this)">ℹ️ 介紹/建議</span></p>
+                    <p><span class="time-tag" id="d3-t3">14:00</span> 酒田 山居倉庫 <a href="https://www.google.com/maps/search/?api=1&query=酒田+山居倉庫" class="map-link">📍 導航</a> <span class="intro-btn" onclick="toggleDetail(this)">🛍️ 伴手禮</span></p>
                     <div class="spot-detail">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Sankyo_soko.jpg/800px-Sankyo_soko.jpg" loading="lazy" class="spot-img" alt="山居倉庫">
-                        <h6>📌 山居倉庫 (夢之俱樂)</h6>
+                        <h6>山居倉庫 (夢之俱樂)</h6>
                         <ul>
-                            <li><strong>特色：</strong>建於1893年的米倉群，成排的櫸木並木與黑瓦白牆是經典場景，也是日劇《阿信》拍攝地。</li>
-                            <li><strong>購物：</strong>內有物產館「夢之俱樂」，是購買庄內米、清酒、米果等伴手禮的最佳地點。</li>
+                            <li><strong>景點：</strong>百年黑瓦白牆米倉，櫸木並木是經典場景（阿信拍攝地）。</li>
+                            <li><strong>購物：</strong>內有大型物產館，推薦購買庄內米、地酒、米果。</li>
                         </ul>
                     </div>
                     
                     <p><span class="time-tag" id="d3-t4">17:00</span> 前往湯野濱溫泉</p>
-                    <div class="alert alert-success mt-3">🏨 <strong>住宿：</strong>湯野濱溫泉</div>
+                    <div class="alert alert-secondary mt-3 border-0 bg-light">🏨 <strong>住宿：</strong>湯野濱溫泉</div>
                     <div class="user-note" id="d3-n2"></div>
                 </div>
             </div>
 
-            <div class="day-card">
+            <div class="day-card theme-d4">
                 <div class="day-header" onclick="toggleDay(this)">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Kamo_Aquarium_Jellyfish_Dream_Theater.jpg/300px-Kamo_Aquarium_Jellyfish_Dream_Theater.jpg" class="day-thumb" alt="水母">
+                    <div class="day-emoji-box">🪼</div>
                     <span class="day-title-text">2/26 (四) 水母館 & 萬國屋</span>
                     <span class="day-badge">Day 4</span>
                 </div>
                 <div class="day-body">
-                    <p><span class="time-tag" id="d4-t1">10:00</span> <span class="highlight">加茂水族館</span> <a href="https://www.google.com/maps/search/?api=1&query=加茂水族館" class="map-link">📍 導航</a> <span class="intro-btn" onclick="toggleDetail(this)">ℹ️ 介紹/建議</span></p>
+                    <p><span class="time-tag" id="d4-t1">10:00</span> <span class="highlight">加茂水族館</span> <a href="https://www.google.com/maps/search/?api=1&query=加茂水族館" class="map-link">📍 導航</a> <span class="intro-btn" onclick="toggleDetail(this)">✨ 療癒推薦</span></p>
                     <div class="spot-detail">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Kamo_Aquarium_Jellyfish_Dream_Theater.jpg/800px-Kamo_Aquarium_Jellyfish_Dream_Theater.jpg" loading="lazy" class="spot-img" alt="加茂水族館">
-                        <h6>📌 世界第一 水母夢幻劇場</h6>
+                        <h6>世界第一 水母夢幻劇場</h6>
                         <ul>
-                            <li><strong>特色：</strong>擁有金氏世界紀錄的水母展示種類，直徑5公尺的巨大「水母夢幻劇場」非常壯觀且療癒。</li>
-                            <li><strong>長輩建議：</strong>館內皆為室內行程，無障礙設施完善，步調緩慢舒適。</li>
+                            <li><strong>必看：</strong>金氏世界紀錄認證，直徑5公尺的「水母夢幻劇場」，超級療癒。</li>
+                            <li><strong>便利：</strong>全室內行程，無障礙設施完善，步調緩慢舒適。</li>
                         </ul>
                     </div>
                     <div class="user-note" id="d4-n1"></div>
 
                     <p><span class="time-tag" id="d4-t2">12:30</span> 午餐：鶴岡在地料理</p>
-                    <p><span class="time-tag" id="d4-t3">14:30</span> 入住萬國屋 <span class="intro-btn" onclick="toggleDetail(this)">ℹ️ 飯店介紹</span></p>
+                    <p><span class="time-tag" id="d4-t3">14:30</span> 入住萬國屋 <span class="intro-btn" onclick="toggleDetail(this)">♨️ 飯店特色</span></p>
                     <div class="spot-detail">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Atsumi_Onsen.jpg/800px-Atsumi_Onsen.jpg" loading="lazy" class="spot-img" alt="溫海溫泉">
-                        <h6>📌 日本百選溫泉 萬國屋</h6>
+                        <h6>日本百選溫泉 萬國屋</h6>
                         <ul>
-                            <li><strong>特色：</strong>創業300年的老字號旅館，連續多年入選「專家票選日本旅館百選」，以精緻的服務與庭園露天風呂聞名。</li>
-                            <li><strong>建議：</strong>這天早點進飯店，換上浴衣，好好享受館內的溫泉設施與晚餐的懷石料理。</li>
+                            <li><strong>名湯：</strong>創業300年老字號，以精緻服務與庭園露天風呂聞名。</li>
+                            <li><strong>享受：</strong>建議早點進飯店，換上浴衣，享受溫泉與懷石料理。</li>
                         </ul>
                     </div>
 
-                    <div class="alert alert-success mt-3">
+                    <div class="alert alert-secondary mt-3 border-0 bg-light">
                         🏨 <strong>住宿：</strong>溫海溫泉 萬國屋<br>
                         📍 山形県鶴岡市温海丁1
                     </div>
@@ -305,61 +324,58 @@
                 </div>
             </div>
 
-             <div class="day-card">
+             <div class="day-card theme-d5">
                 <div class="day-header" onclick="toggleDay(this)">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Strawberry_greenhouse.jpg/300px-Strawberry_greenhouse.jpg" class="day-thumb" alt="草莓">
+                    <div class="day-emoji-box">🍓</div>
                     <span class="day-title-text">2/27 (五) 採草莓 & 神社</span>
                     <span class="day-badge">Day 5</span>
                 </div>
                 <div class="day-body">
-                    <p><span class="time-tag" id="d5-t1">11:00</span> <span class="highlight">採草莓體驗</span> <span class="intro-btn" onclick="toggleDetail(this)">ℹ️ 介紹/建議</span></p>
+                    <p><span class="time-tag" id="d5-t1">11:00</span> <span class="highlight">採草莓體驗</span> <span class="intro-btn" onclick="toggleDetail(this)">👴 長輩友善</span></p>
                     <div class="spot-detail">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Strawberry_greenhouse.jpg/800px-Strawberry_greenhouse.jpg" loading="lazy" class="spot-img" alt="採草莓">
-                        <h6>📌 溫室高架草莓</h6>
+                        <h6>溫室高架草莓</h6>
                         <ul>
-                            <li><strong>特色：</strong>山形縣也是水果王國，品種如「乙女心」鮮甜多汁，現場煉乳無限供應。</li>
-                            <li><strong>長輩建議：</strong>這裡多採「高架栽培」，草莓長在約腰部的高度，不用彎腰也不用蹲下，對長輩膝蓋非常友善。</li>
+                            <li><strong>美味：</strong>山形縣產草莓（如乙女心）鮮甜多汁，煉乳無限。</li>
+                            <li><strong>友善：</strong>採「高架栽培」，草莓在腰部高度，<strong>不用彎腰蹲下</strong>，膝蓋不負擔。</li>
                         </ul>
                     </div>
                     <div class="user-note" id="d5-n1"></div>
 
                     <p><span class="time-tag" id="d5-t2">12:30</span> 午餐：冷肉蕎麥麵</p>
-                    <p><span class="time-tag" id="d5-t3">14:30</span> <span class="highlight">大崎八幡宮</span> <a href="https://www.google.com/maps/search/?api=1&query=大崎八幡宮" class="map-link">📍 導航</a> <span class="intro-btn" onclick="toggleDetail(this)">ℹ️ 介紹/建議</span></p>
+                    <p><span class="time-tag" id="d5-t3">14:30</span> <span class="highlight">大崎八幡宮</span> <a href="https://www.google.com/maps/search/?api=1&query=大崎八幡宮" class="map-link">📍 導航</a> <span class="intro-btn" onclick="toggleDetail(this)">🦵 省力秘訣</span></p>
                     <div class="spot-detail">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Osaki_Hachiman-gu_Haiden_2009.JPG/800px-Osaki_Hachiman-gu_Haiden_2009.JPG" loading="lazy" class="spot-img" alt="大崎八幡宮">
-                        <h6>📌 國寶 大崎八幡宮</h6>
+                        <h6>國寶 大崎八幡宮</h6>
                         <ul>
-                            <li><strong>特色：</strong>仙台第一守護神社，建築金碧輝煌，黑色漆面搭配金箔，展現伊達政宗的華麗風格。</li>
-                            <li><strong>長輩建議：</strong>正門表參道有很長的階梯，請包車司機直接開車繞到「北側停車場」或側邊入口，可完全避開爬樓梯。</li>
+                            <li><strong>特色：</strong>仙台第一守護神社，黑漆搭配金箔，華麗壯觀。</li>
+                            <li><strong>建議：</strong>正門表參道有長階梯，請司機直接開到「北側停車場」或側邊入口，<strong>完全避開爬樓梯</strong>。</li>
                         </ul>
                     </div>
                     <div class="user-note" id="d5-n2"></div>
                     <p><span class="time-tag" id="d5-t4">17:30</span> 晚餐：仙台市區</p>
-                    <div class="alert alert-success mt-3">🏨 <strong>住宿：</strong>仙台市區</div>
+                    <div class="alert alert-secondary mt-3 border-0 bg-light">🏨 <strong>住宿：</strong>仙台市區</div>
                 </div>
             </div>
 
-            <div class="day-card">
+            <div class="day-card theme-d6">
                 <div class="day-header" onclick="toggleDay(this)">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Sendai_asaichi_2009.jpg/300px-Sendai_asaichi_2009.jpg" class="day-thumb" alt="購物">
+                    <div class="day-emoji-box">🎁</div>
                     <span class="day-title-text">2/28 (六) 返台</span>
                     <span class="day-badge">Day 6</span>
                 </div>
                 <div class="day-body">
-                    <p><span class="time-tag" id="d6-t1">上午</span> 仙台朝市 / S-PAL <span class="intro-btn" onclick="toggleDetail(this)">ℹ️ 介紹/建議</span></p>
+                    <p><span class="time-tag" id="d6-t1">上午</span> 仙台朝市 / S-PAL <span class="intro-btn" onclick="toggleDetail(this)">💡 採買建議</span></p>
                     <div class="spot-detail">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Sendai_asaichi_2009.jpg/800px-Sendai_asaichi_2009.jpg" loading="lazy" class="spot-img" alt="仙台朝市">
-                        <h6>📌 最後採買時光</h6>
+                        <h6>最後採買時光</h6>
                         <ul>
-                            <li><strong>仙台朝市：</strong>就在車站旁，充滿在地活力，可以買一些當季水果（如草莓、蘋果）帶去機場吃（提醒：生鮮水果不能帶回台灣）。</li>
-                            <li><strong>S-PAL百貨：</strong>位於仙台車站共構，伴手禮最齊全（萩之月、毛豆泥麻糬、牛舌真空包）。</li>
+                            <li><strong>仙台朝市：</strong>充滿活力，可買當季水果（草莓、蘋果）帶去機場吃。</li>
+                            <li><strong>S-PAL百貨：</strong>車站共構，伴手禮最齊全（萩之月、毛豆泥麻糬）。</li>
                         </ul>
                     </div>
                     <div class="user-note" id="d6-n1"></div>
 
                     <p><span class="time-tag" id="d6-t2">14:30</span> 專車送往機場</p>
                     <p><span class="time-tag" id="d6-t3">17:00</span> 搭機返台</p>
-                    <div class="alert alert-success mt-3">✈️ <strong>航班：</strong>甜蜜的家</div>
+                    <div class="alert alert-secondary mt-3 border-0 bg-light">✈️ <strong>航班：</strong>甜蜜的家</div>
                 </div>
             </div>
         </div>
@@ -372,36 +388,28 @@
 
     <script>
         // ============================================
-        // ⚠️ 設定區：固定帳號與倉庫
+        // ⚠️ 設定區
         // ============================================
         const GH_USER = "allenletlpt";
         const GH_REPO = "japan0223";
         const FILE_PATH = "data.json";
 
-        // ↓↓↓ 請在下方雙引號內貼上「去頭(ghp_)的 Base64 亂碼」 ↓↓↓
-        const PART_B_ENCODED = "在此處貼上您_去頭後_的Base64亂碼"; 
+        // ↓↓↓ 請填入您的 Base64 Token (去頭 ghp_) ↓↓↓
+        const PART_B_ENCODED = "在此處填入您的Base64亂碼"; 
         // ============================================
 
         var currentSha = "";
 
-        // 組合函數 (將 "ghp_" 和 "解碼後的亂碼" 接在一起)
+        // 組合 Token
         function getRealToken() {
             try {
                 var partB = decodeURIComponent(escape(window.atob(PART_B_ENCODED)));
                 return "ghp_" + partB;
             } catch(e) {
-                console.error("Token 解碼失敗，請確認 Base64 是否正確");
+                console.error("Token Error");
                 return "";
             }
         }
-        
-        // 圖片載入失敗時的後備機制 (顯示一個通用的風景圖)
-        document.addEventListener('error', function(e){
-            if(e.target.tagName.toLowerCase() === 'img'){
-                e.target.src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Sendai_City_War_Reconstruction_Memorial_Hall_2010.jpg/800px-Sendai_City_War_Reconstruction_Memorial_Hall_2010.jpg'; 
-                e.target.alt = '暫無圖片';
-            }
-        }, true);
 
         $(document).ready(function(){
             $(".day-header").first().click();
@@ -420,7 +428,7 @@
 
         function toggleDetail(btn) { $(btn).parent().next(".spot-detail").slideToggle(); }
 
-        // --- 核心功能：從 GitHub 讀取資料 ---
+        // --- GitHub 讀取 ---
         function fetchDataFromGitHub() {
             var token = getRealToken();
             if(!token || token === "ghp_") return;
@@ -448,17 +456,16 @@
             });
         }
 
-        // --- 核心功能：上傳資料到 GitHub ---
+        // --- GitHub 上傳 ---
         function uploadToGitHub() {
             var token = getRealToken();
             if(!token || token === "ghp_") {
-                alert("請先在程式碼中填入 Base64 Token！");
+                alert("請填入 Base64 Token");
                 return;
             }
 
-            $("#loadingOverlay").fadeIn().html('<div class="spinner-border text-primary mb-3"></div><br>正在取得最新版本...');
+            $("#loadingOverlay").fadeIn();
 
-            // 1. 蒐集資料
             var dataToSave = {};
             $(".time-tag[id], .user-note[id]").each(function() {
                 var id = $(this).attr("id");
@@ -470,7 +477,6 @@
             var base64Content = window.btoa(unescape(encodeURIComponent(jsonString)));
             var url = `https://api.github.com/repos/${GH_USER}/${GH_REPO}/contents/${FILE_PATH}`;
 
-            // 2. 先抓最新 SHA
             $.ajax({
                 url: url,
                 type: "GET",
@@ -481,7 +487,6 @@
                 },
                 error: function(xhr) {
                     if(xhr.status === 404) {
-                        console.log("檔案不存在，建立新檔");
                         performPut(url, token, base64Content, null);
                     } else {
                         $("#loadingOverlay").fadeOut();
@@ -492,10 +497,8 @@
         }
 
         function performPut(url, token, content, sha) {
-            $("#loadingOverlay").html('<div class="spinner-border text-success mb-3"></div><br>正在寫入資料...');
-            
             var payload = {
-                message: "Update itinerary via web",
+                message: "Update itinerary",
                 content: content
             };
             if (sha) payload.sha = sha;
@@ -516,7 +519,7 @@
                 },
                 error: function(xhr) {
                     $("#loadingOverlay").fadeOut();
-                    if(xhr.status === 409) alert("版本衝突，請重整後再試。");
+                    if(xhr.status === 409) alert("版本衝突，請重整再試");
                     else alert("上傳失敗: " + xhr.status);
                 }
             });
@@ -531,7 +534,7 @@
                 $("#btnEdit").text("❌");
                 $("#btnSave").fadeIn();
                 $(".day-body").slideDown();
-                showToast("編輯模式：點擊文字修改，按雲端圖示儲存");
+                showToast("編輯模式");
             } else {
                 $(".time-tag, .user-note").attr("contenteditable", "false");
                 $("#btnEdit").text("✏️");
