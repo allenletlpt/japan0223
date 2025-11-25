@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2026 日本東北家族旅行0</title>
+    <title>2026 日本東北家族旅行</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -36,68 +36,79 @@
         .sprite-bg { background-image: url('photo1.png'); background-repeat: no-repeat; }
         .sprite-bg-2 { background-image: url('photo2.png'); background-repeat: no-repeat; }
 
-        /* 頂部圓形大頭貼 (依照您的參數更新) */
+        /* 頂部圓形大頭貼 (稍微加大配合整體) */
         .hero-img-container {
-            width: 130px; height: 130px;
+            width: 150px; height: 150px;
             margin: 0 auto 15px auto;
             border-radius: 50%;
-            border: 5px solid rgba(255,255,255,0.8);
+            border: 6px solid rgba(255,255,255,0.9);
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
             overflow: hidden;
             background-color: #fff;
         }
         .hero-avatar {
-            width: 100%;
-            height: 100%;
+            width: 100%; height: 100%;
             background-size: 704%;
             background-position: 30% 27%;
         }
 
         /* --- 新版排版系統 (Flexbox Row) --- */
-        /* 每一個行程就是一個 row */
         .event-row {
             display: flex;
-            justify-content: space-between; /* 左右推開 */
-            align-items: flex-start; /* 靠上對齊 */
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 1px dashed #eee;
+            justify-content: space-between; 
+            align-items: flex-start;
+            margin-bottom: 30px; /* 增加間距 */
+            padding-bottom: 20px;
+            border-bottom: 1px dashed #ddd;
         }
-        /* 最後一個行程不用底線 */
         .event-row:last-child { border-bottom: none; margin-bottom: 0; }
 
-        /* 左側文字區塊 (自動填滿剩餘空間) */
+        /* 左側文字區塊 */
         .event-left {
             flex: 1;
-            padding-right: 10px;
-            min-width: 0; /* 防止文字過長撐爆 */
+            padding-right: 15px;
+            min-width: 200px; /* 確保文字區最少寬度 */
         }
 
-        /* 右側圖片區塊 (固定寬度，不縮放) */
+        /* 右側圖片區塊 */
         .event-right {
             flex-shrink: 0;
             display: flex;
-            flex-direction: row; /* 圖片並排 */
-            gap: 5px;
+            flex-direction: row;
+            gap: 8px;
         }
         
-        /* 手機直式時，圖片改為堆疊或縮小 */
-        @media (max-width: 500px) {
+        /* 手機直式時，圖片改為堆疊或橫向捲動 */
+        @media (max-width: 700px) {
             .event-row { flex-direction: column; }
-            .event-right { margin-top: 10px; width: 100%; overflow-x: auto; padding-bottom: 5px; }
+            .event-right { 
+                margin-top: 15px; 
+                width: 100%; 
+                overflow-x: auto; /* 讓大圖可以橫向滑動 */
+                padding-bottom: 10px; /* 預留捲軸空間 */
+                white-space: nowrap;
+            }
+            .sticker-img { display: inline-block; float: none; margin-left: 0; }
         }
 
-        /* 貼紙樣式 (統一大小) */
+        /* --- 貼紙樣式 (尺寸升級!) --- */
         .sticker-img {
-            width: 120px; height: 90px;
-            border-radius: 8px;
-            box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
+            width: 200px;  /* 放大寬度 */
+            height: 150px; /* 放大高度 (保持 4:3) */
+            border-radius: 12px;
+            box-shadow: 4px 4px 10px rgba(0,0,0,0.15);
             background-color: #fff;
             flex-shrink: 0;
             transition: transform 0.2s;
+            border: 4px solid #fff; /* 增加白邊更有貼紙感 */
         }
-        .sticker-img:hover { transform: scale(1.05) rotate(2deg); z-index: 10; }
-        .sticker-wide { width: 140px; height: 95px; }
+        .sticker-img:hover { transform: scale(1.03) rotate(1deg); z-index: 10; }
+        
+        /* 寬版貼紙 (如銀山全景) */
+        .sticker-wide { 
+            width: 250px; 
+            height: 160px; 
+        }
 
         /* --- 🎨 Photo 1 切圖座標 --- */
         .pos-cow { background-position: 28.5% 14%; background-size: 540%; }
@@ -134,7 +145,7 @@
         .day-thumb-box { width: 50px; height: 50px; border-radius: 12px; overflow: hidden; margin-right: 15px; border: 2px solid #eee; flex-shrink: 0; background-color: #f9f9f9; display: flex; justify-content: center; align-items: center; font-size: 1.5rem; }
         .day-title-text { flex-grow: 1; font-weight: bold; color: #444; font-size: 1.1rem; }
         .day-badge { background-color: #4facfe; color: white; padding: 4px 12px; border-radius: 15px; font-size: 0.8rem; }
-        .day-body { display: none; background: white; padding: 20px; }
+        .day-body { display: none; background: white; padding: 25px; } /* 增加內距 */
 
         /* 內容詳細區塊 */
         .spot-detail { display: none; background-color: #f0f7ff; border-left: 4px solid #4facfe; padding: 12px; margin: 10px 0; border-radius: 0 8px 8px 0; }
