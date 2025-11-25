@@ -5,216 +5,540 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>2026 日本東北家族旅行.</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <style>
-        /* --- 全域風格 --- */
-        :root {
-            --main-bg: #fdfdfd;
-            --text-color: #444;
-        }
-        
-        /* 定義每一天的主題色 (CSS變數) */
-        /* Day 1: 炭燒橘 (牛舌/溫暖) */
-        .theme-d1 { --theme-color: #d35400; --theme-light: #fbeee6; --theme-bg: #fff; }
-        /* Day 2: 冰雪藍 (樹冰/銀山) */
-        .theme-d2 { --theme-color: #2980b9; --theme-light: #ebf5fb; --theme-bg: #fff; }
-        /* Day 3: 自然綠 (遊船/山居) */
-        .theme-d3 { --theme-color: #27ae60; --theme-light: #e9f7ef; --theme-bg: #fff; }
-        /* Day 4: 夢幻紫 (水母/溫泉) */
-        .theme-d4 { --theme-color: #8e44ad; --theme-light: #f4ecf7; --theme-bg: #fff; }
-        /* Day 5: 草莓紅 (採果/神社) */
-        .theme-d5 { --theme-color: #c0392b; --theme-light: #fdedec; --theme-bg: #fff; }
-        /* Day 6: 金黃色 (採買/豐收) */
-        .theme-d6 { --theme-color: #f39c12; --theme-light: #fef9e7; --theme-bg: #fff; }
+   <link href="https://fonts.googleapis.com/css2?family=Jua&family=Kosugi+Maru&family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    /* --- 全域風格：韓系可愛 Pastel --- */
+    :root {
+        --main-bg: #fff7fb;
+        --text-color: #554f5e;
+        --k-shadow-soft: 0 12px 30px rgba(255, 179, 219, 0.25);
+    }
 
-        body { 
-            font-family: "Kosugi Maru", "Noto Sans TC", sans-serif;
-            background-color: #f4f7f6;
-            background-image: radial-gradient(#d1d8e0 1px, transparent 1px);
-            background-size: 20px 20px;
-            padding-bottom: 100px; 
-            color: var(--text-color);
-        }
+    /* 每日主題色調整為粉彩色 */
+    .theme-d1 { --theme-color: #ff9f7d; --theme-light: #ffe3d5; --theme-bg: #fffaf5; }
+    .theme-d2 { --theme-color: #88b9ff; --theme-light: #e4f0ff; --theme-bg: #f7faff; }
+    .theme-d3 { --theme-color: #7cd4aa; --theme-light: #e3fbf2; --theme-bg: #f7fffb; }
+    .theme-d4 { --theme-color: #c7a5ff; --theme-light: #f1eaff; --theme-bg: #fcf9ff; }
+    .theme-d5 { --theme-color: #ff90b3; --theme-light: #ffe4ee; --theme-bg: #fff9fb; }
+    .theme-d6 { --theme-color: #ffc85a; --theme-light: #fff2cf; --theme-bg: #fffdf6; }
 
-        /* Hero 區塊 */
-        .hero { 
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white; 
-            padding: 40px 20px 70px 20px; 
-            text-align: center; 
-            border-radius: 0 0 50px 50px; 
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15); 
-            position: relative;
-            overflow: hidden;
-        }
-        .hero h1 { font-weight: bold; text-shadow: 2px 2px 0px rgba(0,0,0,0.2); font-size: 1.8rem; margin-bottom: 10px; }
-        
-        /* --- CSS Sprite 設定 --- */
-        .sprite-bg { background-image: url('photo1.png'); background-repeat: no-repeat; }
-        .sprite-bg-2 { background-image: url('photo2.png'); background-repeat: no-repeat; }
+    body {
+        font-family: "Jua", "Kosugi Maru", "Noto Sans TC", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background:
+            radial-gradient(circle at 0 0, rgba(255, 208, 230, .9) 0, transparent 50%),
+            radial-gradient(circle at 100% 100%, rgba(200, 230, 255, .8) 0, transparent 50%),
+            linear-gradient(180deg, #fff7fb 0%, #fdfcff 50%, #fffaf5 100%);
+        background-attachment: fixed;
+        color: var(--text-color);
+        padding-bottom: 120px;
+    }
 
-        /* 頂部圓形大頭貼 */
-        .hero-img-container {
-            width: 140px; height: 140px;
-            margin: 0 auto 15px auto;
-            border-radius: 50%;
-            border: 5px solid rgba(255,255,255,0.9);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            overflow: hidden;
-            background-color: #fff;
-        }
-        .hero-avatar {
-            width: 100%; height: 100%;
-            background-size: 704%;
-            background-position: 30% 27%;
-        }
+    /* 讓 container 比較窄，看起來像 IG 卡片 */
+    .container {
+        max-width: 960px;
+        margin: 0 auto 40px auto;
+        padding: 0 1.25rem;
+    }
 
-        /* 資訊卡 */
-        .info-box { 
-            background: white; width: 90%; max-width: 600px; margin: -50px auto 30px auto; 
-            padding: 20px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); 
-            position: relative; text-align: center;
-            border: 1px solid #eee;
-        }
+    /* Hero 區塊：韓系 IG 封面卡 */
+    .hero {
+        background: linear-gradient(135deg, #ffb7d5 0%, #ffcfe6 30%, #cfe5ff 100%);
+        color: #fff;
+        padding: 48px 20px 80px 20px;
+        text-align: center;
+        border-radius: 0 0 42px 42px;
+        box-shadow: 0 18px 40px rgba(255, 141, 187, 0.4);
+        position: relative;
+        overflow: hidden;
+    }
+    .hero::before,
+    .hero::after {
+        content: "";
+        position: absolute;
+        border-radius: 999px;
+        filter: blur(2px);
+        opacity: .45;
+    }
+    .hero::before {
+        width: 210px;
+        height: 210px;
+        background: rgba(255, 255, 255, .22);
+        top: -40px;
+        left: -40px;
+    }
+    .hero::after {
+        width: 260px;
+        height: 260px;
+        background: rgba(255, 255, 255, .18);
+        bottom: -60px;
+        right: -60px;
+    }
+    .hero h1 {
+        position: relative;
+        font-weight: 700;
+        font-size: 2rem;
+        letter-spacing: 0.08em;
+        margin-bottom: 6px;
+        text-shadow: none;
+    }
+    .hero p {
+        position: relative;
+        font-size: 0.95rem;
+        letter-spacing: 0.2em;
+        opacity: .92;
+    }
 
-        /* --- 行程卡片 (核心樣式) --- */
-        .day-card { 
-            border: none; border-radius: 20px; margin-bottom: 30px; overflow: hidden; 
-            box-shadow: 0 8px 20px rgba(0,0,0,0.05); 
-            background: var(--theme-bg); /* 雖然預設白，但保留變數彈性 */
-            border-top: 5px solid var(--theme-color); /* 頂部彩色條 */
-        }
-        
-        .day-header { 
-            background: white; padding: 15px 20px; cursor: pointer; 
-            display: flex; align-items: center; 
-            border-bottom: 1px dashed #eee;
-            transition: background-color 0.2s;
-        }
-        .day-header:hover { background-color: #fafafa; }
+    /* 頂部圓形大頭貼：加上貼紙文字 */
+    .hero-img-container {
+        width: 140px;
+        height: 140px;
+        margin: 0 auto 18px auto;
+        border-radius: 50%;
+        border: 5px solid rgba(255, 255, 255, 0.96);
+        box-shadow: 0 12px 24px rgba(255, 140, 192, 0.45);
+        overflow: hidden;
+        background:
+            repeating-linear-gradient(135deg, #ffe4f2 0 8px, #fff 8px 16px);
+        position: relative;
+    }
+    .hero-img-container::after {
+        content: "family trip ♡";
+        position: absolute;
+        bottom: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 0.7rem;
+        background: #fff;
+        color: #ff7fa9;
+        padding: 3px 10px;
+        border-radius: 999px;
+        box-shadow: 0 4px 10px rgba(255, 143, 191, 0.4);
+    }
+    .hero-avatar {
+        width: 100%;
+        height: 100%;
+        background-size: 704%;
+        background-position: 30% 27%;
+    }
 
-        .day-thumb-box { 
-            width: 50px; height: 50px; border-radius: 50%; overflow: hidden; 
-            margin-right: 15px; border: 2px solid var(--theme-color); /* 跟隨主題色 */
-            flex-shrink: 0; background-color: var(--theme-light);
-            display: flex; justify-content: center; align-items: center; font-size: 1.6rem;
-            color: var(--theme-color);
-        }
-        
-        .day-title-text { flex-grow: 1; font-weight: bold; color: #333; font-size: 1.1rem; }
-        
-        .day-badge { 
-            background-color: var(--theme-color); /* 跟隨主題色 */
-            color: white; padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; 
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        
-        .day-body { display: none; background: white; padding: 25px; }
+    /* 行前資訊卡：貼紙風 */
+    .info-box {
+        background: #fff;
+        width: 94%;
+        max-width: 640px;
+        margin: -46px auto 30px auto;
+        padding: 18px 22px;
+        border-radius: 24px;
+        box-shadow: var(--k-shadow-soft);
+        position: relative;
+        text-align: center;
+        border: 2px dashed #ffd2e8;
+    }
+    .info-box::before,
+    .info-box::after {
+        content: "";
+        position: absolute;
+        width: 46px;
+        height: 14px;
+        background: #ffe8f4;
+        border-radius: 999px;
+        top: -8px;
+    }
+    .info-box::before { left: 18%; transform: rotate(-6deg); }
+    .info-box::after { right: 18%; transform: rotate(6deg); }
+    .info-box div {
+        font-size: 0.9rem;
+    }
 
-        /* --- 排版系統 (Flexbox Row) --- */
+    /* --- 行程卡片 --- */
+    .day-card {
+        border: none;
+        border-radius: 26px;
+        margin-bottom: 28px;
+        overflow: hidden;
+        box-shadow: 0 10px 26px rgba(189, 195, 199, 0.25);
+        background: var(--theme-bg);
+        border: 2px solid rgba(255, 255, 255, 0.9);
+        position: relative;
+        transition: transform 0.17s ease, box-shadow 0.17s ease;
+    }
+    .day-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.0), rgba(255, 255, 255, 0.5));
+        pointer-events: none;
+    }
+    .day-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 16px 34px rgba(180, 187, 196, 0.35);
+    }
+    .day-header {
+        background: transparent;
+        padding: 14px 20px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        border-bottom: 1px dashed rgba(0, 0, 0, 0.04);
+        position: relative;
+        transition: background-color 0.2s;
+    }
+    .day-header:hover {
+        background-color: rgba(255, 255, 255, 0.75);
+    }
+    .day-header::after {
+        content: "▼";
+        font-size: 0.7rem;
+        color: var(--theme-color);
+        margin-left: 8px;
+        transform-origin: center;
+        transition: transform 0.2s ease;
+    }
+    .day-card.open .day-header::after {
+        transform: rotate(180deg);
+    }
+
+    .day-thumb-box {
+        width: 52px;
+        height: 52px;
+        border-radius: 18px;
+        margin-right: 4px;
+        border: 2px solid rgba(255, 255, 255, .8);
+        box-shadow: 0 6px 14px rgba(0, 0, 0, 0.07);
+        flex-shrink: 0;
+        background: radial-gradient(circle at 20% 20%, #fff 0, var(--theme-light) 55%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.5rem;
+        color: var(--theme-color);
+    }
+    .day-title-text {
+        flex-grow: 1;
+        font-weight: 700;
+        color: #444;
+        font-size: 1.02rem;
+    }
+    .day-badge {
+        background-color: var(--theme-color);
+        color: white;
+        padding: 5px 14px;
+        border-radius: 999px;
+        font-size: 0.78rem;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.14);
+    }
+
+    .day-body {
+        display: none;
+        background: #fff;
+        padding: 22px 22px 20px 22px;
+    }
+
+    /* --- 行程排版 --- */
+    .event-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 24px;
+        padding-bottom: 18px;
+        border-bottom: 1px dashed #f1d6e5;
+    }
+    .event-row:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+    .event-left {
+        flex: 1;
+        padding-right: 16px;
+        min-width: 200px;
+    }
+    .event-right {
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+    }
+
+    @media (max-width: 700px) {
+        .hero {
+            padding-bottom: 70px;
+            border-radius: 0 0 32px 32px;
+        }
+        .hero h1 { font-size: 1.7rem; }
+        .hero p { font-size: 0.85rem; }
+
+        .day-body { padding: 18px 16px 18px 16px; }
+
         .event-row {
-            display: flex; justify-content: space-between; align-items: flex-start;
-            margin-bottom: 30px; padding-bottom: 20px;
-            border-bottom: 1px dashed #e0e0e0;
+            flex-direction: column;
         }
-        .event-row:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-
-        .event-left { flex: 1; padding-right: 15px; min-width: 200px; }
-        .event-right { flex-shrink: 0; display: flex; flex-direction: row; gap: 8px; }
-        
-        @media (max-width: 700px) {
-            .event-row { flex-direction: column; }
-            .event-right { margin-top: 15px; width: 100%; overflow-x: auto; padding-bottom: 10px; white-space: nowrap; }
-            .sticker-img { display: inline-block; float: none; margin-left: 0; }
+        .event-right {
+            margin-top: 14px;
+            width: 100%;
+            overflow-x: auto;
+            padding-bottom: 8px;
+            white-space: nowrap;
         }
-
-        /* --- 貼紙樣式 --- */
         .sticker-img {
-            width: 200px; height: 150px;
-            border-radius: 12px;
-            box-shadow: 3px 3px 10px rgba(0,0,0,0.1);
-            background-color: #fff;
-            flex-shrink: 0;
-            transition: transform 0.2s;
-            border: 4px solid #fff;
+            display: inline-block;
+            margin-left: 0;
         }
-        .sticker-img:hover { transform: scale(1.03) rotate(1deg); z-index: 10; }
-        .sticker-wide { width: 250px; height: 160px; }
+    }
 
-        /* --- 內容詳細區塊 (主題色應用) --- */
-        .spot-detail { 
-            display: none; 
-            background-color: var(--theme-light); /* 跟隨主題淺色底 */
-            border-left: 4px solid var(--theme-color); /* 跟隨主題深色邊 */
-            padding: 15px; margin: 10px 0; border-radius: 0 10px 10px 0; 
-        }
-        .spot-detail h6 { font-weight: bold; color: var(--theme-color); margin-bottom: 8px; font-size: 1rem; }
-        .spot-detail ul { padding-left: 20px; margin-bottom: 0; font-size: 0.9rem; color: #555; line-height: 1.6; }
+    /* --- 貼紙相片 --- */
+    .sticker-img {
+        width: 200px;
+        height: 150px;
+        border-radius: 18px;
+        box-shadow: 0 10px 18px rgba(0, 0, 0, 0.14);
+        background-color: #fff;
+        flex-shrink: 0;
+        transition: transform 0.18s ease, box-shadow 0.18s ease;
+        border: 4px solid #fff;
+        position: relative;
+    }
+    .sticker-img::before {
+        content: "";
+        position: absolute;
+        width: 46px;
+        height: 16px;
+        background: rgba(255, 248, 180, .9);
+        top: -10px;
+        left: 18%;
+        border-radius: 999px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, .16);
+    }
+    .sticker-img:nth-child(2)::before {
+        left: 55%;
+        transform: rotate(-6deg);
+    }
+    .sticker-img:hover {
+        transform: translateY(-3px) rotate(1.5deg);
+        box-shadow: 0 18px 26px rgba(0, 0, 0, 0.22);
+    }
+    .sticker-wide {
+        width: 250px;
+        height: 160px;
+    }
 
-        /* 按鈕與標籤 */
-        .time-tag { background: #ecf0f1; color: #7f8c8d; padding: 3px 10px; border-radius: 6px; font-size: 0.9rem; margin-right: 5px; display: inline-block; min-width: 65px; text-align: center; font-weight: bold; }
-        .highlight { color: var(--theme-color); font-weight: bold; border-bottom: 2px solid var(--theme-light); } /* 高亮文字跟隨主題 */
-        
-        /* 介紹按鈕 (跟隨主題) */
-        .intro-btn { 
-            cursor: pointer; 
-            color: var(--theme-color); 
-            font-weight: bold; margin-left: 5px; font-size: 0.8rem; 
-            background: #fff; 
-            padding: 3px 12px; border-radius: 20px; 
-            border: 1px solid var(--theme-color); 
-            transition: 0.2s;
-        }
-        .intro-btn:hover { background: var(--theme-color); color: white; }
+    /* --- 詳細介紹區塊 --- */
+    .spot-detail {
+        display: none;
+        background-color: var(--theme-light);
+        border-left: 4px solid var(--theme-color);
+        padding: 14px 14px 12px 16px;
+        margin: 10px 0;
+        border-radius: 0 14px 14px 0;
+    }
+    .spot-detail h6 {
+        font-weight: 700;
+        color: var(--theme-color);
+        margin-bottom: 6px;
+        font-size: 0.95rem;
+    }
+    .spot-detail ul {
+        padding-left: 18px;
+        margin-bottom: 0;
+        font-size: 0.86rem;
+        color: #666;
+        line-height: 1.6;
+    }
 
-        .map-link { text-decoration: none; color: #7f8c8d; font-weight: bold; margin-left: 5px; font-size: 0.8rem; background: #f0f3f4; padding: 3px 10px; border-radius: 20px; }
-        .map-link:hover { background: #bdc3c7; color: #fff; }
-        
-        .alert { padding: 12px; margin-bottom: 10px; font-size: 0.9rem; border-radius: 10px; }
+    /* --- 小元件：時間標籤 / 按鈕 / 地圖連結 --- */
+    .time-tag {
+        background: #fff5f8;
+        color: #ff7a9d;
+        padding: 4px 12px;
+        border-radius: 999px;
+        font-size: 0.86rem;
+        margin-right: 6px;
+        display: inline-block;
+        min-width: 65px;
+        text-align: center;
+        font-weight: 700;
+        box-shadow: 0 3px 6px rgba(255, 163, 197, 0.3);
+    }
+    .highlight {
+        color: var(--theme-color);
+        font-weight: 700;
+        padding-bottom: 1px;
+        border-bottom: 2px solid var(--theme-light);
+    }
+    .intro-btn {
+        cursor: pointer;
+        color: var(--theme-color);
+        font-weight: 700;
+        margin-left: 4px;
+        font-size: 0.76rem;
+        background: #fff;
+        padding: 4px 10px;
+        border-radius: 999px;
+        border: 1px dashed var(--theme-color);
+        transition: 0.18s ease;
+    }
+    .intro-btn:hover {
+        background: var(--theme-color);
+        color: #fff;
+    }
+    .map-link {
+        text-decoration: none;
+        color: #8b8fa7;
+        font-weight: 600;
+        margin-left: 4px;
+        font-size: 0.76rem;
+        background: #f3f5ff;
+        padding: 4px 12px;
+        border-radius: 999px;
+        box-shadow: 0 4px 8px rgba(199, 208, 255, 0.5);
+    }
+    .map-link:hover {
+        background: #aeb9ff;
+        color: #fff;
+    }
 
-        /* 編輯模式 */
-        body.edit-mode .time-tag { background-color: #ff5252; color: white; cursor: text; border: 2px dashed #ffeb3b; }
-        .user-note { margin-top: 5px; margin-bottom: 10px; font-size: 0.9rem; color: #666; border-left: 3px solid #ccc; padding: 5px 10px; background: #f9f9f9; display: none; }
-        .user-note:not(:empty) { display: block; }
-        body.edit-mode .user-note { display: block; min-height: 30px; cursor: text; outline: 1px dashed #999; background: #fff; }
+    .alert {
+        padding: 10px 12px;
+        margin-bottom: 8px;
+        font-size: 0.86rem;
+        border-radius: 14px;
+        border: none;
+        background: linear-gradient(135deg, #fffaf5 0%, #fff0f7 100%);
+        color: #6b5c5c;
+    }
 
-        /* --- 浮動按鈕 --- */
-        .fab-container { position: fixed; bottom: 25px; right: 25px; display: flex; flex-direction: column; gap: 15px; z-index: 1000; }
-        .fab-btn { width: 60px; height: 60px; border-radius: 50%; color: white; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.3); cursor: pointer; border: none; font-size: 1.4rem; transition: transform 0.2s; }
-        .fab-btn:active { transform: scale(0.9); }
-        .btn-edit { background: linear-gradient(135deg, #667eea, #764ba2); }
-        .btn-save { background: linear-gradient(135deg, #2ecc71, #27ae60); display: none; }
+    /* --- 編輯模式 --- */
+    body.edit-mode .time-tag {
+        background-color: #ffb7c3;
+        color: #fff;
+        cursor: text;
+        border: 2px dashed #ffe48a;
+        box-shadow: none;
+    }
+    .user-note {
+        margin-top: 6px;
+        margin-bottom: 10px;
+        font-size: 0.85rem;
+        color: #7d6f7b;
+        border-left: 3px solid #ffd2ea;
+        padding: 6px 10px;
+        background: #fff8fd;
+        display: none;
+    }
+    .user-note:not(:empty) {
+        display: block;
+    }
+    body.edit-mode .user-note {
+        display: block;
+        min-height: 30px;
+        cursor: text;
+        outline: 1px dashed #ffbcd9;
+        background: #fff;
+    }
 
-        #toast-msg { top: 30px; left: 50%; transform: translateX(-50%); background: rgba(50,50,50,0.9); color: white; padding: 12px 30px; border-radius: 50px; display: none; position: fixed; z-index: 3000; box-shadow: 0 5px 15px rgba(0,0,0,0.2); font-weight: bold; }
-        .loading-overlay { top:0; left:0; width:100%; height:100%; background: rgba(255,255,255,0.9); text-align: center; padding-top: 50vh; font-weight: bold; color: #555; display: none; position: fixed; z-index: 2500; }
+    /* --- 浮動按鈕：圓圓泡泡 --- */
+    .fab-container {
+        position: fixed;
+        bottom: 26px;
+        right: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        z-index: 1000;
+    }
+    .fab-btn {
+        width: 58px;
+        height: 58px;
+        border-radius: 999px;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 18px 32px rgba(0, 0, 0, 0.28);
+        cursor: pointer;
+        border: none;
+        font-size: 1.4rem;
+        transition: transform 0.16s ease, box-shadow 0.16s ease;
+    }
+    .fab-btn:active {
+        transform: scale(0.9);
+    }
+    .fab-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 22px 40px rgba(0, 0, 0, 0.3);
+    }
+    .btn-edit {
+        background: linear-gradient(145deg, #ff9ec0, #ffb86c);
+    }
+    .btn-save {
+        background: linear-gradient(145deg, #93e1d8, #7bd5ff);
+        display: none;
+    }
 
-        /* --- 切圖座標 (Photo 1) --- */
-        .pos-cow { background-position: 28.5% 14%; background-size: 540%; }
-        .pos-zao { background-position: 59% 24%; background-size: 570%; }
-        .pos-ginzan { background-position: 98% 22%; background-size: 457%; }
-        .pos-boat { background-position: 53% 57%; background-size: 480%; }
-        .pos-warehouse { background-position: 84% 58%; background-size: 581%; }
-        .pos-jelly { background-position: 2% 87%; background-size: 497%; }
-        .pos-onsen { background-position: 21% 58%; background-size: 605%; }
-        .pos-strawberry { background-position: 33% 91%; background-size: 573%; }
-        .pos-shrine { background-position: 58% 99%; background-size: 500%; }
-        .pos-market { background-position: 87% 97%; background-size: 510%; }
+    /* --- Toast 與 Loading --- */
+    #toast-msg {
+        top: 26px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(75, 63, 83, 0.94);
+        color: white;
+        padding: 10px 26px;
+        border-radius: 999px;
+        display: none;
+        position: fixed;
+        z-index: 3000;
+        box-shadow: 0 9px 22px rgba(0, 0, 0, 0.35);
+        font-weight: 700;
+        font-size: 0.86rem;
+    }
+    .loading-overlay {
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 251, 253, 0.96);
+        text-align: center;
+        padding-top: 45vh;
+        font-weight: 600;
+        color: #777;
+        display: none;
+        position: fixed;
+        z-index: 2500;
+    }
 
-        /* --- 切圖座標 (Photo 2) --- */
-        .pos2-family { background-position: 0% 0%; background-size: 400%; }
-        .pos2-cow { background-position: 33.3% 0%; background-size: 400%; }
-        .pos2-zao { background-position: 66.6% 0%; background-size: 400%; }
-        .pos2-ginzan { background-position: 100% 0%; background-size: 400%; }
-        .pos2-onsen { background-position: 0% 50%; background-size: 400%; }
-        .pos2-jelly { background-position: 33.3% 50%; background-size: 400%; }
-        .pos2-boat { background-position: 66.6% 50%; background-size: 400%; }
-        .pos2-warehouse { background-position: 100% 50%; background-size: 400%; }
-        .pos2-strawberry { background-position: 0% 100%; background-size: 400%; }
-        .pos2-shrine { background-position: 33.3% 100%; background-size: 400%; }
-        .pos2-market { background-position: 66.6% 100%; background-size: 400%; }
-        .pos2-return { background-position: 100% 100%; background-size: 425%; }
-    </style>
+    /* --- CSS Sprite 設定 --- */
+    .sprite-bg { background-image: url('photo1.png'); background-repeat: no-repeat; }
+    .sprite-bg-2 { background-image: url('photo2.png'); background-repeat: no-repeat; }
+
+    /* --- 切圖座標 (Photo 1) --- */
+    .pos-cow { background-position: 28.5% 14%; background-size: 540%; }
+    .pos-zao { background-position: 59% 24%; background-size: 570%; }
+    .pos-ginzan { background-position: 98% 22%; background-size: 457%; }
+    .pos-boat { background-position: 53% 57%; background-size: 480%; }
+    .pos-warehouse { background-position: 84% 58%; background-size: 581%; }
+    .pos-jelly { background-position: 2% 87%; background-size: 497%; }
+    .pos-onsen { background-position: 21% 58%; background-size: 605%; }
+    .pos-strawberry { background-position: 33% 91%; background-size: 573%; }
+    .pos-shrine { background-position: 58% 99%; background-size: 500%; }
+    .pos-market { background-position: 87% 97%; background-size: 510%; }
+
+    /* --- 切圖座標 (Photo 2) --- */
+    .pos2-family { background-position: 0% 0%; background-size: 400%; }
+    .pos2-cow { background-position: 33.3% 0%; background-size: 400%; }
+    .pos2-zao { background-position: 66.6% 0%; background-size: 400%; }
+    .pos2-ginzan { background-position: 100% 0%; background-size: 400%; }
+    .pos2-onsen { background-position: 0% 50%; background-size: 400%; }
+    .pos2-jelly { background-position: 33.3% 50%; background-size: 400%; }
+    .pos2-boat { background-position: 66.6% 50%; background-size: 400%; }
+    .pos2-warehouse { background-position: 100% 50%; background-size: 400%; }
+    .pos2-strawberry { background-position: 0% 100%; background-size: 400%; }
+    .pos2-shrine { background-position: 33.3% 100%; background-size: 400%; }
+    .pos2-market { background-position: 66.6% 100%; background-size: 400%; }
+    .pos2-return { background-position: 100% 100%; background-size: 425%; }
+</style>
+
 </head>
 <body>
 
