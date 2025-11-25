@@ -3,18 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2026 日本東北家族旅行2</title>
+    <title>2026 日本東北家族旅行</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
-        /* --- 全域風格設計 --- */
+        /* --- 全域風格 --- */
         body { 
             font-family: "Kosugi Maru", "Noto Sans TC", sans-serif;
-            background-color: #f0f8ff; /* 淡雪色 */
-            background-image: 
-                radial-gradient(#b3e5fc 2px, transparent 2px), 
-                radial-gradient(#b3e5fc 2px, transparent 2px);
+            background-color: #f0f8ff;
+            background-image: radial-gradient(#b3e5fc 2px, transparent 2px), radial-gradient(#b3e5fc 2px, transparent 2px);
             background-size: 30px 30px;
             background-position: 0 0, 15px 15px;
             padding-bottom: 100px; 
@@ -34,13 +32,21 @@
         }
         .hero h1 { font-weight: bold; text-shadow: 2px 2px 0px rgba(0,0,0,0.1); font-size: 1.8rem; margin-bottom: 10px; }
         
-        /* --- CSS Sprite 核心設定 --- */
+        /* --- CSS Sprite 設定 --- */
+        
+        /* 圖源 1: 特寫與大頭貼 */
         .sprite-bg {
             background-image: url('photo1.png');
             background-repeat: no-repeat;
         }
+        
+        /* 圖源 2: 場景插畫 (新加入!) */
+        .sprite-bg-2 {
+            background-image: url('photo2.png');
+            background-repeat: no-repeat;
+        }
 
-        /* 頂部圓形大頭貼容器 */
+        /* 頂部圓形大頭貼 */
         .hero-img-container {
             width: 130px; height: 130px;
             margin: 0 auto 15px auto;
@@ -53,74 +59,55 @@
         .hero-avatar {
             width: 100%; height: 100%;
             background-size: 600%; 
-            background-position: 25% 30%; /* 全家福 */
+            background-position: 25% 30%; 
         }
 
-        /* 行程中的浮動小貼紙樣式 */
+        /* --- 貼紙樣式 --- */
         .sticker-img {
             float: right;
             width: 130px; height: 100px;
-            margin-left: 15px; margin-bottom: 10px;
+            margin-left: 8px; margin-bottom: 10px;
             border-radius: 10px;
             box-shadow: 3px 3px 8px rgba(0,0,0,0.1);
             background-color: #fff;
+            transition: transform 0.2s;
         }
+        .sticker-img:hover { transform: scale(1.05) rotate(2deg); }
         .sticker-wide { width: 160px; height: 110px; }
 
+        /* 清除浮動 */
+        .clearfix::after { content: ""; display: table; clear: both; }
         .day-body::after { content: ""; display: table; clear: both; }
 
-        /* --- 🎨 各景點切圖座標 --- */
+        /* --- 🎨 Photo 1 切圖座標 (特寫) --- */
+        .pos-cow { background-position: 28.5% 14%; background-size: 540%; }
+        .pos-zao { background-position: 58% 22%; background-size: 570%; }
+        .pos-ginzan { background-position: 97% 20%; background-size: 480%; }
+        .pos-boat { background-position: 53% 57%; background-size: 480%; }
+        .pos-warehouse { background-position: 84% 58%; background-size: 581%; }
+        .pos-jelly { background-position: 2% 88%; background-size: 508%; }
+        .pos-onsen { background-position: 21% 58%; background-size: 605%; }
+        .pos-strawberry { background-position: 33% 91%; background-size: 573%; }
+        .pos-shrine { background-position: 58% 99%; background-size: 500%; }
+        .pos-market { background-position: 87% 97%; background-size: 510%; }
+
+        /* --- 🎨 Photo 2 切圖座標 (場景) --- */
+        /* 4行3列佈局，寬度約放大400% */
+        .pos2-family { background-position: 0% 0%; background-size: 400%; }      /* 機場/車站 */
+        .pos2-cow { background-position: 33.3% 0%; background-size: 400%; }      /* 牛舌大餐 */
+        .pos2-zao { background-position: 66.6% 0%; background-size: 400%; }      /* 藏王/狐狸 */
+        .pos2-ginzan { background-position: 100% 0%; background-size: 400%; }    /* 銀山溫泉 */
         
-        /* 牛舌 */
-        .pos-cow {
-            background-position: 28.5% 14%;
-            background-size: 540%;
-        }
-        /* 藏王樹冰車 */
-        .pos-zao {
-            background-position: 58% 22%;
-            background-size: 570%;
-        }
-        /* 銀山溫泉 */
-        .pos-ginzan {
-            background-position: 97% 20%;
-            background-size: 480%;
-        }
-        /* 最上川遊船 */
-        .pos-boat {
-            background-position: 53% 57%;
-            background-size: 480%;
-        }
-        /* 山居倉庫 */
-        .pos-warehouse {
-            background-position: 84% 58%;
-            background-size: 581%;
-        }
-        /* 加茂水族館 (水母) */
-        .pos-jelly {
-            background-position: 2% 88%;
-            background-size: 508%;
-        }
-        /* 溫海溫泉 */
-        .pos-onsen {
-            background-position: 21% 58%;
-            background-size: 605%;
-        }
-        /* 草莓 */
-        .pos-strawberry {
-            background-position: 33% 91%;
-            background-size: 573%;
-        }
-        /* 大崎八幡宮 */
-        .pos-shrine {
-            background-position: 58% 99%;
-            background-size: 500%;
-        }
-        /* 仙台朝市/購物 (已更新數值) */
-        .pos-market { 
-            background-position: 87% 97%; 
-            background-size: 510%; 
-        } 
+        .pos2-onsen { background-position: 0% 50%; background-size: 400%; }      /* 湯野濱溫泉 */
+        .pos2-jelly { background-position: 33.3% 50%; background-size: 400%; }   /* 水族館 */
+        .pos2-boat { background-position: 66.6% 50%; background-size: 400%; }    /* 最上川 */
+        .pos2-warehouse { background-position: 100% 50%; background-size: 400%; } /* 山居倉庫 */
+        
+        .pos2-strawberry { background-position: 0% 100%; background-size: 400%; } /* 草莓 */
+        .pos2-shrine { background-position: 33.3% 100%; background-size: 400%; }  /* 八幡宮 */
+        .pos2-market { background-position: 66.6% 100%; background-size: 400%; }  /* 朝市/S-PAL */
+        .pos2-return { background-position: 100% 100%; background-size: 400%; }   /* 回程 */
+
 
         /* 資訊卡 */
         .info-box { 
@@ -130,29 +117,15 @@
         }
         
         /* 行程卡片 */
-        .day-card { 
-            border: none; border-radius: 20px; margin-bottom: 25px; overflow: hidden; 
-            box-shadow: 0 5px 15px rgba(0,0,0,0.03); background: white;
-        }
-        .day-header { 
-            background: white; padding: 15px 20px; cursor: pointer; 
-            display: flex; align-items: center; border-bottom: 2px dashed #eef;
-        }
-        .day-thumb-box {
-            width: 50px; height: 50px; border-radius: 12px; overflow: hidden; 
-            margin-right: 15px; border: 2px solid #eee; flex-shrink: 0;
-            background-color: #f9f9f9;
-            display: flex; justify-content: center; align-items: center; font-size: 1.5rem;
-        }
+        .day-card { border: none; border-radius: 20px; margin-bottom: 25px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.03); background: white; }
+        .day-header { background: white; padding: 15px 20px; cursor: pointer; display: flex; align-items: center; border-bottom: 2px dashed #eef; }
+        .day-thumb-box { width: 50px; height: 50px; border-radius: 12px; overflow: hidden; margin-right: 15px; border: 2px solid #eee; flex-shrink: 0; background-color: #f9f9f9; display: flex; justify-content: center; align-items: center; font-size: 1.5rem; }
         .day-title-text { flex-grow: 1; font-weight: bold; color: #444; font-size: 1.1rem; }
         .day-badge { background-color: #4facfe; color: white; padding: 4px 12px; border-radius: 15px; font-size: 0.8rem; }
-        .day-body { display: none; background: white; padding: 25px 20px; }
+        .day-body { display: none; background: white; padding: 20px; }
 
         /* 內容詳細區塊 */
-        .spot-detail { 
-            display: none; background-color: #f0f7ff; border-left: 4px solid #4facfe;
-            padding: 12px; margin: 10px 0; border-radius: 0 8px 8px 0; 
-        }
+        .spot-detail { display: none; background-color: #f0f7ff; border-left: 4px solid #4facfe; padding: 12px; margin: 10px 0; border-radius: 0 8px 8px 0; clear: both; }
         .spot-detail h6 { font-weight: bold; color: #1976d2; margin-bottom: 5px; font-size: 1rem; }
         .spot-detail ul { padding-left: 20px; margin-bottom: 0; font-size: 0.9rem; color: #555; line-height: 1.6; }
 
@@ -174,9 +147,8 @@
         .btn-edit { background: #6c5ce7; }
         .btn-save { background: #00b894; display: none; }
 
-        #toast-msg, .loading-overlay { display: none; position: fixed; z-index: 3000; }
-        #toast-msg { top: 20px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.8); color: white; padding: 10px 25px; border-radius: 50px; }
-        .loading-overlay { top:0; left:0; width:100%; height:100%; background: rgba(255,255,255,0.9); text-align: center; padding-top: 50vh; font-weight: bold; color: #555; }
+        #toast-msg { top: 20px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.8); color: white; padding: 10px 25px; border-radius: 50px; display: none; position: fixed; z-index: 3000; }
+        .loading-overlay { top:0; left:0; width:100%; height:100%; background: rgba(255,255,255,0.9); text-align: center; padding-top: 50vh; font-weight: bold; color: #555; display: none; position: fixed; z-index: 2500; }
     </style>
 </head>
 <body>
@@ -211,6 +183,8 @@
                     <span class="day-badge">Day 1</span>
                 </div>
                 <div class="day-body">
+                    <div class="sprite-bg-2 sticker-img pos2-family" title="機場集合"></div>
+                    
                     <p><span class="time-tag" id="d1-t1">16:00</span> 抵達仙台機場 <a href="https://www.google.com/maps/search/?api=1&query=仙台空港" class="map-link">📍 導航</a></p>
                     <div class="user-note" id="d1-n1"></div>
                     
@@ -220,10 +194,13 @@
                     </div>
                     <div class="user-note" id="d1-n2"></div>
 
-                    <p class="mt-3"><span class="time-tag" id="d1-t3">17:30</span> 抵達 JR 仙台站</p>
+                    <p class="mt-3 clearfix"><span class="time-tag" id="d1-t3">17:30</span> 抵達 JR 仙台站</p>
                     
-                    <hr>
+                    <hr class="clearfix">
+                    
+                    <div class="sprite-bg-2 sticker-img pos2-cow" title="牛舌大餐"></div>
                     <div class="sprite-bg sticker-img pos-cow" title="美味牛舌"></div>
+                    
                     <p class="mt-3"><span class="time-tag" id="d1-t5">19:00</span> <span class="highlight">晚餐：牛舌 善治郎</span> <a href="https://www.google.com/maps/search/?api=1&query=たんや善治郎+仙台駅前本店" class="map-link">📍 導航</a> <span class="intro-btn" onclick="toggleDetail(this)">💡 建議</span></p>
                     <div class="spot-detail">
                         <h6>仙台必吃：炭燒牛舌</h6>
@@ -234,7 +211,7 @@
                     </div>
                     <div class="user-note" id="d1-n3"></div>
 
-                    <div class="alert alert-primary mt-3 border-0 bg-light" style="clear: both;">
+                    <div class="alert alert-primary mt-3 border-0 bg-light clearfix">
                         🏨 <strong>住宿：</strong>Hotel GrandBach Sendai
                     </div>
                 </div>
@@ -250,7 +227,9 @@
                     <p><span class="time-tag" id="d2-t1">09:00</span> <strong>包車司機接駁</strong></p>
                     <div class="user-note" id="d2-n1"></div>
 
+                    <div class="sprite-bg-2 sticker-img pos2-zao" title="樹冰體驗"></div>
                     <div class="sprite-bg sticker-img pos-zao" title="WILD MONSTER"></div>
+                    
                     <p><span class="time-tag" id="d2-t2">10:30</span> <span class="highlight">藏王樹冰 (雪怪車)</span> <a href="https://www.google.com/maps/search/?api=1&query=Sumikawa+Snow+Park" class="map-link">📍 導航</a> <span class="intro-btn" onclick="toggleDetail(this)">🧤 提醒</span></p>
                     <div class="spot-detail">
                         <h6>WILD MONSTER 雪怪車</h6>
@@ -261,10 +240,12 @@
                     </div>
                     <div class="user-note" id="d2-n2"></div>
 
-                    <p style="clear: both;"><span class="time-tag" id="d2-t3">13:00</span> 午餐：遠刈田溫泉區</p>
+                    <p class="clearfix"><span class="time-tag" id="d2-t3">13:00</span> 午餐：遠刈田溫泉區</p>
                     
                     <hr>
+                    <div class="sprite-bg-2 sticker-img sticker-wide pos2-ginzan" title="銀山溫泉街"></div>
                     <div class="sprite-bg sticker-img sticker-wide pos-ginzan" title="銀山溫泉"></div>
+                    
                     <p class="mt-3"><span class="time-tag" id="d2-t4">15:30</span> 抵達銀山溫泉 <a href="https://www.google.com/maps/search/?api=1&query=銀山溫泉" class="map-link">📍 導航</a> <span class="intro-btn" onclick="toggleDetail(this)">⚠️ 注意</span></p>
                     <div class="spot-detail">
                         <h6>大正浪漫 銀山溫泉</h6>
@@ -273,7 +254,7 @@
                             <li><strong>安全：</strong>地面結冰非常滑！務必穿防滑鞋套。</li>
                         </ul>
                     </div>
-                    <div class="alert alert-primary mt-3 border-0 bg-light" style="clear: both;">
+                    <div class="alert alert-primary mt-3 border-0 bg-light clearfix">
                         🏨 <strong>住宿：</strong>銀山溫泉 (指定)
                     </div>
                     <div class="user-note" id="d2-n3"></div>
@@ -290,7 +271,9 @@
                     <p><span class="time-tag" id="d3-t1">09:30</span> 出發</p>
                     <div class="user-note" id="d3-n1"></div>
                     
+                    <div class="sprite-bg-2 sticker-img sticker-wide pos2-boat" title="暖桌遊船場景"></div>
                     <div class="sprite-bg sticker-img sticker-wide pos-boat" title="暖桌遊船"></div>
+                    
                     <p><span class="time-tag" id="d3-t2">10:45</span> <span class="highlight">最上川 芭蕉遊船</span> <span class="intro-btn" onclick="toggleDetail(this)">🔥 特色</span></p>
                     <div class="spot-detail">
                         <h6>冬季暖桌遊船</h6>
@@ -299,8 +282,10 @@
                         </ul>
                     </div>
                     
-                    <hr style="clear: both;">
+                    <hr class="clearfix">
+                    <div class="sprite-bg-2 sticker-img pos2-warehouse" title="山居倉庫場景"></div>
                     <div class="sprite-bg sticker-img pos-warehouse" title="山居倉庫"></div>
+                    
                     <p class="mt-3"><span class="time-tag" id="d3-t3">14:00</span> 酒田 山居倉庫 <a href="https://www.google.com/maps/search/?api=1&query=酒田+山居倉庫" class="map-link">📍 導航</a></p>
                     <div class="spot-detail">
                         <h6>山居倉庫 (夢之俱樂)</h6>
@@ -309,7 +294,8 @@
                         </ul>
                     </div>
                     
-                    <p style="clear: both;"><span class="time-tag" id="d3-t4">17:00</span> 前往湯野濱溫泉</p>
+                    <p class="clearfix"><span class="time-tag" id="d3-t4">17:00</span> 前往湯野濱溫泉</p>
+                    <div class="sprite-bg-2 sticker-img pos2-onsen" title="湯野濱溫泉"></div>
                     <div class="alert alert-primary mt-3 border-0 bg-light">🏨 <strong>住宿：</strong>湯野濱溫泉</div>
                     <div class="user-note" id="d3-n2"></div>
                 </div>
@@ -322,7 +308,9 @@
                     <span class="day-badge">Day 4</span>
                 </div>
                 <div class="day-body">
+                    <div class="sprite-bg-2 sticker-img pos2-jelly" title="水母館參觀"></div>
                     <div class="sprite-bg sticker-img pos-jelly" title="水母夢幻劇場"></div>
+                    
                     <p><span class="time-tag" id="d4-t1">10:00</span> <span class="highlight">加茂水族館</span> <a href="https://www.google.com/maps/search/?api=1&query=加茂水族館" class="map-link">📍 導航</a> <span class="intro-btn" onclick="toggleDetail(this)">✨ 亮點</span></p>
                     <div class="spot-detail">
                         <h6>水母夢幻劇場</h6>
@@ -332,7 +320,7 @@
                     </div>
                     <div class="user-note" id="d4-n1"></div>
 
-                    <p style="clear: both;"><span class="time-tag" id="d4-t2">12:30</span> 午餐：鶴岡在地料理</p>
+                    <p class="clearfix"><span class="time-tag" id="d4-t2">12:30</span> 午餐：鶴岡在地料理</p>
                     
                     <hr>
                     <div class="sprite-bg sticker-img pos-onsen" title="溫泉料理"></div>
@@ -344,7 +332,7 @@
                         </ul>
                     </div>
 
-                    <div class="alert alert-primary mt-3 border-0 bg-light" style="clear: both;">
+                    <div class="alert alert-primary mt-3 border-0 bg-light clearfix">
                         🏨 <strong>住宿：</strong>溫海溫泉 萬國屋
                     </div>
                     <div class="user-note" id="d4-n2"></div>
@@ -358,7 +346,9 @@
                     <span class="day-badge">Day 5</span>
                 </div>
                 <div class="day-body">
+                    <div class="sprite-bg-2 sticker-img pos2-strawberry" title="快樂採草莓"></div>
                     <div class="sprite-bg sticker-img pos-strawberry" title="高架草莓"></div>
+                    
                     <p><span class="time-tag" id="d5-t1">11:00</span> <span class="highlight">採草莓體驗</span> <span class="intro-btn" onclick="toggleDetail(this)">👴 友善</span></p>
                     <div class="spot-detail">
                         <h6>溫室高架草莓</h6>
@@ -368,10 +358,12 @@
                     </div>
                     <div class="user-note" id="d5-n1"></div>
 
-                    <p style="clear: both;"><span class="time-tag" id="d5-t2">12:30</span> 午餐：冷肉蕎麥麵</p>
+                    <p class="clearfix"><span class="time-tag" id="d5-t2">12:30</span> 午餐：冷肉蕎麥麵</p>
                     
                     <hr>
+                    <div class="sprite-bg-2 sticker-img pos2-shrine" title="參拜神社"></div>
                     <div class="sprite-bg sticker-img pos-shrine" title="大崎八幡宮"></div>
+                    
                     <p class="mt-3"><span class="time-tag" id="d5-t3">14:30</span> <span class="highlight">大崎八幡宮</span> <a href="https://www.google.com/maps/search/?api=1&query=大崎八幡宮" class="map-link">📍 導航</a> <span class="intro-btn" onclick="toggleDetail(this)">💡 秘訣</span></p>
                     <div class="spot-detail">
                         <h6>國寶 大崎八幡宮</h6>
@@ -380,7 +372,7 @@
                         </ul>
                     </div>
                     <div class="user-note" id="d5-n2"></div>
-                    <p style="clear: both;"><span class="time-tag" id="d5-t4">17:30</span> 晚餐：仙台市區</p>
+                    <p class="clearfix"><span class="time-tag" id="d5-t4">17:30</span> 晚餐：仙台市區</p>
                     <div class="alert alert-primary mt-3 border-0 bg-light">🏨 <strong>住宿：</strong>仙台市區</div>
                 </div>
             </div>
@@ -392,7 +384,9 @@
                     <span class="day-badge">Day 6</span>
                 </div>
                 <div class="day-body">
+                    <div class="sprite-bg-2 sticker-img pos2-market" title="開心購物"></div>
                     <div class="sprite-bg sticker-img pos-market" title="仙台朝市"></div>
+                    
                     <p><span class="time-tag" id="d6-t1">上午</span> 仙台朝市 / S-PAL <span class="intro-btn" onclick="toggleDetail(this)">🛍️ 採買</span></p>
                     <div class="spot-detail">
                         <h6>最後採買時光</h6>
@@ -403,9 +397,11 @@
                     </div>
                     <div class="user-note" id="d6-n1"></div>
 
-                    <p style="clear: both;"><span class="time-tag" id="d6-t2">14:30</span> 專車送往機場</p>
-                    <p><span class="time-tag" id="d6-t3">17:00</span> 搭機返台</p>
-                    <div class="alert alert-primary mt-3 border-0 bg-light">✈️ <strong>航班：</strong>甜蜜的家</div>
+                    <p class="clearfix"><span class="time-tag" id="d6-t2">14:30</span> 專車送往機場</p>
+                    
+                    <div class="sprite-bg-2 sticker-img pos2-return" title="回程"></div>
+                    <p class="mt-3"><span class="time-tag" id="d6-t3">17:00</span> 搭機返台</p>
+                    <div class="alert alert-primary mt-3 border-0 bg-light clearfix">✈️ <strong>航班：</strong>甜蜜的家</div>
                 </div>
             </div>
         </div>
