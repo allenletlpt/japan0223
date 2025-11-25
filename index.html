@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2026 日本東北家族旅行</title>
+    <title>2026 日本東北家族旅行.</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -53,7 +53,7 @@
         .event-row {
             display: flex;
             justify-content: space-between; 
-            align-items: flex-start;
+            align-items: flex-start; /* 靠上對齊 */
             margin-bottom: 30px;
             padding-bottom: 20px;
             border-bottom: 1px dashed #ddd; /* 虛線分隔 */
@@ -63,7 +63,7 @@
         /* 左側文字區塊 */
         .event-left {
             flex: 1;
-            padding-right: 15px;
+            padding-right: 20px; /* 增加與大圖的間距 */
             min-width: 200px;
         }
 
@@ -73,23 +73,23 @@
         }
         
         /* 手機版調整 */
-        @media (max-width: 600px) {
+        @media (max-width: 768px) { /* 調整斷點，讓平板也提早變直式 */
             .event-row { flex-direction: column; }
-            .event-right { margin-top: 15px; width: 100%; }
-            .sticker-img { width: 100%; height: auto; max-width: 100%; }
+            .event-right { margin-top: 15px; width: 100%; text-align: center; }
+            .sticker-img { width: 100%; height: auto; max-width: 400px; /* 手機版最大寬度限制 */ }
         }
 
-        /* --- 新版圖片樣式 (拍立得風格) --- */
+        /* --- 新版圖片樣式 (拍立得風格 - 加大版) --- */
         .sticker-img {
-            width: 220px; /* 圖片顯示寬度 */
+            width: 320px; /* 圖片寬度加大至 320px */
             height: auto;
             border-radius: 12px;
-            box-shadow: 3px 4px 12px rgba(0,0,0,0.12);
-            border: 5px solid #fff; /* 白邊效果 */
+            box-shadow: 3px 4px 15px rgba(0,0,0,0.15);
+            border: 6px solid #fff; /* 白邊加粗 */
             transition: transform 0.3s;
             cursor: pointer;
         }
-        .sticker-img:hover { transform: scale(1.03) rotate(1deg); }
+        .sticker-img:hover { transform: scale(1.02) rotate(1deg); }
 
         /* 資訊卡 */
         .info-box { background: white; width: 90%; max-width: 600px; margin: -40px auto 30px auto; padding: 20px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); position: relative; text-align: center; }
@@ -168,18 +168,24 @@
                         <div class="event-left">
                             <p><span class="time-tag" id="d1-t1">16:00</span> 抵達仙台機場 <a href="https://www.google.com/maps/search/?api=1&query=仙台空港" class="map-link">📍 導航</a></p>
                             <div class="user-note" id="d1-n1"></div>
-                            <p class="mt-2"><span class="time-tag" id="d1-t2">17:00</span> 前往市區</p>
+                            <p class="mt-3 lead text-primary" style="font-weight:bold;">🎉 東北之旅，集合出發！</p>
+                        </div>
+                        <div class="event-right">
+                            <img src="day1-1.png" class="sticker-img" alt="仙台機場集合">
+                        </div>
+                    </div>
+                    
+                    <div class="event-row">
+                        <div class="event-left">
+                             <p><span class="time-tag" id="d1-t2">17:00</span> 前往市區</p>
                             <div class="alert alert-light border">🚄 搭乘機場聯絡線 (約25分)</div>
                             <div class="user-note" id="d1-n2"></div>
                             <p class="mt-2"><span class="time-tag" id="d1-t3">17:30</span> 抵達 JR 仙台站</p>
                             <p class="mt-2"><span class="time-tag" id="d1-t4">18:00</span> 飯店 Check-in</p>
                             <div class="alert alert-primary mt-2 border-0 bg-light">🏨 <strong>住宿：</strong>Hotel GrandBach Sendai</div>
                         </div>
-                        <div class="event-right">
-                            <img src="day1-1.png" class="sticker-img" alt="仙台機場">
-                        </div>
                     </div>
-                    
+
                     <div class="event-row">
                         <div class="event-left">
                             <p><span class="time-tag" id="d1-t5">19:00</span> <span class="highlight">晚餐：牛舌 善治郎</span> <a href="https://www.google.com/maps/search/?api=1&query=たんや善治郎+仙台駅前本店" class="map-link">📍 導航</a> <span class="intro-btn" onclick="toggleDetail(this)">💡 建議</span></p>
@@ -193,7 +199,7 @@
                             <div class="user-note" id="d1-n3"></div>
                         </div>
                         <div class="event-right">
-                             <img src="day1-2.png" class="sticker-img" alt="牛舌大餐">
+                            <img src="day1-2.png" class="sticker-img" alt="牛舌大餐">
                         </div>
                     </div>
 
@@ -224,7 +230,7 @@
                             <p class="mt-2"><span class="time-tag" id="d2-t3">13:00</span> 午餐：遠刈田溫泉區</p>
                         </div>
                         <div class="event-right">
-                             <img src="day2-1.png" class="sticker-img" alt="藏王樹冰">
+                            <img src="day2-1.png" class="sticker-img" alt="藏王樹冰">
                         </div>
                     </div>
 
@@ -242,7 +248,7 @@
                             <div class="user-note" id="d2-n3"></div>
                         </div>
                         <div class="event-right">
-                             <img src="day2-2.png" class="sticker-img" alt="銀山溫泉">
+                            <img src="day2-2.png" class="sticker-img" alt="銀山溫泉">
                         </div>
                     </div>
 
@@ -270,7 +276,7 @@
                             </div>
                         </div>
                         <div class="event-right">
-                             <img src="day3-1.png" class="sticker-img" alt="最上川遊船">
+                            <img src="day3-1.png" class="sticker-img" alt="最上川遊船">
                         </div>
                     </div>
 
@@ -313,7 +319,7 @@
                             <p class="mt-2"><span class="time-tag" id="d4-t2">12:30</span> 午餐：鶴岡在地料理</p>
                         </div>
                         <div class="event-right">
-                             <img src="day4-1.png" class="sticker-img" alt="水母館">
+                            <img src="day4-1.png" class="sticker-img" alt="水母館">
                         </div>
                     </div>
 
@@ -332,7 +338,7 @@
                             <div class="user-note" id="d4-n2"></div>
                         </div>
                         <div class="event-right">
-                             <img src="day4-2.png" class="sticker-img" alt="萬國屋">
+                            <img src="day4-2.png" class="sticker-img" alt="萬國屋">
                         </div>
                     </div>
 
@@ -360,7 +366,7 @@
                             <p class="mt-2"><span class="time-tag" id="d5-t2">12:30</span> 午餐：冷肉蕎麥麵</p>
                         </div>
                         <div class="event-right">
-                             <img src="day5-1.png" class="sticker-img" alt="採草莓">
+                            <img src="day5-1.png" class="sticker-img" alt="採草莓">
                         </div>
                     </div>
 
@@ -378,7 +384,7 @@
                             <div class="alert alert-primary mt-2 border-0 bg-light">🏨 <strong>住宿：</strong>仙台市區</div>
                         </div>
                         <div class="event-right">
-                             <img src="day5-2.png" class="sticker-img" alt="大崎八幡宮">
+                            <img src="day5-2.png" class="sticker-img" alt="大崎八幡宮">
                         </div>
                     </div>
 
