@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 日本東北家族旅行.</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        /* --- 全域風格 --- */
+        :root {
+            --main-bg: #fdfdfd;
+            --text-color: #444;
+        }
+        
+        /* 定義每一天的主題色 (CSS變數) */
+        /* Day 1: 炭燒橘 (牛舌/溫暖) */
+        .theme-d1 { --theme-color: #d35400; --theme-light: #fbeee6; --theme-bg: #fff; }
+        /* Day 2: 冰雪藍 (樹冰/銀山) */
+        .theme-d2 { --theme-color: #2980b9; --theme-light: #ebf5fb; --theme-bg: #fff; }
+        /* Day 3: 自然綠 (遊船/山居) */
+        .theme-d3 { --theme-color: #27ae60; --theme-light: #e9f7ef; --theme-bg: #fff; }
+        /* Day 4: 夢幻紫 (水母/溫泉) */
+        .theme-d4 { --theme-color: #8e44ad; --theme-light: #f4ecf7; --theme-bg: #fff; }
+        /* Day 5: 草莓紅 (採果/神社) */
+        .theme-d5 { --theme-color: #c0392b; --theme-light: #fdedec; --theme-bg: #fff; }
+        /* Day 6: 金黃色 (採買/豐收) */
+        .theme-d6 { --theme-color: #f39c12; --theme-light: #fef9e7; --theme-bg: #fff; }
+
+        body { 
+            font-family: "Kosugi Maru", "Noto Sans TC", sans-serif;
+            background-color: #f4f7f6;
+            background-image: radial-gradient(#d1d8e0 1px, transparent 1px);
+            background-size: 20px 20px;
+            padding-bottom: 100px; 
+            color: var(--text-color);
+        }
+
+        /* Hero 區塊 */
+        .hero { 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; 
+            padding: 40px 20px 70px 20px; 
+            text-align: center; 
+            border-radius: 0 0 50px 50px; 
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15); 
+            position: relative;
+            overflow: hidden;
+        }
+        .hero h1 { font-weight: bold; text-shadow: 2px 2px 0px rgba(0,0,0,0.2); font-size: 1.8rem; margin-bottom: 10px; }
+        
+        /* --- CSS Sprite 設定 --- */
+        .sprite-bg { background-image: url('photo1.png'); background-repeat: no-repeat; }
+        .sprite-bg-2 { background-image: url('photo2.png'); background-repeat: no-repeat; }
+
+        /* 頂部圓形大頭貼 */
+        .hero-img-container {
+            width: 140px; height: 140px;
+            margin: 0 auto 15px auto;
+            border-radius: 50%;
+            border: 5px solid rgba(255,255,255,0.9);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            overflow: hidden;
+            background-color: #fff;
+        }
+        .hero-avatar {
+            width: 100%; height: 100%;
+            background-size: 704%;
+            background-position: 30% 27%;
+        }
+
+        /* 資訊卡 */
+        .info-box { 
+            background: white; width: 90%; max-width: 600px; margin: -50px auto 30px auto; 
+            padding: 20px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); 
+            position: relative; text-align: center;
+            border: 1px solid #eee;
+        }
+
+        /* --- 行程卡片 (核心樣式) --- */
+        .day-card { 
+            border: none; border-radius: 20px; margin-bottom: 30px; overflow: hidden; 
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05); 
+            background: var(--theme-bg); /* 雖然預設白，但保留變數彈性 */
+            border-top: 5px solid var(--theme-color); /* 頂部彩色條 */
+        }
+        
+        .day-header { 
+            background: white; padding: 15px 20px; cursor: pointer; 
+            display: flex; align-items: center; 
+            border-bottom: 1px dashed #eee;
+            transition: background-color 0.2s;
+        }
+        .day-header:hover { background-color: #fafafa; }
+
+        .day-thumb-box { 
+            width: 50px; height: 50px; border-radius: 50%; overflow: hidden; 
+            margin-right: 15px; border: 2px solid var(--theme-color); /* 跟隨主題色 */
+            flex-shrink: 0; background-color: var(--theme-light);
+            display: flex; justify-content: center; align-items: center; font-size: 1.6rem;
+            color: var(--theme-color);
+        }
+        
+        .day-title-text { flex-grow: 1; font-weight: bold; color: #333; font-size: 1.1rem; }
+        
+        .day-badge { 
+            background-color: var(--theme-color); /* 跟隨主題色 */
+            color: white; padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .day-body { display: none; background: white; padding: 25px; }
+
+        /* --- 排版系統 (Flexbox Row) --- */
+        .event-row {
+            display: flex; justify-content: space-between; align-items: flex-start;
+            margin-bottom: 30px; padding-bottom: 20px;
+            border-bottom: 1px dashed #e0e0e0;
+        }
+        .event-row:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+        .event-left { flex: 1; padding-right: 15px; min-width: 200px; }
+        .event-right { flex-shrink: 0; display: flex; flex-direction: row; gap: 8px; }
+        
+        @media (max-width: 700px) {
+            .event-row { flex-direction: column; }
+            .event-right { margin-top: 15px; width: 100%; overflow-x: auto; padding-bottom: 10px; white-space: nowrap; }
+            .sticker-img { display: inline-block; float: none; margin-left: 0; }
+        }
+
+        /* --- 貼紙樣式 --- */
+        .sticker-img {
+            width: 200px; height: 150px;
+            border-radius: 12px;
+            box-shadow: 3px 3px 10px rgba(0,0,0,0.1);
+            background-color: #fff;
+            flex-shrink: 0;
+            transition: transform 0.2s;
+            border: 4px solid #fff;
+        }
+        .sticker-img:hover { transform: scale(1.03) rotate(1deg); z-index: 10; }
+        .sticker-wide { width: 250px; height: 160px; }
+
+        /* --- 內容詳細區塊 (主題色應用) --- */
+        .spot-detail { 
+            display: none; 
+            background-color: var(--theme-light); /* 跟隨主題淺色底 */
+            border-left: 4px solid var(--theme-color); /* 跟隨主題深色邊 */
+            padding: 15px; margin: 10px 0; border-radius: 0 10px 10px 0; 
+        }
+        .spot-detail h6 { font-weight: bold; color: var(--theme-color); margin-bottom: 8px; font-size: 1rem; }
+        .spot-detail ul { padding-left: 20px; margin-bottom: 0; font-size: 0.9rem; color: #555; line-height: 1.6; }
+
+        /* 按鈕與標籤 */
+        .time-tag { background: #ecf0f1; color: #7f8c8d; padding: 3px 10px; border-radius: 6px; font-size: 0.9rem; margin-right: 5px; display: inline-block; min-width: 65px; text-align: center; font-weight: bold; }
+        .highlight { color: var(--theme-color); font-weight: bold; border-bottom: 2px solid var(--theme-light); } /* 高亮文字跟隨主題 */
+        
+        /* 介紹按鈕 (跟隨主題) */
+        .intro-btn { 
+            cursor: pointer; 
+            color: var(--theme-color); 
+            font-weight: bold; margin-left: 5px; font-size: 0.8rem; 
+            background: #fff; 
+            padding: 3px 12px; border-radius: 20px; 
+            border: 1px solid var(--theme-color); 
+            transition: 0.2s;
+        }
+        .intro-btn:hover { background: var(--theme-color); color: white; }
+
+        .map-link { text-decoration: none; color: #7f8c8d; font-weight: bold; margin-left: 5px; font-size: 0.8rem; background: #f0f3f4; padding: 3px 10px; border-radius: 20px; }
+        .map-link:hover { background: #bdc3c7; color: #fff; }
+        
+        .alert { padding: 12px; margin-bottom: 10px; font-size: 0.9rem; border-radius: 10px; }
+
+        /* 編輯模式 */
+        body.edit-mode .time-tag { background-color: #ff5252; color: white; cursor: text; border: 2px dashed #ffeb3b; }
+        .user-note { margin-top: 5px; margin-bottom: 10px; font-size: 0.9rem; color: #666; border-left: 3px solid #ccc; padding: 5px 10px; background: #f9f9f9; display: none; }
+        .user-note:not(:empty) { display: block; }
+        body.edit-mode .user-note { display: block; min-height: 30px; cursor: text; outline: 1px dashed #999; background: #fff; }
+
+        /* --- 浮動按鈕 --- */
+        .fab-container { position: fixed; bottom: 25px; right: 25px; display: flex; flex-direction: column; gap: 15px; z-index: 1000; }
+        .fab-btn { width: 60px; height: 60px; border-radius: 50%; color: white; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.3); cursor: pointer; border: none; font-size: 1.4rem; transition: transform 0.2s; }
+        .fab-btn:active { transform: scale(0.9); }
+        .btn-edit { background: linear-gradient(135deg, #667eea, #764ba2); }
+        .btn-save { background: linear-gradient(135deg, #2ecc71, #27ae60); display: none; }
+
+        #toast-msg { top: 30px; left: 50%; transform: translateX(-50%); background: rgba(50,50,50,0.9); color: white; padding: 12px 30px; border-radius: 50px; display: none; position: fixed; z-index: 3000; box-shadow: 0 5px 15px rgba(0,0,0,0.2); font-weight: bold; }
+        .loading-overlay { top:0; left:0; width:100%; height:100%; background: rgba(255,255,255,0.9); text-align: center; padding-top: 50vh; font-weight: bold; color: #555; display: none; position: fixed; z-index: 2500; }
+
+        /* --- 切圖座標 (Photo 1) --- */
+        .pos-cow { background-position: 28.5% 14%; background-size: 540%; }
+        .pos-zao { background-position: 59% 24%; background-size: 570%; }
+        .pos-ginzan { background-position: 98% 22%; background-size: 457%; }
+        .pos-boat { background-position: 53% 57%; background-size: 480%; }
+        .pos-warehouse { background-position: 84% 58%; background-size: 581%; }
+        .pos-jelly { background-position: 2% 87%; background-size: 497%; }
+        .pos-onsen { background-position: 21% 58%; background-size: 605%; }
+        .pos-strawberry { background-position: 33% 91%; background-size: 573%; }
+        .pos-shrine { background-position: 58% 99%; background-size: 500%; }
+        .pos-market { background-position: 87% 97%; background-size: 510%; }
+
+        /* --- 切圖座標 (Photo 2) --- */
+        .pos2-family { background-position: 0% 0%; background-size: 400%; }
+        .pos2-cow { background-position: 33.3% 0%; background-size: 400%; }
+        .pos2-zao { background-position: 66.6% 0%; background-size: 400%; }
+        .pos2-ginzan { background-position: 100% 0%; background-size: 400%; }
+        .pos2-onsen { background-position: 0% 50%; background-size: 400%; }
+        .pos2-jelly { background-position: 33.3% 50%; background-size: 400%; }
+        .pos2-boat { background-position: 66.6% 50%; background-size: 400%; }
+        .pos2-warehouse { background-position: 100% 50%; background-size: 400%; }
+        .pos2-strawberry { background-position: 0% 100%; background-size: 400%; }
+        .pos2-shrine { background-position: 33.3% 100%; background-size: 400%; }
+        .pos2-market { background-position: 66.6% 100%; background-size: 400%; }
+        .pos2-return { background-position: 100% 100%; background-size: 425%; }
+    </style>
+</head>
+<body>
+
+    <div id="toast-msg">提示訊息</div>
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner-border text-primary mb-3" role="status"></div><br>
+        正在同步雲端資料庫...
+    </div>
+
+    <div class="hero">
+        <div class="hero-img-container">
+            <div class="sprite-bg hero-avatar"></div>
+        </div>
+        <h1>2026 東北雪見之旅</h1>
+        <p>仙台・銀山溫泉・藏王樹冰</p>
+    </div>
+
+    <div class="info-box">
+        <div>📅 <strong>2026/2/23 - 2/28</strong></div>
+        <div class="mt-1">🚙 <strong>全程包車 (D2-D6)</strong></div>
+        <div class="mt-1">👥 <strong>5人家族旅行 (含長輩)</strong></div>
+    </div>
+
+    <div class="container">
+        <div id="itinerary">
+            
+            <div class="day-card theme-d1">
+                <div class="day-header" onclick="toggleDay(this)">
+                    <div class="day-thumb-box">✈️</div>
+                    <span class="day-title-text">2/23 (一) 抵達仙台</span>
+                    <span class="day-badge">Day 1</span>
+                </div>
+                <div class="day-body">
+                    
+                    <div class="event-row">
+                        <div class="event-left">
+                            <p><span class="time-tag" id="d1-t1">16:00</span> 抵達仙台機場 <a href="https://www.google.com/maps/search/?api=1&query=仙台空港" class="map-link">📍 導航</a></p>
+                            <div class="user-note" id="d1-n1"></div>
+                            <p class="mt-2"><span class="time-tag" id="d1-t2">17:00</span> 前往市區</p>
+                            <div class="alert alert-light border">🚄 搭乘機場聯絡線 (約25分)</div>
+                            <div class="user-note" id="d1-n2"></div>
+                        </div>
+                        <div class="event-right">
+                            <div class="sprite-bg-2 sticker-img pos2-family" title="機場集合"></div>
+                        </div>
+                    </div>
+
+                    <div class="event-row">
+                        <div class="event-left">
+                            <p><span class="time-tag" id="d1-t3">17:30</span> 抵達 JR 仙台站</p>
+                            <p class="mt-2"><span class="time-tag" id="d1-t4">18:00</span> 飯店 Check-in</p>
+                            <div class="alert alert-secondary mt-2 border-0 bg-light">
+                                🏨 <strong>住宿：</strong>Hotel GrandBach Sendai
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="event-row">
+                        <div class="event-left">
+                            <p><span class="time-tag" id="d1-t5">19:00</span> <span class="highlight">晚餐：牛舌 善治郎</span> <a href="https://www.google.com/maps/search/?api=1&query=たんや善治郎+仙台駅前本店" class="map-link">📍 導航</a> <span class="intro-btn" onclick="toggleDetail(this)">💡 建議</span></p>
+                            <div class="spot-detail">
+                                <h6>仙台必吃：炭燒牛舌</h6>
+                                <ul>
+                                    <li><strong>特色：</strong>經典厚切牛舌定食，配麥飯與牛尾湯。</li>
+                                    <li><strong>長輩建議：</strong>可點「燉煮牛舌 (Yude-tan)」，口感軟嫩。</li>
+                                </ul>
+                            </div>
+                            <div class="user-note" id="d1-n3"></div>
+                        </div>
+                        <div class="event-right">
+                            <div class="sprite-bg-2 sticker-img pos2-cow" title="牛舌大餐"></div>
+                            <div class="sprite-bg sticker-img pos-cow" title="美味牛舌"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="day-card theme-d2">
+                <div class="day-header" onclick="toggleDay(this)">
+                    <div class="day-thumb-box">❄️</div>
+                    <span class="day-title-text">2/24 (二) 樹冰 & 銀山</span>
+                    <span class="day-badge">Day 2</span>
+                </div>
+                <div class="day-body">
+                    
+                    <div class="event-row">
+                        <div class="event-left">
+                            <p><span class="time-tag" id="d2-t1">09:00</span> <strong>包車司機接駁</strong></p>
+                            <div class="user-note" id="d2-n1"></div>
+                            <p class="mt-2"><span class="time-tag" id="d2-t2">10:30</span> <span class="highlight">藏王樹冰 (雪怪車)</span> <a href="https://www.google.com/maps/search/?api=1&query=Sumikawa+Snow+Park" class="map-link">📍 導航</a> <span class="intro-btn" onclick="toggleDetail(this)">🧤 提醒</span></p>
+                            <div class="spot-detail">
+                                <h6>WILD MONSTER 雪怪車</h6>
+                                <ul>
+                                    <li><strong>特色：</strong>搭乘暖氣履帶車，近距離看樹冰。</li>
+                                    <li><strong>穿著：</strong>山上極冷，務必戴好毛帽、手套、圍巾。</li>
+                                </ul>
+                            </div>
+                            <div class="user-note" id="d2-n2"></div>
+                        </div>
+                        <div class="event-right">
+                            <div class="sprite-bg-2 sticker-img pos2-zao" title="樹冰體驗"></div>
+                            <div class="sprite-bg sticker-img pos-zao" title="WILD MONSTER"></div>
+                        </div>
+                    </div>
+
+                    <p><span class="time-tag" id="d2-t3">13:00</span> 午餐：遠刈田溫泉區</p>
+                    <br>
+
+                    <div class="event-row">
+                        <div class="event-left">
+                            <p><span class="time-tag" id="d2-t4">15:30</span> 抵達銀山溫泉 <a href="https://www.google.com/maps/search/?api=1&query=銀山溫泉" class="map-link">📍 導航</a> <span class="intro-btn" onclick="toggleDetail(this)">⚠️ 注意</span></p>
+                            <div class="spot-detail">
+                                <h6>大正浪漫 銀山溫泉</h6>
+                                <ul>
+                                    <li><strong>美景：</strong>傍晚藍調時刻(Blue Hour)點燈最美。</li>
+                                    <li><strong>安全：</strong>地面結冰非常滑！務必穿防滑鞋套。</li>
+                                </ul>
+                            </div>
+                            <div class="alert alert-secondary mt-2 border-0 bg-light">🏨 <strong>住宿：</strong>銀山溫泉</div>
+                            <div class="user-note" id="d2-n3"></div>
+                        </div>
+                        <div class="event-right">
+                            <div class="sprite-bg sticker-img sticker-wide pos-ginzan" title="銀山溫泉"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="day-card theme-d3">
+                <div class="day-header" onclick="toggleDay(this)">
+                    <div class="day-thumb-box">🛶</div>
+                    <span class="day-title-text">2/25 (三) 最上川遊船</span>
+                    <span class="day-badge">Day 3</span>
+                </div>
+                <div class="day-body">
+                    
+                    <div class="event-row">
+                        <div class="event-left">
+                            <p><span class="time-tag" id="d3-t1">09:30</span> 出發</p>
+                            <div class="user-note" id="d3-n1"></div>
+                            <p class="mt-2"><span class="time-tag" id="d3-t2">10:45</span> <span class="highlight">最上川 芭蕉遊船</span> <span class="intro-btn" onclick="toggleDetail(this)">🔥 特色</span></p>
+                            <div class="spot-detail">
+                                <h6>冬季暖桌遊船</h6>
+                                <ul>
+                                    <li><strong>舒適：</strong>船內有暖被桌，雙腳溫暖地欣賞雪見峽谷。</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="event-right">
+                            <div class="sprite-bg sticker-img sticker-wide pos-boat" title="暖桌遊船"></div>
+                        </div>
+                    </div>
+
+                    <div class="event-row">
+                        <div class="event-left">
+                            <p><span class="time-tag" id="d3-t3">14:00</span> 酒田 山居倉庫 <a href="https://www.google.com/maps/search/?api=1&query=酒田+山居倉庫" class="map-link">📍 導航</a></p>
+                            <div class="spot-detail">
+                                <h6>山居倉庫 (夢之俱樂)</h6>
+                                <ul>
+                                    <li><strong>特色：</strong>百年米倉建築群，非常好買在地伴手禮。</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="event-right">
+                            <div class="sprite-bg sticker-img pos-warehouse" title="山居倉庫"></div>
+                        </div>
+                    </div>
+
+                    <div class="event-row">
+                        <div class="event-left">
+                            <p><span class="time-tag" id="d3-t4">17:00</span> 前往湯野濱溫泉</p>
+                            <div class="alert alert-secondary mt-2 border-0 bg-light">🏨 <strong>住宿：</strong>湯野濱溫泉</div>
+                            <div class="user-note" id="d3-n2"></div>
+                        </div>
+                        <div class="event-right">
+                            <div class="sprite-bg-2 sticker-img pos2-onsen" title="湯野濱溫泉"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="day-card theme-d4">
+                <div class="day-header" onclick="toggleDay(this)">
+                    <div class="day-thumb-box">🐠</div>
+                    <span class="day-title-text">2/26 (四) 水母館 & 萬國屋</span>
+                    <span class="day-badge">Day 4</span>
+                </div>
+                <div class="day-body">
+                    
+                    <div class="event-row">
+                        <div class="event-left">
+                            <p><span class="time-tag" id="d4-t1">10:00</span> <span class="highlight">加茂水族館</span> <a href="https://www.google.com/maps/search/?api=1&query=加茂水族館" class="map-link">📍 導航</a> <span class="intro-btn" onclick="toggleDetail(this)">✨ 亮點</span></p>
+                            <div class="spot-detail">
+                                <h6>水母夢幻劇場</h6>
+                                <ul>
+                                    <li><strong>療癒：</strong>直徑5公尺的巨大水母槽，世界第一。</li>
+                                </ul>
+                            </div>
+                            <div class="user-note" id="d4-n1"></div>
+                        </div>
+                        <div class="event-right">
+                            <div class="sprite-bg-2 sticker-img pos2-jelly" title="水母館參觀"></div>
+                            <div class="sprite-bg sticker-img pos-jelly" title="水母夢幻劇場"></div>
+                        </div>
+                    </div>
+
+                    <p><span class="time-tag" id="d4-t2">12:30</span> 午餐：鶴岡在地料理</p>
+                    <br>
+
+                    <div class="event-row">
+                        <div class="event-left">
+                            <p><span class="time-tag" id="d4-t3">14:30</span> 入住萬國屋</p>
+                            <div class="spot-detail">
+                                <h6>溫海溫泉 萬國屋</h6>
+                                <ul>
+                                    <li><strong>享受：</strong>日本百選溫泉，盡情享受風呂與懷石料理。</li>
+                                </ul>
+                            </div>
+                            <div class="alert alert-secondary mt-2 border-0 bg-light">
+                                🏨 <strong>住宿：</strong>溫海溫泉 萬國屋
+                            </div>
+                            <div class="user-note" id="d4-n2"></div>
+                        </div>
+                        <div class="event-right">
+                            <div class="sprite-bg sticker-img pos-onsen" title="溫泉料理"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+             <div class="day-card theme-d5">
+                <div class="day-header" onclick="toggleDay(this)">
+                    <div class="day-thumb-box">🍓</div>
+                    <span class="day-title-text">2/27 (五) 採草莓 & 神社</span>
+                    <span class="day-badge">Day 5</span>
+                </div>
+                <div class="day-body">
+                    
+                    <div class="event-row">
+                        <div class="event-left">
+                            <p><span class="time-tag" id="d5-t1">11:00</span> <span class="highlight">採草莓體驗</span> <span class="intro-btn" onclick="toggleDetail(this)">👴 友善</span></p>
+                            <div class="spot-detail">
+                                <h6>溫室高架草莓</h6>
+                                <ul>
+                                    <li><strong>貼心：</strong>高架種植，不用彎腰蹲下，對長輩膝蓋友善。</li>
+                                </ul>
+                            </div>
+                            <div class="user-note" id="d5-n1"></div>
+                        </div>
+                        <div class="event-right">
+                            <div class="sprite-bg sticker-img pos-strawberry" title="高架草莓"></div>
+                        </div>
+                    </div>
+
+                    <p><span class="time-tag" id="d5-t2">12:30</span> 午餐：冷肉蕎麥麵</p>
+                    <br>
+
+                    <div class="event-row">
+                        <div class="event-left">
+                            <p><span class="time-tag" id="d5-t3">14:30</span> <span class="highlight">大崎八幡宮</span> <a href="https://www.google.com/maps/search/?api=1&query=大崎八幡宮" class="map-link">📍 導航</a> <span class="intro-btn" onclick="toggleDetail(this)">💡 秘訣</span></p>
+                            <div class="spot-detail">
+                                <h6>國寶 大崎八幡宮</h6>
+                                <ul>
+                                    <li><strong>省力：</strong>請司機開到「北側停車場」或側面入口，完全避開爬樓梯。</li>
+                                </ul>
+                            </div>
+                            <div class="user-note" id="d5-n2"></div>
+                        </div>
+                        <div class="event-right">
+                            <div class="sprite-bg sticker-img pos-shrine" title="大崎八幡宮"></div>
+                        </div>
+                    </div>
+
+                    <p class="mt-3"><span class="time-tag" id="d5-t4">17:30</span> 晚餐：仙台市區</p>
+                    <div class="alert alert-secondary mt-2 border-0 bg-light">🏨 <strong>住宿：</strong>仙台市區</div>
+                </div>
+            </div>
+
+            <div class="day-card theme-d6">
+                <div class="day-header" onclick="toggleDay(this)">
+                    <div class="day-thumb-box">🎁</div>
+                    <span class="day-title-text">2/28 (六) 返台</span>
+                    <span class="day-badge">Day 6</span>
+                </div>
+                <div class="day-body">
+                    
+                    <div class="event-row">
+                        <div class="event-left">
+                            <p><span class="time-tag" id="d6-t1">上午</span> 仙台朝市 / S-PAL <span class="intro-btn" onclick="toggleDetail(this)">🛍️ 採買</span></p>
+                            <div class="spot-detail">
+                                <h6>最後採買時光</h6>
+                                <ul>
+                                    <li><strong>朝市：</strong>感受在地活力，買當季水果。</li>
+                                    <li><strong>S-PAL：</strong>車站共構，伴手禮一次買齊。</li>
+                                </ul>
+                            </div>
+                            <div class="user-note" id="d6-n1"></div>
+                        </div>
+                        <div class="event-right">
+                            <div class="sprite-bg sticker-img pos-market" title="仙台朝市"></div>
+                        </div>
+                    </div>
+
+                    <div class="event-row">
+                        <div class="event-left">
+                            <p><span class="time-tag" id="d6-t2">14:30</span> 專車送往機場</p>
+                            <p class="mt-2"><span class="time-tag" id="d6-t3">17:00</span> 搭機返台</p>
+                            <div class="alert alert-secondary mt-2 border-0 bg-light">✈️ <strong>航班：</strong>甜蜜的家</div>
+                        </div>
+                        <div class="event-right">
+                            <div class="sprite-bg-2 sticker-img pos2-return" title="回程"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fab-container">
+        <button class="fab-btn btn-save" id="btnSave" title="儲存並上傳">☁️</button>
+        <button class="fab-btn btn-edit" id="btnEdit" title="編輯模式">✏️</button>
+    </div>
+
+    <script>
+        // ============================================
+        // ⚠️ 設定區
+        // ============================================
+        const GH_USER = "allenletlpt";
+        const GH_REPO = "japan0223";
+        const FILE_PATH = "data.json";
+
+        // ↓↓↓ 請填入您的 Base64 Token (去頭 ghp_) ↓↓↓
+        const PART_B_ENCODED = "bDV6TFpnTkRLRUZZcG1xZW5mb3BISUlMQVBQUlpSMk1oSHhI"; 
+        // ============================================
+
+        var currentSha = "";
+
+        function getRealToken() {
+            try {
+                var partB = decodeURIComponent(escape(window.atob(PART_B_ENCODED)));
+                return "ghp_" + partB;
+            } catch(e) {
+                console.error("Token Error");
+                return "";
+            }
+        }
+
+        $(document).ready(function(){
+            $(".day-header").first().click();
+            fetchDataFromGitHub();
+
+            $("#btnEdit").click(toggleEditMode);
+            $("#btnSave").click(uploadToGitHub);
+        });
+
+        function toggleDay(element) {
+            if($("body").hasClass("edit-mode")) return;
+            $(".day-body").slideUp(); $(".day-header").removeClass("active");
+            var content = $(element).next();
+            if (content.is(":hidden")) { $(element).addClass("active"); content.slideDown(); }
+        }
+
+        function toggleDetail(btn) { $(btn).parent().next(".spot-detail").slideToggle(); }
+
+        // --- GitHub Logic ---
+        function fetchDataFromGitHub() {
+            var token = getRealToken();
+            if(!token || token === "ghp_") return;
+
+            var url = `https://api.github.com/repos/${GH_USER}/${GH_REPO}/contents/${FILE_PATH}`;
+            $.ajax({
+                url: url, type: "GET", headers: { "Authorization": "token " + token }, cache: false,
+                success: function(response) {
+                    currentSha = response.sha;
+                    var decodedContent = decodeURIComponent(escape(window.atob(response.content)));
+                    var data = JSON.parse(decodedContent);
+                    applyDataToPage(data);
+                }
+            });
+        }
+
+        function applyDataToPage(data) {
+            $.each(data, function(id, value) { if($("#" + id).length > 0) $("#" + id).html(value); });
+        }
+
+        function uploadToGitHub() {
+            var token = getRealToken();
+            if(!token || token === "ghp_") { alert("請填入 Token"); return; }
+            $("#loadingOverlay").fadeIn();
+
+            var dataToSave = {};
+            $(".time-tag[id], .user-note[id]").each(function() {
+                var id = $(this).attr("id"); var content = $(this).html();
+                if(content.trim() !== "") dataToSave[id] = content;
+            });
+
+            var jsonString = JSON.stringify(dataToSave);
+            var base64Content = window.btoa(unescape(encodeURIComponent(jsonString)));
+            var url = `https://api.github.com/repos/${GH_USER}/${GH_REPO}/contents/${FILE_PATH}`;
+
+            $.ajax({
+                url: url, type: "GET", headers: { "Authorization": "token " + token }, cache: false,
+                success: function(response) { performPut(url, token, base64Content, response.sha); },
+                error: function(xhr) { if(xhr.status === 404) performPut(url, token, base64Content, null); }
+            });
+        }
+
+        function performPut(url, token, content, sha) {
+            var payload = { message: "Update", content: content };
+            if (sha) payload.sha = sha;
+
+            $.ajax({
+                url: url, type: "PUT",
+                headers: { "Authorization": "token " + token, "Content-Type": "application/json" },
+                data: JSON.stringify(payload),
+                success: function(response) {
+                    currentSha = response.content.sha; $("#loadingOverlay").fadeOut();
+                    showToast("✅ 更新成功！"); toggleEditMode();
+                },
+                error: function() { $("#loadingOverlay").fadeOut(); alert("更新失敗"); }
+            });
+        }
+
+        function toggleEditMode() {
+            $("body").toggleClass("edit-mode");
+            var isEdit = $("body").hasClass("edit-mode");
+            if(isEdit) {
+                $(".time-tag, .user-note").attr("contenteditable", "true");
+                $("#btnEdit").text("❌"); $("#btnSave").fadeIn(); $(".day-body").slideDown();
+                showToast("編輯模式");
+            } else {
+                $(".time-tag, .user-note").attr("contenteditable", "false");
+                $("#btnEdit").text("✏️"); $("#btnSave").hide();
+            }
+        }
+
+        function showToast(msg) { $("#toast-msg").text(msg).fadeIn().delay(2000).fadeOut(); }
+    </script>
+</body>
+</html>
