@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2026 日本東北家族旅行</title>
+    <title>2026 日本東北家族旅行2</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -69,7 +69,7 @@
 
         .day-body::after { content: ""; display: table; clear: both; }
 
-        /* --- 🎨 各景點切圖座標 (依您的數值更新) --- */
+        /* --- 🎨 各景點切圖座標 --- */
         
         /* 牛舌 */
         .pos-cow {
@@ -96,7 +96,7 @@
             background-position: 84% 58%;
             background-size: 581%;
         }
-        /* 加茂水族館 (水母) - 修復重點 */
+        /* 加茂水族館 (水母) */
         .pos-jelly {
             background-position: 2% 88%;
             background-size: 508%;
@@ -116,8 +116,11 @@
             background-position: 58% 99%;
             background-size: 500%;
         }
-        /* 仙台朝市/購物 (維持原設定) */
-        .pos-market { background-position: 81% 81%; background-size: 500%; } 
+        /* 仙台朝市/購物 (已更新數值) */
+        .pos-market { 
+            background-position: 87% 97%; 
+            background-size: 510%; 
+        } 
 
         /* 資訊卡 */
         .info-box { 
@@ -314,7 +317,7 @@
 
             <div class="day-card">
                 <div class="day-header" onclick="toggleDay(this)">
-                    <div class="day-thumb-box">🪼</div>
+                    <div class="day-thumb-box">🐠</div>
                     <span class="day-title-text">2/26 (四) 水母館 & 萬國屋</span>
                     <span class="day-badge">Day 4</span>
                 </div>
@@ -422,7 +425,7 @@
         const FILE_PATH = "data.json";
 
         // ↓↓↓ 請填入您的 Base64 Token (去頭 ghp_) ↓↓↓
-        const PART_B_ENCODED = "在此處填入您的Base64亂碼"; 
+        const PART_B_ENCODED = "bDV6TFpnTkRLRUZZcG1xZW5mb3BISUlMQVBQUlpSMk1oSHhI"; 
         // ============================================
 
         var currentSha = "";
