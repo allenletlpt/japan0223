@@ -11,136 +11,162 @@
         /* --- 全域風格 --- */
         body { 
             font-family: "Kosugi Maru", "Noto Sans TC", sans-serif;
-            background-color: #fdfbf7; /* 暖白紙張色 */
+            background-color: #fdfbf7;
             background-image: radial-gradient(#e0e0e0 1px, transparent 1px);
             background-size: 20px 20px;
             padding-bottom: 100px; 
             color: #555;
         }
 
-        /* Hero 區塊 */
+        /* --- Hero 區塊 --- */
         .hero { 
             background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
             color: #445; 
-            padding: 40px 20px 60px 20px; 
+            padding: 30px 20px 80px 20px; /* 底部留空間給資訊卡 */
             text-align: center; 
             border-radius: 0 0 40px 40px; 
             box-shadow: 0 4px 20px rgba(161, 196, 253, 0.4); 
             position: relative;
             overflow: hidden;
         }
-        .hero h1 { font-weight: bold; font-size: 1.8rem; margin-bottom: 10px; letter-spacing: 1px; }
+        .hero h1 { font-weight: bold; font-size: 1.6rem; margin: 10px 0; letter-spacing: 1px; }
         
-        /* 頂部圓形大頭貼 */
         .hero-img-container {
-            width: 160px; height: 160px;
-            margin: 0 auto 15px auto;
+            width: 120px; height: 120px;
+            margin: 0 auto;
             border-radius: 50%;
-            border: 6px solid rgba(255,255,255,0.9);
+            border: 5px solid rgba(255,255,255,0.9);
             box-shadow: 0 4px 15px rgba(0,0,0,0.15);
             overflow: hidden;
             background-color: #fff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            display: flex; justify-content: center; align-items: center;
         }
-        .hero-avatar {
-            width: 100%; height: 100%;
-            object-fit: cover; 
+        .hero-avatar { width: 100%; height: 100%; object-fit: cover; }
+
+        /* --- 資訊卡 (懸浮) --- */
+        .info-box { 
+            background: white; width: 90%; max-width: 600px; 
+            margin: -60px auto 20px auto; 
+            padding: 15px; border-radius: 15px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08); 
+            position: relative; text-align: center; z-index: 10;
+            display: flex; justify-content: space-around; flex-wrap: wrap;
+            font-size: 0.9rem;
+        }
+        .info-item { margin: 5px; }
+
+        /* --- 頁籤導航列 (Tab Navigation) --- */
+        .nav-container {
+            width: 100%; max-width: 800px; margin: 0 auto 20px auto;
+            overflow-x: auto; /* 允許橫向滑動 */
+            white-space: nowrap;
+            padding: 5px 15px;
+            -webkit-overflow-scrolling: touch;
+            display: flex; justify-content: flex-start; gap: 10px;
+        }
+        /* 隱藏捲軸 */
+        .nav-container::-webkit-scrollbar { display: none; }
+
+        .nav-btn {
+            border: none; background: #fff;
+            padding: 8px 16px; border-radius: 25px;
+            font-size: 0.95rem; font-weight: bold; color: #777;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+            border: 2px solid transparent;
+            flex-shrink: 0;
+        }
+        .nav-btn:hover { transform: translateY(-2px); }
+        
+        /* 頁籤選中狀態 (對應每天顏色) */
+        .nav-btn.active { color: white; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        .nav-btn[data-target="#day1"].active { background: #d35400; border-color: #d35400; }
+        .nav-btn[data-target="#day2"].active { background: #2980b9; border-color: #2980b9; }
+        .nav-btn[data-target="#day3"].active { background: #27ae60; border-color: #27ae60; }
+        .nav-btn[data-target="#day4"].active { background: #8e44ad; border-color: #8e44ad; }
+        .nav-btn[data-target="#day5"].active { background: #c0392b; border-color: #c0392b; }
+        .nav-btn[data-target="#day6"].active { background: #f39c12; border-color: #f39c12; }
+
+        /* --- 行程卡片 --- */
+        .day-card { 
+            display: none; /* 預設隱藏，由 JS 控制顯示 */
+            background: white; border: none; border-radius: 20px; 
+            margin-bottom: 25px; overflow: hidden; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05); 
+            animation: fadeIn 0.5s;
+        }
+        /* 顯示 active 的卡片 */
+        .day-card.active { display: block; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .day-header { 
+            background: #fff; padding: 20px; 
+            display: flex; align-items: center; justify-content: space-between;
+            border-bottom: 2px dashed #f0f0f0; 
+        }
+        
+        .day-title-group { display: flex; align-items: center; }
+        .day-thumb-box { width: 50px; height: 50px; border-radius: 12px; overflow: hidden; margin-right: 15px; border: 2px solid #eee; flex-shrink: 0; background-color: #f9f9f9; display: flex; justify-content: center; align-items: center; font-size: 1.5rem; }
+        .day-title-text { font-weight: bold; color: #444; font-size: 1.2rem; }
+        
+        .weather-badge {
+            background-color: #e3f2fd; color: #1565c0;
+            padding: 5px 12px; border-radius: 20px;
+            font-size: 0.85rem; font-weight: bold;
+            display: inline-flex; align-items: center; gap: 5px;
+            white-space: nowrap;
         }
 
-        /* --- 排版系統 (Flexbox Row) --- */
+        .day-body { padding: 20px; }
+
+        /* --- 排版系統 (Flexbox) --- */
         .event-row {
-            display: flex;
-            justify-content: space-between; 
-            align-items: flex-start;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
+            display: flex; justify-content: space-between; align-items: flex-start;
+            margin-bottom: 30px; padding-bottom: 20px;
             border-bottom: 1px dashed #ddd;
         }
         .event-row:last-child { border-bottom: none; margin-bottom: 0; }
-
         .event-left { flex: 1; padding-right: 15px; min-width: 200px; }
         .event-right { flex-shrink: 0; }
         
         @media (max-width: 768px) {
             .event-row { flex-direction: column; }
-            .event-right { margin-top: 15px; width: 100%; }
-            .sticker-img { width: 100%; height: auto; max-width: 100%; }
+            .event-right { margin-top: 15px; width: 100%; text-align: center; }
+            .sticker-img { width: 100%; height: auto; max-width: 400px; }
             
-            /* 手機版天氣標籤調整 */
-            .day-header { flex-wrap: wrap; }
-            .weather-badge { margin-left: 0 !important; margin-top: 8px; width: 100%; justify-content: center; }
-            .day-badge { margin-left: auto; }
+            /* 手機版 Header 調整 */
+            .day-header { flex-direction: column; align-items: flex-start; }
+            .weather-badge { margin-top: 10px; width: 100%; justify-content: center; background: #f1f8ff; }
         }
 
         /* --- 圖片樣式 --- */
         .sticker-img {
-            width: 320px;
-            height: auto;
-            border-radius: 12px;
+            width: 320px; height: auto; border-radius: 12px;
             box-shadow: 3px 4px 12px rgba(0,0,0,0.12);
             border: 5px solid #fff;
-            transition: transform 0.3s;
-            cursor: pointer;
+            transition: transform 0.3s; cursor: pointer;
         }
         .sticker-img:hover { transform: scale(1.02) rotate(1deg); }
 
-        /* 資訊卡 */
-        .info-box { background: white; width: 90%; max-width: 600px; margin: -40px auto 30px auto; padding: 20px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); position: relative; text-align: center; }
-        
-        /* --- 行程卡片 & 天氣標籤 --- */
-        .day-card { border: none; border-radius: 20px; margin-bottom: 25px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.03); background: white; }
-        
-        .day-header { 
-            background: white; padding: 15px 20px; cursor: pointer; 
-            display: flex; align-items: center; 
-            border-bottom: 2px dashed #f0f0f0; transition: 0.3s; 
-        }
-        .day-header:hover { background-color: #fafafa; }
-        
-        .day-thumb-box { width: 50px; height: 50px; border-radius: 12px; overflow: hidden; margin-right: 15px; border: 2px solid #eee; flex-shrink: 0; background-color: #f9f9f9; display: flex; justify-content: center; align-items: center; font-size: 1.5rem; }
-        
-        .day-title-text { font-weight: bold; color: #444; font-size: 1.1rem; margin-right: 10px; }
-        
-        /* 天氣標籤樣式 */
-        .weather-badge {
-            background-color: #e3f2fd;
-            color: #1565c0;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            border: 1px solid #bbdefb;
-            margin-right: 10px;
-            white-space: nowrap;
-        }
-
-        .day-badge { background-color: #89c4f4; color: white; padding: 4px 12px; border-radius: 15px; font-size: 0.8rem; margin-left: auto; }
-        .day-body { display: none; background: white; padding: 25px; }
-
-        /* 內容詳細區塊 */
+        /* --- 元件樣式 --- */
         .spot-detail { display: none; background-color: #f4f9ff; border-left: 4px solid #89c4f4; padding: 12px; margin: 10px 0; border-radius: 0 8px 8px 0; }
         .spot-detail h6 { font-weight: bold; color: #3498db; margin-bottom: 5px; font-size: 1rem; }
         .spot-detail ul { padding-left: 20px; margin-bottom: 0; font-size: 0.9rem; color: #666; line-height: 1.6; }
 
-        /* 按鈕與標籤 */
         .time-tag { background: #b0bec5; color: white; padding: 3px 10px; border-radius: 6px; font-size: 0.9rem; margin-right: 5px; display: inline-block; min-width: 65px; text-align: center; font-weight: bold; vertical-align: middle; }
         .highlight { color: #e84393; font-weight: bold; background: linear-gradient(180deg, transparent 65%, #ffcce0 65%); }
         .intro-btn { cursor: pointer; color: #27ae60; font-weight: bold; margin-left: 5px; font-size: 0.8rem; background: #eafaf1; padding: 2px 10px; border-radius: 20px; border: 1px solid #abebc6; white-space: nowrap; }
         .map-link { text-decoration: none; color: #2980b9; font-weight: bold; margin-left: 5px; font-size: 0.8rem; background: #eaf2f8; padding: 2px 10px; border-radius: 20px; white-space: nowrap; }
         .alert { padding: 10px; margin-bottom: 10px; font-size: 0.9rem; border-radius: 10px; }
 
-        /* 編輯模式 */
+        /* --- 編輯模式 --- */
         body.edit-mode .time-tag { background-color: #ff7675; cursor: text; border: 2px dashed #ffeaa7; }
         .user-note { margin-top: 5px; margin-bottom: 10px; font-size: 0.9rem; color: #6c5ce7; border-left: 3px solid #a29bfe; padding: 5px 10px; background: #f3f0ff; display: none; }
         .user-note:not(:empty) { display: block; }
         body.edit-mode .user-note { display: block; min-height: 30px; cursor: text; outline: 1px dashed #a29bfe; }
 
-        /* 浮動按鈕 */
+        /* --- 浮動按鈕 --- */
         .fab-container { position: fixed; bottom: 20px; right: 20px; display: flex; flex-direction: column; gap: 12px; z-index: 1000; }
         .fab-btn { width: 56px; height: 56px; border-radius: 50%; color: white; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.25); cursor: pointer; border: none; font-size: 1.3rem; }
         .btn-edit { background: #74b9ff; }
@@ -167,20 +193,30 @@
     </div>
 
     <div class="info-box">
-        <div>📅 <strong>2026/2/23 - 2/28</strong></div>
-        <div class="mt-1">🚙 <strong>全程包車 (D2-D6)</strong></div>
-        <div class="mt-1">👥 <strong>5人家族旅行 (含長輩)</strong></div>
+        <div class="info-item">📅 <strong>2/23 - 2/28</strong></div>
+        <div class="info-item">🚙 <strong>D2-D6 包車</strong></div>
+        <div class="info-item">👥 <strong>5人家族</strong></div>
     </div>
 
     <div class="container">
+        <div class="nav-container">
+            <button class="nav-btn active" data-target="#day1">Day 1 抵達</button>
+            <button class="nav-btn" data-target="#day2">Day 2 樹冰</button>
+            <button class="nav-btn" data-target="#day3">Day 3 遊船</button>
+            <button class="nav-btn" data-target="#day4">Day 4 水母</button>
+            <button class="nav-btn" data-target="#day5">Day 5 草莓</button>
+            <button class="nav-btn" data-target="#day6">Day 6 返台</button>
+        </div>
+
         <div id="itinerary">
             
-            <div class="day-card">
-                <div class="day-header" onclick="toggleDay(this)">
-                    <div class="day-thumb-box">✈️</div>
-                    <span class="day-title-text">2/23 (一) 抵達仙台</span>
+            <div class="day-card active" id="day1">
+                <div class="day-header">
+                    <div class="day-title-group">
+                        <div class="day-thumb-box">✈️</div>
+                        <span class="day-title-text">2/23 (一) 抵達仙台</span>
+                    </div>
                     <div class="weather-badge">🌤️ 晴時多雲 2°C~6°C</div>
-                    <span class="day-badge">Day 1</span>
                 </div>
                 <div class="day-body">
                     <div class="event-row">
@@ -224,12 +260,13 @@
                 </div>
             </div>
 
-            <div class="day-card">
-                <div class="day-header" onclick="toggleDay(this)">
-                    <div class="day-thumb-box">❄️</div>
-                    <span class="day-title-text">2/24 (二) 樹冰 & 銀山</span>
+            <div class="day-card" id="day2">
+                <div class="day-header">
+                    <div class="day-title-group">
+                        <div class="day-thumb-box">❄️</div>
+                        <span class="day-title-text">2/24 (二) 樹冰 & 銀山</span>
+                    </div>
                     <div class="weather-badge">🌨️ 大雪寒冷 -8°C~-2°C</div>
-                    <span class="day-badge">Day 2</span>
                 </div>
                 <div class="day-body">
                     <div class="event-row">
@@ -272,12 +309,13 @@
                 </div>
             </div>
 
-            <div class="day-card">
-                <div class="day-header" onclick="toggleDay(this)">
-                    <div class="day-thumb-box">🛶</div>
-                    <span class="day-title-text">2/25 (三) 最上川遊船</span>
+            <div class="day-card" id="day3">
+                <div class="day-header">
+                    <div class="day-title-group">
+                        <div class="day-thumb-box">🛶</div>
+                        <span class="day-title-text">2/25 (三) 最上川遊船</span>
+                    </div>
                     <div class="weather-badge">❄️ 小雪/陰 -1°C~3°C</div>
-                    <span class="day-badge">Day 3</span>
                 </div>
                 <div class="day-body">
                     <div class="event-row">
@@ -314,12 +352,13 @@
                 </div>
             </div>
 
-            <div class="day-card">
-                <div class="day-header" onclick="toggleDay(this)">
-                    <div class="day-thumb-box">🐠</div>
-                    <span class="day-title-text">2/26 (四) 水母館 & 萬國屋</span>
+            <div class="day-card" id="day4">
+                <div class="day-header">
+                    <div class="day-title-group">
+                        <div class="day-thumb-box">🐠</div>
+                        <span class="day-title-text">2/26 (四) 水母館 & 萬國屋</span>
+                    </div>
                     <div class="weather-badge">☁️ 陰偶雪 1°C~5°C</div>
-                    <span class="day-badge">Day 4</span>
                 </div>
                 <div class="day-body">
                     <div class="event-row">
@@ -360,12 +399,13 @@
                 </div>
             </div>
 
-             <div class="day-card">
-                <div class="day-header" onclick="toggleDay(this)">
-                    <div class="day-thumb-box">🍓</div>
-                    <span class="day-title-text">2/27 (五) 採草莓 & 神社</span>
+             <div class="day-card" id="day5">
+                <div class="day-header">
+                    <div class="day-title-group">
+                        <div class="day-thumb-box">🍓</div>
+                        <span class="day-title-text">2/27 (五) 採草莓 & 神社</span>
+                    </div>
                     <div class="weather-badge">🌤️ 晴時多雲 0°C~5°C</div>
-                    <span class="day-badge">Day 5</span>
                 </div>
                 <div class="day-body">
                     <div class="event-row">
@@ -405,12 +445,13 @@
                 </div>
             </div>
 
-            <div class="day-card">
-                <div class="day-header" onclick="toggleDay(this)">
-                    <div class="day-thumb-box">🎁</div>
-                    <span class="day-title-text">2/28 (六) 返台</span>
+            <div class="day-card" id="day6">
+                <div class="day-header">
+                    <div class="day-title-group">
+                        <div class="day-thumb-box">🎁</div>
+                        <span class="day-title-text">2/28 (六) 返台</span>
+                    </div>
                     <div class="weather-badge">☀️ 晴朗 3°C~7°C</div>
-                    <span class="day-badge">Day 6</span>
                 </div>
                 <div class="day-body">
                     <div class="event-row">
@@ -448,7 +489,7 @@
         const FILE_PATH = "data.json";
 
         // ↓↓↓ 請填入您的 Base64 Token (去頭 ghp_) ↓↓↓
-        const PART_B_ENCODED = "bDV6TFpnTkRLRUZZcG1xZW5mb3BISUlMQVBQUlpSMk1oSHhI"; 
+        const PART_B_ENCODED = "在此處填入您的Base64亂碼"; 
         // ============================================
 
         var currentSha = "";
@@ -464,19 +505,25 @@
         }
 
         $(document).ready(function(){
-            $(".day-header").first().click();
+            // 頁籤切換邏輯
+            $(".nav-btn").click(function(){
+                var targetId = $(this).data("target");
+                
+                // 按鈕樣式切換
+                $(".nav-btn").removeClass("active");
+                $(this).addClass("active");
+                
+                // 卡片顯示切換
+                $(".day-card").removeClass("active");
+                $(targetId).addClass("active");
+            });
+
+            // 預設載入資料
             fetchDataFromGitHub();
 
             $("#btnEdit").click(toggleEditMode);
             $("#btnSave").click(uploadToGitHub);
         });
-
-        function toggleDay(element) {
-            if($("body").hasClass("edit-mode")) return;
-            $(".day-body").slideUp(); $(".day-header").removeClass("active");
-            var content = $(element).next();
-            if (content.is(":hidden")) { $(element).addClass("active"); content.slideDown(); }
-        }
 
         function toggleDetail(btn) { $(btn).parent().next(".spot-detail").slideToggle(); }
 
@@ -544,7 +591,7 @@
             var isEdit = $("body").hasClass("edit-mode");
             if(isEdit) {
                 $(".time-tag, .user-note").attr("contenteditable", "true");
-                $("#btnEdit").text("❌"); $("#btnSave").fadeIn(); $(".day-body").slideDown();
+                $("#btnEdit").text("❌"); $("#btnSave").fadeIn();
                 showToast("編輯模式");
             } else {
                 $(".time-tag, .user-note").attr("contenteditable", "false");
