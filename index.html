@@ -22,20 +22,20 @@
         .hero { 
             background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
             color: #445; 
-            padding: 30px 20px 80px 20px; 
+            padding: 40px 20px 80px 20px; 
             text-align: center; 
             border-radius: 0 0 40px 40px; 
             box-shadow: 0 4px 20px rgba(161, 196, 253, 0.4); 
             position: relative;
             overflow: hidden;
         }
-        .hero h1 { font-weight: bold; font-size: 1.6rem; margin: 10px 0; letter-spacing: 1px; }
+        .hero h1 { font-weight: bold; font-size: 1.8rem; margin: 10px 0; letter-spacing: 1px; }
         
         .hero-img-container {
-            width: 120px; height: 120px;
+            width: 140px; height: 140px;
             margin: 0 auto;
             border-radius: 50%;
-            border: 5px solid rgba(255,255,255,0.9);
+            border: 6px solid rgba(255,255,255,0.9);
             box-shadow: 0 4px 15px rgba(0,0,0,0.15);
             overflow: hidden;
             background-color: #fff;
@@ -43,10 +43,28 @@
         }
         .hero-avatar { width: 100%; height: 100%; object-fit: cover; }
 
+        /* --- 倒數計時器樣式 --- */
+        .countdown-box {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            padding: 8px 15px;
+            display: inline-block;
+            margin-top: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+            color: #334;
+            font-weight: bold;
+        }
+        .countdown-number {
+            font-size: 1.4rem;
+            color: #e84393;
+            margin: 0 5px;
+        }
+
         /* --- 資訊卡 --- */
         .info-box { 
             background: white; width: 90%; max-width: 600px; 
-            margin: -60px auto 20px auto; 
+            margin: -50px auto 20px auto; 
             padding: 15px; border-radius: 15px; 
             box-shadow: 0 10px 25px rgba(0,0,0,0.08); 
             position: relative; text-align: center; z-index: 10;
@@ -70,7 +88,6 @@
             border: 2px solid transparent; flex-shrink: 0;
         }
         .nav-btn.active { color: white; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
-        /* 每日顏色 */
         .nav-btn[data-target="#day1"].active { background: #d35400; border-color: #d35400; }
         .nav-btn[data-target="#day2"].active { background: #2980b9; border-color: #2980b9; }
         .nav-btn[data-target="#day3"].active { background: #27ae60; border-color: #27ae60; }
@@ -129,75 +146,29 @@
         }
         .sticker-img:hover { transform: scale(1.02) rotate(1deg); }
 
-        /* --- 按鈕樣式大升級 (UI Upgrade) --- */
+        /* --- 元件樣式 --- */
+        .spot-detail { display: none; background-color: #f4f9ff; border-left: 4px solid #89c4f4; padding: 12px; margin: 10px 0; border-radius: 0 8px 8px 0; }
+        .spot-detail h6 { font-weight: bold; color: #3498db; margin-bottom: 5px; font-size: 1rem; }
+        .spot-detail ul { padding-left: 20px; margin-bottom: 0; font-size: 0.9rem; color: #666; line-height: 1.6; }
+
+        .time-tag { background: #b0bec5; color: white; padding: 3px 10px; border-radius: 6px; font-size: 0.9rem; margin-right: 5px; display: inline-block; min-width: 65px; text-align: center; font-weight: bold; vertical-align: middle; }
+        .highlight { color: #e84393; font-weight: bold; background: linear-gradient(180deg, transparent 65%, #ffcce0 65%); }
+        .alert { padding: 10px; margin-bottom: 10px; font-size: 0.9rem; border-radius: 10px; }
+
+        /* 按鈕群 */
+        .intro-btn { cursor: pointer; color: #27ae60; font-weight: bold; margin-left: 5px; font-size: 0.8rem; background: #eafaf1; padding: 2px 10px; border-radius: 20px; border: 1px solid #abebc6; white-space: nowrap; display: inline-block; margin-bottom: 5px; }
+        .map-link { text-decoration: none; color: #2980b9; font-weight: bold; margin-left: 5px; font-size: 0.8rem; background: #eaf2f8; padding: 2px 10px; border-radius: 20px; white-space: nowrap; display: inline-block; margin-bottom: 5px;}
         
-        /* 基礎按鈕設定 */
-        .map-link, .intro-btn { 
-            display: inline-flex; /* 讓內容垂直置中 */
-            align-items: center;
-            justify-content: center;
-            text-decoration: none; 
-            font-size: 0.9rem; /* 加大字體 */
-            padding: 6px 14px; /* 加大內距 */
-            border-radius: 25px; /* 更圓潤 */
-            margin-left: 8px; 
-            margin-bottom: 5px; /* 避免換行擠在一起 */
-            transition: all 0.2s ease-in-out;
-            cursor: pointer; 
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* 輕微陰影 */
-            font-weight: bold;
-            line-height: 1.2;
+        /* Live Cam 按鈕 */
+        .live-cam-btn {
+            text-decoration: none; color: #c0392b; font-weight: bold; margin-left: 5px; font-size: 0.8rem; 
+            background: #fce4ec; padding: 2px 10px; border-radius: 20px; 
+            border: 1px solid #f8bbd0; display: inline-block;
+            animation: pulse 2s infinite;
         }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(226, 68, 91, 0.4); } 70% { box-shadow: 0 0 0 6px rgba(226, 68, 91, 0); } 100% { box-shadow: 0 0 0 0 rgba(226, 68, 91, 0); } }
 
-        /* 導航按鈕 (藍色系) */
-        .map-link { 
-            color: #fff; 
-            background: linear-gradient(135deg, #6aafe6, #4a90e2); /* 漸層藍 */
-            border: 1px solid #4a90e2; 
-        }
-        .map-link:hover { 
-            background: linear-gradient(135deg, #4a90e2, #357abd); 
-            transform: translateY(-2px); /* 懸浮上移 */
-            box-shadow: 0 4px 8px rgba(74, 144, 226, 0.3); /* 陰影加深 */
-        }
-
-        /* 建議/介紹按鈕 (綠色系) */
-        .intro-btn { 
-            color: #fff; 
-            background: linear-gradient(135deg, #56ab2f, #a8e063); /* 漸層綠 */
-            border: 1px solid #56ab2f; 
-        }
-        .intro-btn:hover { 
-            background: linear-gradient(135deg, #4ca225, #96d654); 
-            transform: translateY(-2px); 
-            box-shadow: 0 4px 8px rgba(86, 171, 47, 0.3);
-        }
-
-        /* 景點詳細介紹區塊 */
-        .spot-detail { 
-            display: none; 
-            background-color: #fff; 
-            border: 2px solid #e0f2f1; /* 邊框改為淡色 */
-            padding: 15px; 
-            margin: 15px 0; 
-            border-radius: 12px; 
-            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
-        }
-        .spot-detail h6 { font-weight: bold; color: #009688; margin-bottom: 8px; font-size: 1.05rem; display: flex; align-items: center; gap: 5px; }
-        .spot-detail ul { padding-left: 20px; margin-bottom: 0; font-size: 0.95rem; color: #555; line-height: 1.7; }
-
-        /* 時間標籤 */
-        .time-tag { 
-            background: #7f8c8d; color: white; 
-            padding: 4px 10px; border-radius: 8px; 
-            font-size: 0.9rem; margin-right: 8px; 
-            display: inline-block; min-width: 65px; 
-            text-align: center; font-weight: bold; vertical-align: middle; 
-        }
-        .highlight { color: #c0392b; font-weight: bold; font-size: 1.05rem; }
-        .alert { padding: 12px; margin-bottom: 10px; font-size: 0.9rem; border-radius: 12px; border: none; background-color: #fff8e1; color: #5d4037; } /* 讓 alert 更溫暖 */
-
-        /* --- 編輯模式 --- */
+        /* 編輯模式 */
         body.edit-mode .time-tag { background-color: #ff7675; cursor: text; border: 2px dashed #ffeaa7; }
         .user-note { margin-top: 5px; margin-bottom: 10px; font-size: 0.9rem; color: #6c5ce7; border-left: 3px solid #a29bfe; padding: 5px 10px; background: #f3f0ff; display: none; }
         .user-note:not(:empty) { display: block; }
@@ -207,7 +178,19 @@
         .fab-container { position: fixed; bottom: 20px; right: 20px; display: flex; flex-direction: column; gap: 12px; z-index: 1000; }
         .fab-btn { width: 56px; height: 56px; border-radius: 50%; color: white; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.25); cursor: pointer; border: none; font-size: 1.3rem; }
         .btn-edit { background: #74b9ff; }
+        .btn-calc { background: #fab1a0; font-size: 1.5rem; }
         .btn-save { background: #55efc4; display: none; color: #2d3436; }
+
+        /* 匯率計算機視窗 */
+        .calc-modal {
+            display: none; position: fixed; bottom: 90px; right: 20px; 
+            width: 280px; background: white; border-radius: 15px; 
+            box-shadow: 0 5px 25px rgba(0,0,0,0.2); z-index: 2000; padding: 20px;
+            border: 1px solid #eee;
+        }
+        .calc-input { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 10px; font-size: 1.1rem; text-align: right; }
+        .calc-result { font-size: 1.5rem; color: #2d3436; font-weight: bold; text-align: right; margin-bottom: 5px; }
+        .calc-rate { font-size: 0.8rem; color: #999; text-align: right; }
 
         #toast-msg { top: 20px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.8); color: white; padding: 10px 25px; border-radius: 50px; display: none; position: fixed; z-index: 3000; }
         .loading-overlay { top:0; left:0; width:100%; height:100%; background: rgba(255,255,255,0.9); text-align: center; padding-top: 50vh; font-weight: bold; color: #555; display: none; position: fixed; z-index: 2500; }
@@ -226,7 +209,9 @@
             <img src="logo.png" class="hero-avatar" alt="Logo">
         </div>
         <h1>2026 東北雪見之旅</h1>
-        <p>仙台・銀山溫泉・藏王樹冰</p>
+        <div class="countdown-box">
+            距離出發還有 <span id="days" class="countdown-number">0</span> 天
+        </div>
     </div>
 
     <div class="info-box">
@@ -280,7 +265,7 @@
 
                     <div class="event-row">
                         <div class="event-left">
-                            <p><span class="time-tag" id="d1-t5">19:00</span> <span class="highlight">晚餐：牛舌 善治郎</span> <a href="https://www.google.com/maps/search/?api=1&query=たんや善治郎+仙台駅前本店" class="map-link">📍 地圖導航</a> <span class="intro-btn" onclick="toggleDetail(this)">💡 推薦菜單</span></p>
+                            <p><span class="time-tag" id="d1-t5">19:00</span> <span class="highlight">晚餐：牛舌 善治郎</span> <a href="https://www.google.com/maps/search/?api=1&query=たんや善治郎+仙台駅前本店" class="map-link">📍 地圖導航</a> <span class="intro-btn" onclick="toggleDetail(this)">💡 建議</span></p>
                             <div class="spot-detail">
                                 <h6>📌 仙台必吃：炭燒牛舌</h6>
                                 <ul>
@@ -310,7 +295,13 @@
                         <div class="event-left">
                             <p><span class="time-tag" id="d2-t1">09:00</span> <strong>包車司機接駁</strong></p>
                             <div class="user-note" id="d2-n1"></div>
-                            <p class="mt-2"><span class="time-tag" id="d2-t2">10:30</span> <span class="highlight">藏王樹冰 (雪怪車)</span> <a href="https://www.google.com/maps/search/?api=1&query=Sumikawa+Snow+Park" class="map-link">📍 地圖導航</a> <span class="intro-btn" onclick="toggleDetail(this)">🧤 穿著提醒</span></p>
+                            
+                            <p class="mt-2">
+                                <span class="time-tag" id="d2-t2">10:30</span> <span class="highlight">藏王樹冰 (雪怪車)</span> 
+                                <a href="https://www.google.com/maps/search/?api=1&query=Sumikawa+Snow+Park" class="map-link">📍 導航</a> 
+                                <a href="https://www.youtube.com/results?search_query=Zao+Onsen+Live+Camera" target="_blank" class="live-cam-btn">🎥 樹冰Live</a>
+                                <span class="intro-btn" onclick="toggleDetail(this)">🧤 提醒</span>
+                            </p>
                             <div class="spot-detail">
                                 <h6>📌 WILD MONSTER 雪怪車</h6>
                                 <ul>
@@ -328,7 +319,12 @@
 
                     <div class="event-row">
                         <div class="event-left">
-                            <p><span class="time-tag" id="d2-t4">15:30</span> 抵達銀山溫泉 <a href="https://www.google.com/maps/search/?api=1&query=銀山溫泉" class="map-link">📍 地圖導航</a> <span class="intro-btn" onclick="toggleDetail(this)">⚠️ 安全注意</span></p>
+                            <p>
+                                <span class="time-tag" id="d2-t4">15:30</span> 抵達銀山溫泉 
+                                <a href="https://www.google.com/maps/search/?api=1&query=銀山溫泉" class="map-link">📍 導航</a> 
+                                <a href="https://www.youtube.com/results?search_query=Ginzan+Onsen+Live+Camera" target="_blank" class="live-cam-btn">🎥 銀山Live</a>
+                                <span class="intro-btn" onclick="toggleDetail(this)">⚠️ 注意</span>
+                            </p>
                             <div class="spot-detail">
                                 <h6>📌 大正浪漫 銀山溫泉</h6>
                                 <ul>
@@ -359,7 +355,7 @@
                         <div class="event-left">
                             <p><span class="time-tag" id="d3-t1">09:30</span> 出發</p>
                             <div class="user-note" id="d3-n1"></div>
-                            <p class="mt-2"><span class="time-tag" id="d3-t2">10:45</span> <span class="highlight">最上川 芭蕉遊船</span> <span class="intro-btn" onclick="toggleDetail(this)">🔥 體驗特色</span></p>
+                            <p class="mt-2"><span class="time-tag" id="d3-t2">10:45</span> <span class="highlight">最上川 芭蕉遊船</span> <span class="intro-btn" onclick="toggleDetail(this)">🔥 特色</span></p>
                             <div class="spot-detail">
                                 <h6>📌 冬季暖桌遊船</h6>
                                 <ul>
@@ -447,7 +443,7 @@
                 <div class="day-body">
                     <div class="event-row">
                         <div class="event-left">
-                            <p><span class="time-tag" id="d5-t1">11:00</span> <span class="highlight">採草莓體驗</span> <span class="intro-btn" onclick="toggleDetail(this)">👴 友善設施</span></p>
+                            <p><span class="time-tag" id="d5-t1">11:00</span> <span class="highlight">採草莓體驗</span> <span class="intro-btn" onclick="toggleDetail(this)">👴 友善</span></p>
                             <div class="spot-detail">
                                 <h6>📌 溫室高架草莓</h6>
                                 <ul>
@@ -464,7 +460,7 @@
 
                     <div class="event-row">
                         <div class="event-left">
-                            <p><span class="time-tag" id="d5-t3">14:30</span> <span class="highlight">大崎八幡宮</span> <a href="https://www.google.com/maps/search/?api=1&query=大崎八幡宮" class="map-link">📍 地圖導航</a> <span class="intro-btn" onclick="toggleDetail(this)">💡 省力秘訣</span></p>
+                            <p><span class="time-tag" id="d5-t3">14:30</span> <span class="highlight">大崎八幡宮</span> <a href="https://www.google.com/maps/search/?api=1&query=大崎八幡宮" class="map-link">📍 地圖導航</a> <span class="intro-btn" onclick="toggleDetail(this)">💡 秘訣</span></p>
                             <div class="spot-detail">
                                 <h6>📌 國寶 大崎八幡宮</h6>
                                 <ul>
@@ -512,7 +508,16 @@
         </div>
     </div>
 
+    <div class="calc-modal" id="calcModal">
+        <h5 style="color:#555;">💴 匯率換算 (約0.23)</h5>
+        <input type="number" id="jpInput" class="calc-input" placeholder="輸入日幣金額">
+        <div class="calc-result">NT$ <span id="twOutput">0</span></div>
+        <div class="calc-rate">匯率以 0.23 計算</div>
+        <button class="btn btn-secondary btn-sm w-100 mt-2" onclick="$('#calcModal').fadeOut()">關閉</button>
+    </div>
+
     <div class="fab-container">
+        <button class="fab-btn btn-calc" id="btnCalc" title="匯率計算機">🧮</button>
         <button class="fab-btn btn-save" id="btnSave" title="儲存並上傳">☁️</button>
         <button class="fab-btn btn-edit" id="btnEdit" title="編輯模式">✏️</button>
     </div>
@@ -542,7 +547,23 @@
         }
 
         $(document).ready(function(){
-            // 頁籤切換邏輯
+            // 倒數計時
+            updateCountdown();
+            setInterval(updateCountdown, 60000); // 每分鐘更新
+
+            // 匯率計算機
+            $("#btnCalc").click(function(){ $("#calcModal").fadeToggle(); });
+            $("#jpInput").on("input", function(){
+                var jpy = parseFloat($(this).val());
+                if(!isNaN(jpy)) {
+                    var twd = Math.round(jpy * 0.23);
+                    $("#twOutput").text(twd.toLocaleString());
+                } else {
+                    $("#twOutput").text("0");
+                }
+            });
+
+            // 頁籤切換
             $(".nav-btn").click(function(){
                 var targetId = $(this).data("target");
                 $(".nav-btn").removeClass("active");
@@ -556,6 +577,15 @@
             $("#btnEdit").click(toggleEditMode);
             $("#btnSave").click(uploadToGitHub);
         });
+
+        function updateCountdown() {
+            var targetDate = new Date("2026-02-23T00:00:00").getTime();
+            var now = new Date().getTime();
+            var distance = targetDate - now;
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            if(days < 0) days = 0;
+            $("#days").text(days);
+        }
 
         function toggleDetail(btn) { $(btn).parent().next(".spot-detail").slideToggle(); }
 
