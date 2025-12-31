@@ -1,47 +1,63 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>2026 日本東北家族旅行</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&family=Noto+Sans+TC:wght@400;700&display=swap"
+        rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         /* --- 全域風格 --- */
-        body { 
+        body {
             font-family: "Kosugi Maru", "Noto Sans TC", sans-serif;
             background-color: #fdfbf7;
             background-image: radial-gradient(#e0e0e0 1px, transparent 1px);
             background-size: 20px 20px;
-            padding-bottom: 100px; 
+            padding-bottom: 100px;
             color: #555;
         }
 
         /* Hero 區塊 */
-        .hero { 
+        .hero {
             background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
-            color: #445; 
-            padding: 40px 20px 80px 20px; 
-            text-align: center; 
-            border-radius: 0 0 40px 40px; 
-            box-shadow: 0 4px 20px rgba(161, 196, 253, 0.4); 
+            color: #445;
+            padding: 40px 20px 80px 20px;
+            text-align: center;
+            border-radius: 0 0 40px 40px;
+            box-shadow: 0 4px 20px rgba(161, 196, 253, 0.4);
             position: relative;
             overflow: hidden;
         }
-        .hero h1 { font-weight: bold; font-size: 1.8rem; margin: 10px 0; letter-spacing: 1px; }
-        
+
+        .hero h1 {
+            font-weight: bold;
+            font-size: 1.8rem;
+            margin: 10px 0;
+            letter-spacing: 1px;
+        }
+
         .hero-img-container {
-            width: 140px; height: 140px;
+            width: 140px;
+            height: 140px;
             margin: 0 auto;
             border-radius: 50%;
-            border: 6px solid rgba(255,255,255,0.9);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            border: 6px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
             overflow: hidden;
             background-color: #fff;
-            display: flex; justify-content: center; align-items: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-        .hero-avatar { width: 100%; height: 100%; object-fit: cover; }
+
+        .hero-avatar {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
 
         /* --- 倒數計時器樣式 --- */
         .countdown-box {
@@ -55,6 +71,7 @@
             color: #334;
             font-weight: bold;
         }
+
         .countdown-number {
             font-size: 1.4rem;
             color: #e84393;
@@ -62,140 +79,493 @@
         }
 
         /* --- 資訊卡 --- */
-        .info-box { 
-            background: white; width: 90%; max-width: 600px; 
-            margin: -50px auto 20px auto; 
-            padding: 15px; border-radius: 15px; 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.08); 
-            position: relative; text-align: center; z-index: 10;
-            display: flex; justify-content: space-around; flex-wrap: wrap;
+        .info-box {
+            background: white;
+            width: 90%;
+            max-width: 600px;
+            margin: -50px auto 20px auto;
+            padding: 15px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            position: relative;
+            text-align: center;
+            z-index: 10;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
             font-size: 0.9rem;
         }
-        .info-item { margin: 5px; }
+
+        .info-item {
+            margin: 5px;
+        }
 
         /* --- 頁籤導航列 --- */
         .nav-container {
-            width: 100%; max-width: 800px; margin: 0 auto 20px auto;
-            overflow-x: auto; white-space: nowrap; padding: 5px 15px;
-            -webkit-overflow-scrolling: touch; display: flex; justify-content: flex-start; gap: 10px;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto 20px auto;
+            overflow-x: auto;
+            white-space: nowrap;
+            padding: 5px 15px;
+            -webkit-overflow-scrolling: touch;
+            display: flex;
+            justify-content: flex-start;
+            gap: 10px;
         }
-        .nav-container::-webkit-scrollbar { display: none; }
+
+        .nav-container::-webkit-scrollbar {
+            display: none;
+        }
 
         .nav-btn {
-            border: none; background: #fff; padding: 8px 16px; border-radius: 25px;
-            font-size: 0.95rem; font-weight: bold; color: #777;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: all 0.3s;
-            border: 2px solid transparent; flex-shrink: 0;
+            border: none;
+            background: #fff;
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-size: 0.95rem;
+            font-weight: bold;
+            color: #777;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+            border: 2px solid transparent;
+            flex-shrink: 0;
         }
-        .nav-btn.active { color: white; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
-        .nav-btn[data-target="#day1"].active { background: #d35400; border-color: #d35400; }
-        .nav-btn[data-target="#day2"].active { background: #2980b9; border-color: #2980b9; }
-        .nav-btn[data-target="#day3"].active { background: #27ae60; border-color: #27ae60; }
-        .nav-btn[data-target="#day4"].active { background: #8e44ad; border-color: #8e44ad; }
-        .nav-btn[data-target="#day5"].active { background: #c0392b; border-color: #c0392b; }
-        .nav-btn[data-target="#day6"].active { background: #f39c12; border-color: #f39c12; }
+
+        .nav-btn.active {
+            color: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-btn[data-target="#day1"].active {
+            background: #d35400;
+            border-color: #d35400;
+        }
+
+        .nav-btn[data-target="#day2"].active {
+            background: #2980b9;
+            border-color: #2980b9;
+        }
+
+        .nav-btn[data-target="#day3"].active {
+            background: #27ae60;
+            border-color: #27ae60;
+        }
+
+        .nav-btn[data-target="#day4"].active {
+            background: #8e44ad;
+            border-color: #8e44ad;
+        }
+
+        .nav-btn[data-target="#day5"].active {
+            background: #c0392b;
+            border-color: #c0392b;
+        }
+
+        .nav-btn[data-target="#day6"].active {
+            background: #f39c12;
+            border-color: #f39c12;
+        }
 
         /* --- 行程卡片 --- */
-        .day-card { 
-            display: none; background: white; border: none; border-radius: 20px; 
-            margin-bottom: 25px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); 
+        .day-card {
+            display: none;
+            background: white;
+            border: none;
+            border-radius: 20px;
+            margin-bottom: 25px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
             animation: fadeIn 0.5s;
         }
-        .day-card.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        .day-header { 
-            background: #fff; padding: 20px; 
-            display: flex; align-items: center; justify-content: space-between;
-            border-bottom: 2px dashed #f0f0f0; 
+        .day-card.active {
+            display: block;
         }
-        
-        .day-title-group { display: flex; align-items: center; }
-        .day-thumb-box { width: 50px; height: 50px; border-radius: 12px; overflow: hidden; margin-right: 15px; border: 2px solid #eee; flex-shrink: 0; background-color: #f9f9f9; display: flex; justify-content: center; align-items: center; font-size: 1.5rem; }
-        .day-title-text { font-weight: bold; color: #444; font-size: 1.2rem; }
-        
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .day-header {
+            background: #fff;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 2px dashed #f0f0f0;
+        }
+
+        .day-title-group {
+            display: flex;
+            align-items: center;
+        }
+
+        .day-thumb-box {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-right: 15px;
+            border: 2px solid #eee;
+            flex-shrink: 0;
+            background-color: #f9f9f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+        }
+
+        .day-title-text {
+            font-weight: bold;
+            color: #444;
+            font-size: 1.2rem;
+        }
+
         .weather-badge {
-            background-color: #e3f2fd; color: #1565c0; padding: 5px 12px; border-radius: 20px;
-            font-size: 0.85rem; font-weight: bold; display: inline-flex; align-items: center; gap: 5px; white-space: nowrap;
+            background-color: #e3f2fd;
+            color: #1565c0;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            white-space: nowrap;
         }
 
-        .day-body { padding: 20px; }
+        .day-body {
+            padding: 20px;
+        }
 
         /* --- 排版系統 (Flexbox) --- */
         .event-row {
-            display: flex; justify-content: space-between; align-items: flex-start;
-            margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px dashed #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed #ddd;
         }
-        .event-row:last-child { border-bottom: none; margin-bottom: 0; }
-        .event-left { flex: 1; padding-right: 15px; min-width: 200px; }
-        .event-right { flex-shrink: 0; }
-        
+
+        .event-row:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .event-left {
+            flex: 1;
+            padding-right: 15px;
+            min-width: 200px;
+        }
+
+        .event-right {
+            flex-shrink: 0;
+        }
+
         @media (max-width: 768px) {
-            .event-row { flex-direction: column; }
-            .event-right { margin-top: 15px; width: 100%; text-align: center; }
-            .sticker-img { width: 100%; height: auto; max-width: 400px; }
-            .day-header { flex-direction: column; align-items: flex-start; }
-            .weather-badge { margin-top: 10px; width: 100%; justify-content: center; background: #f1f8ff; }
+            .event-row {
+                flex-direction: column;
+            }
+
+            .event-right {
+                margin-top: 15px;
+                width: 100%;
+                text-align: center;
+            }
+
+            .sticker-img {
+                width: 100%;
+                height: auto;
+                max-width: 400px;
+            }
+
+            .day-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .weather-badge {
+                margin-top: 10px;
+                width: 100%;
+                justify-content: center;
+                background: #f1f8ff;
+            }
         }
 
         /* --- 圖片樣式 --- */
         .sticker-img {
-            width: 320px; height: auto; border-radius: 12px;
-            box-shadow: 3px 4px 12px rgba(0,0,0,0.12);
-            border: 5px solid #fff; transition: transform 0.3s; cursor: pointer;
+            width: 320px;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 3px 4px 12px rgba(0, 0, 0, 0.12);
+            border: 5px solid #fff;
+            transition: transform 0.3s;
+            cursor: pointer;
         }
-        .sticker-img:hover { transform: scale(1.02) rotate(1deg); }
+
+        .sticker-img:hover {
+            transform: scale(1.02) rotate(1deg);
+        }
 
         /* --- 元件樣式 --- */
-        .spot-detail { display: none; background-color: #f4f9ff; border-left: 4px solid #89c4f4; padding: 12px; margin: 10px 0; border-radius: 0 8px 8px 0; }
-        .spot-detail h6 { font-weight: bold; color: #3498db; margin-bottom: 5px; font-size: 1rem; }
-        .spot-detail ul { padding-left: 20px; margin-bottom: 0; font-size: 0.9rem; color: #666; line-height: 1.6; }
+        .spot-detail {
+            display: none;
+            background-color: #f4f9ff;
+            border-left: 4px solid #89c4f4;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 0 8px 8px 0;
+        }
 
-        .time-tag { background: #b0bec5; color: white; padding: 3px 10px; border-radius: 6px; font-size: 0.9rem; margin-right: 5px; display: inline-block; min-width: 65px; text-align: center; font-weight: bold; vertical-align: middle; }
-        .highlight { color: #e84393; font-weight: bold; background: linear-gradient(180deg, transparent 65%, #ffcce0 65%); }
-        .alert { padding: 10px; margin-bottom: 10px; font-size: 0.9rem; border-radius: 10px; }
+        .spot-detail h6 {
+            font-weight: bold;
+            color: #3498db;
+            margin-bottom: 5px;
+            font-size: 1rem;
+        }
+
+        .spot-detail ul {
+            padding-left: 20px;
+            margin-bottom: 0;
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .time-tag {
+            background: #b0bec5;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            margin-right: 5px;
+            display: inline-block;
+            min-width: 65px;
+            text-align: center;
+            font-weight: bold;
+            vertical-align: middle;
+        }
+
+        .highlight {
+            color: #e84393;
+            font-weight: bold;
+            background: linear-gradient(180deg, transparent 65%, #ffcce0 65%);
+        }
+
+        .alert {
+            padding: 10px;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            border-radius: 10px;
+        }
 
         /* 按鈕群 */
-        .intro-btn { cursor: pointer; color: #27ae60; font-weight: bold; margin-left: 5px; font-size: 0.8rem; background: #eafaf1; padding: 2px 10px; border-radius: 20px; border: 1px solid #abebc6; white-space: nowrap; display: inline-block; margin-bottom: 5px; }
-        .map-link { text-decoration: none; color: #2980b9; font-weight: bold; margin-left: 5px; font-size: 0.8rem; background: #eaf2f8; padding: 2px 10px; border-radius: 20px; white-space: nowrap; display: inline-block; margin-bottom: 5px;}
-        
+        .intro-btn {
+            cursor: pointer;
+            color: #27ae60;
+            font-weight: bold;
+            margin-left: 5px;
+            font-size: 0.8rem;
+            background: #eafaf1;
+            padding: 2px 10px;
+            border-radius: 20px;
+            border: 1px solid #abebc6;
+            white-space: nowrap;
+            display: inline-block;
+            margin-bottom: 5px;
+        }
+
+        .map-link {
+            text-decoration: none;
+            color: #2980b9;
+            font-weight: bold;
+            margin-left: 5px;
+            font-size: 0.8rem;
+            background: #eaf2f8;
+            padding: 2px 10px;
+            border-radius: 20px;
+            white-space: nowrap;
+            display: inline-block;
+            margin-bottom: 5px;
+        }
+
         /* Live Cam 按鈕 */
         .live-cam-btn {
-            text-decoration: none; color: #c0392b; font-weight: bold; margin-left: 5px; font-size: 0.8rem; 
-            background: #fce4ec; padding: 2px 10px; border-radius: 20px; 
-            border: 1px solid #f8bbd0; display: inline-block;
+            text-decoration: none;
+            color: #c0392b;
+            font-weight: bold;
+            margin-left: 5px;
+            font-size: 0.8rem;
+            background: #fce4ec;
+            padding: 2px 10px;
+            border-radius: 20px;
+            border: 1px solid #f8bbd0;
+            display: inline-block;
             animation: pulse 2s infinite;
         }
-        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(226, 68, 91, 0.4); } 70% { box-shadow: 0 0 0 6px rgba(226, 68, 91, 0); } 100% { box-shadow: 0 0 0 0 rgba(226, 68, 91, 0); } }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(226, 68, 91, 0.4);
+            }
+
+            70% {
+                box-shadow: 0 0 0 6px rgba(226, 68, 91, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(226, 68, 91, 0);
+            }
+        }
 
         /* 編輯模式 */
-        body.edit-mode .time-tag { background-color: #ff7675; cursor: text; border: 2px dashed #ffeaa7; }
-        .user-note { margin-top: 5px; margin-bottom: 10px; font-size: 0.9rem; color: #6c5ce7; border-left: 3px solid #a29bfe; padding: 5px 10px; background: #f3f0ff; display: none; }
-        .user-note:not(:empty) { display: block; }
-        body.edit-mode .user-note { display: block; min-height: 30px; cursor: text; outline: 1px dashed #a29bfe; }
+        body.edit-mode .time-tag {
+            background-color: #ff7675;
+            cursor: text;
+            border: 2px dashed #ffeaa7;
+        }
+
+        .user-note {
+            margin-top: 5px;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            color: #6c5ce7;
+            border-left: 3px solid #a29bfe;
+            padding: 5px 10px;
+            background: #f3f0ff;
+            display: none;
+        }
+
+        .user-note:not(:empty) {
+            display: block;
+        }
+
+        body.edit-mode .user-note {
+            display: block;
+            min-height: 30px;
+            cursor: text;
+            outline: 1px dashed #a29bfe;
+        }
 
         /* 浮動按鈕 */
-        .fab-container { position: fixed; bottom: 20px; right: 20px; display: flex; flex-direction: column; gap: 12px; z-index: 1000; }
-        .fab-btn { width: 56px; height: 56px; border-radius: 50%; color: white; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.25); cursor: pointer; border: none; font-size: 1.3rem; }
-        .btn-edit { background: #74b9ff; }
-        .btn-calc { background: #fab1a0; font-size: 1.5rem; }
-        .btn-save { background: #55efc4; display: none; color: #2d3436; }
+        .fab-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 1000;
+        }
+
+        .fab-btn {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+            cursor: pointer;
+            border: none;
+            font-size: 1.3rem;
+        }
+
+        .btn-edit {
+            background: #74b9ff;
+        }
+
+        .btn-calc {
+            background: #fab1a0;
+            font-size: 1.5rem;
+        }
+
+        .btn-save {
+            background: #55efc4;
+            display: none;
+            color: #2d3436;
+        }
 
         /* 匯率計算機視窗 */
         .calc-modal {
-            display: none; position: fixed; bottom: 90px; right: 20px; 
-            width: 280px; background: white; border-radius: 15px; 
-            box-shadow: 0 5px 25px rgba(0,0,0,0.2); z-index: 2000; padding: 20px;
+            display: none;
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 280px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+            z-index: 2000;
+            padding: 20px;
             border: 1px solid #eee;
         }
-        .calc-input { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 10px; font-size: 1.1rem; text-align: right; }
-        .calc-result { font-size: 1.5rem; color: #2d3436; font-weight: bold; text-align: right; margin-bottom: 5px; }
-        .calc-rate { font-size: 0.8rem; color: #999; text-align: right; }
 
-        #toast-msg { top: 20px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.8); color: white; padding: 10px 25px; border-radius: 50px; display: none; position: fixed; z-index: 3000; }
-        .loading-overlay { top:0; left:0; width:100%; height:100%; background: rgba(255,255,255,0.9); text-align: center; padding-top: 50vh; font-weight: bold; color: #555; display: none; position: fixed; z-index: 2500; }
+        .calc-input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            text-align: right;
+        }
+
+        .calc-result {
+            font-size: 1.5rem;
+            color: #2d3436;
+            font-weight: bold;
+            text-align: right;
+            margin-bottom: 5px;
+        }
+
+        .calc-rate {
+            font-size: 0.8rem;
+            color: #999;
+            text-align: right;
+        }
+
+        #toast-msg {
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 50px;
+            display: none;
+            position: fixed;
+            z-index: 3000;
+        }
+
+        .loading-overlay {
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            text-align: center;
+            padding-top: 50vh;
+            font-weight: bold;
+            color: #555;
+            display: none;
+            position: fixed;
+            z-index: 2500;
+        }
     </style>
 </head>
+
 <body>
 
     <div id="toast-msg">提示訊息</div>
@@ -223,60 +593,44 @@
     <div class="container">
         <div class="nav-container">
             <button class="nav-btn active" data-target="#day1">Day 1 抵達</button>
-            <button class="nav-btn" data-target="#day2">Day 2 樹冰</button>
+            <button class="nav-btn" data-target="#day2">Day 2 銀山</button>
             <button class="nav-btn" data-target="#day3">Day 3 遊船</button>
             <button class="nav-btn" data-target="#day4">Day 4 水母</button>
-            <button class="nav-btn" data-target="#day5">Day 5 草莓</button>
+            <button class="nav-btn" data-target="#day5">Day 5 樹冰</button>
             <button class="nav-btn" data-target="#day6">Day 6 返台</button>
         </div>
 
         <div id="itinerary">
-            
+
             <div class="day-card active" id="day1">
                 <div class="day-header">
                     <div class="day-title-group">
                         <div class="day-thumb-box">✈️</div>
                         <span class="day-title-text">2/23 (一) 抵達仙台</span>
                     </div>
-                    <div class="weather-badge">🌤️ 晴時多雲 2°C~6°C</div>
+                    <div class="weather-badge">🌤️ 晴時多雲</div>
                 </div>
                 <div class="day-body">
                     <div class="event-row">
                         <div class="event-left">
-                            <p><span class="time-tag" id="d1-t1">16:00</span> 抵達仙台機場 <a href="https://www.google.com/maps/search/?api=1&query=仙台空港" class="map-link">📍 地圖導航</a></p>
+                            <p><span class="time-tag" id="d1-t1">16:00</span> 抵達仙台機場 (JX-862)</p>
                             <div class="user-note" id="d1-n1"></div>
                             <p class="mt-3 lead text-primary" style="font-weight:bold;">🎉 東北之旅，集合出發！</p>
+                            <div class="alert alert-light border">🚄 搭乘電車前往市區</div>
                         </div>
                         <div class="event-right">
-                            <img src="day1-1.png" class="sticker-img" alt="仙台機場集合">
-                        </div>
-                    </div>
-                    
-                    <div class="event-row">
-                        <div class="event-left">
-                             <p><span class="time-tag" id="d1-t2">17:00</span> 前往市區</p>
-                            <div class="alert alert-light border">🚄 搭乘機場聯絡線 (約25分)</div>
-                            <div class="user-note" id="d1-n2"></div>
-                            <p class="mt-2"><span class="time-tag" id="d1-t3">17:30</span> 抵達 JR 仙台站</p>
-                            <p class="mt-2"><span class="time-tag" id="d1-t4">18:00</span> 飯店 Check-in</p>
-                            <div class="alert alert-primary mt-2 border-0 bg-light">🏨 <strong>住宿：</strong>Hotel GrandBach Sendai</div>
+                            <img src="day1-1.png" class="sticker-img" alt="仙台機場">
                         </div>
                     </div>
 
                     <div class="event-row">
                         <div class="event-left">
-                            <p><span class="time-tag" id="d1-t5">19:00</span> <span class="highlight">晚餐：牛舌 善治郎</span> <a href="https://www.google.com/maps/search/?api=1&query=たんや善治郎+仙台駅前本店" class="map-link">📍 地圖導航</a> <span class="intro-btn" onclick="toggleDetail(this)">💡 建議</span></p>
-                            <div class="spot-detail">
-                                <h6>📌 仙台必吃：炭燒牛舌</h6>
-                                <ul>
-                                    <li><strong>特色：</strong>經典厚切牛舌定食，配麥飯與牛尾湯。</li>
-                                    <li><strong>長輩建議：</strong>可點「燉煮牛舌 (Yude-tan)」，口感軟嫩。</li>
-                                </ul>
+                            <p class="mt-2"><span class="time-tag" id="d1-t2">18:00</span> 飯店 Check-in</p>
+                            <div class="alert alert-primary mt-2 border-0 bg-light">
+                                🏨 <strong>住宿：</strong>Hotel GrandBach Sendai (ホテルグランバッハ仙台)
                             </div>
-                            <div class="user-note" id="d1-n3"></div>
-                        </div>
-                        <div class="event-right">
-                            <img src="day1-2.png" class="sticker-img" alt="牛舌大餐">
+                            <div class="user-note" id="d1-n2"></div>
+                            <p class="mt-2"><span class="time-tag" id="d1-t3">19:00</span> 晚餐：自理 (推薦牛舌/仙台車站)</p>
                         </div>
                     </div>
                 </div>
@@ -285,55 +639,68 @@
             <div class="day-card" id="day2">
                 <div class="day-header">
                     <div class="day-title-group">
-                        <div class="day-thumb-box">❄️</div>
-                        <span class="day-title-text">2/24 (二) 樹冰 & 銀山</span>
+                        <div class="day-thumb-box">🏯</div>
+                        <span class="day-title-text">2/24 (二) 神社・草莓・銀山</span>
                     </div>
-                    <div class="weather-badge">🌨️ 大雪寒冷 -8°C~-2°C</div>
+                    <div class="weather-badge">❄️ 下雪機率高</div>
                 </div>
                 <div class="day-body">
                     <div class="event-row">
                         <div class="event-left">
-                            <p><span class="time-tag" id="d2-t1">09:00</span> <strong>包車司機接駁</strong></p>
-                            <div class="user-note" id="d2-n1"></div>
-                            
+                            <p><span class="time-tag" id="d2-t1">09:00</span> 出發 (租車自駕)</p>
                             <p class="mt-2">
-                                <span class="time-tag" id="d2-t2">10:30</span> <span class="highlight">藏王樹冰 (雪怪車)</span> 
-                                <a href="https://www.google.com/maps/search/?api=1&query=Sumikawa+Snow+Park" class="map-link">📍 導航</a> 
-                                <a href="https://www.youtube.com/results?search_query=Zao+Onsen+Live+Camera" target="_blank" class="live-cam-btn">🎥 樹冰Live</a>
-                                <span class="intro-btn" onclick="toggleDetail(this)">🧤 提醒</span>
+                                <span class="time-tag" id="d2-t2">09:30</span> 大崎八幡宮
+                                <a href="https://www.google.com/maps/search/?api=1&query=大崎八幡宮" class="map-link">📍
+                                    導航</a>
                             </p>
                             <div class="spot-detail">
-                                <h6>📌 WILD MONSTER 雪怪車</h6>
+                                <h6>📌 國寶 大崎八幡宮</h6>
                                 <ul>
-                                    <li><strong>特色：</strong>搭乘暖氣履帶車，近距離看樹冰。</li>
-                                    <li><strong>穿著：</strong>山上極冷，務必戴好毛帽、手套、圍巾。</li>
+                                    <li><strong>距離：</strong>仙台出發約20分 (5.9公里)</li>
+                                    <li><strong>特色：</strong>伊達政宗建造，桃山建築傑作。</li>
                                 </ul>
                             </div>
-                            <div class="user-note" id="d2-n2"></div>
-                            <p class="mt-2"><span class="time-tag" id="d2-t3">13:00</span> 午餐：遠刈田溫泉區</p>
-                        </div>
-                        <div class="event-right">
-                            <img src="day2-1.png" class="sticker-img" alt="藏王樹冰">
+                            <div class="user-note" id="d2-n1"></div>
                         </div>
                     </div>
 
                     <div class="event-row">
                         <div class="event-left">
-                            <p>
-                                <span class="time-tag" id="d2-t4">15:30</span> 抵達銀山溫泉 
-                                <a href="https://www.google.com/maps/search/?api=1&query=銀山溫泉" class="map-link">📍 導航</a> 
-                                <a href="https://www.youtube.com/results?search_query=Ginzan+Onsen+Live+Camera" target="_blank" class="live-cam-btn">🎥 銀山Live</a>
-                                <span class="intro-btn" onclick="toggleDetail(this)">⚠️ 注意</span>
+                            <p class="mt-2">
+                                <span class="time-tag" id="d2-t3">11:00</span> 寒河江草莓園
+                                <a href="https://sakuranbo.info/sagae/strawberry/" target="_blank" class="map-link">🌐
+                                    官網</a>
+                            </p>
+                            <div class="alert alert-light border">🚗 移動：約1小時11分 (82.4公里)</div>
+                            <div class="user-note" id="d2-n2"></div>
+                        </div>
+                        <div class="event-right">
+                            <img src="day5-1.png" class="sticker-img" alt="草莓園">
+                        </div>
+                    </div>
+
+                    <div class="event-row">
+                        <div class="event-left">
+                            <p class="mt-2">
+                                <span class="time-tag" id="d2-t4">13:00</span> 午餐：山形蕎麥麵
+                                <a href="https://www.enzou.jp/" target="_blank" class="map-link">🌐 焔藏</a>
                             </p>
                             <div class="spot-detail">
-                                <h6>📌 大正浪漫 銀山溫泉</h6>
+                                <h6>📌 山形蕎麦の焔藏 山寺店</h6>
                                 <ul>
-                                    <li><strong>美景：</strong>傍晚藍調時刻(Blue Hour)點燈最美。</li>
-                                    <li><strong>安全：</strong>地面結冰非常滑！務必穿防滑鞋套。</li>
+                                    <li><strong>距離：</strong>草莓園出發約22分 (12.9公里)</li>
+                                    <li><strong>特色：</strong>山形特色板蕎麥，口感Q彈。</li>
                                 </ul>
                             </div>
-                            <div class="alert alert-primary mt-2 border-0 bg-light">🏨 <strong>住宿：</strong>銀山溫泉</div>
                             <div class="user-note" id="d2-n3"></div>
+                            <p class="mt-2">
+                                <span class="time-tag" id="d2-t5">15:00</span> 前往銀山溫泉
+                                <a href="https://kozankaku.com/" target="_blank" class="map-link">🌐 古山閣</a>
+                            </p>
+                            <div class="alert alert-primary mt-2 border-0 bg-light">
+                                🏨 <strong>住宿：</strong>銀山溫泉 古山閣
+                            </div>
+                            <div class="alert alert-light border">🚗 移動：約52分 (41.7公里)</div>
                         </div>
                         <div class="event-right">
                             <img src="day2-2.png" class="sticker-img" alt="銀山溫泉">
@@ -346,40 +713,46 @@
                 <div class="day-header">
                     <div class="day-title-group">
                         <div class="day-thumb-box">🛶</div>
-                        <span class="day-title-text">2/25 (三) 最上川遊船</span>
+                        <span class="day-title-text">2/25 (三) 最上川・舞娘</span>
                     </div>
-                    <div class="weather-badge">❄️ 小雪/陰 -1°C~3°C</div>
+                    <div class="weather-badge">🌨️ 寒冷注意</div>
                 </div>
                 <div class="day-body">
                     <div class="event-row">
                         <div class="event-left">
-                            <p><span class="time-tag" id="d3-t1">09:30</span> 出發</p>
-                            <div class="user-note" id="d3-n1"></div>
-                            <p class="mt-2"><span class="time-tag" id="d3-t2">10:45</span> <span class="highlight">最上川 芭蕉遊船</span> <span class="intro-btn" onclick="toggleDetail(this)">🔥 特色</span></p>
+                            <p><span class="time-tag" id="d3-t1">09:30</span> 離開銀山溫泉</p>
+                            <p class="mt-2">
+                                <span class="time-tag" id="d3-t2">10:30</span> 最上川遊覽船 (古口港～草薙港)
+                                <a href="https://www.blf.co.jp/food" target="_blank" class="map-link">🌐 官網</a>
+                            </p>
+                            <div class="alert alert-light border">🚗 移動：約50分 (46公里)</div>
                             <div class="spot-detail">
-                                <h6>📌 冬季暖桌遊船</h6>
+                                <h6>📌 舟中便當</h6>
                                 <ul>
-                                    <li><strong>舒適：</strong>船內有暖被桌，雙腳溫暖地欣賞雪見峽谷。</li>
+                                    <li>冬天搭乘暖桌船，一邊享用便當一邊賞雪。</li>
                                 </ul>
                             </div>
+                            <div class="user-note" id="d3-n1"></div>
                         </div>
                         <div class="event-right">
-                            <img src="day3-1.png" class="sticker-img" alt="最上川遊船">
+                            <img src="day3-1.png" class="sticker-img" alt="最上川">
                         </div>
                     </div>
 
                     <div class="event-row">
                         <div class="event-left">
-                            <p><span class="time-tag" id="d3-t3">14:00</span> 酒田 山居倉庫 <a href="https://www.google.com/maps/search/?api=1&query=酒田+山居倉庫" class="map-link">📍 地圖導航</a></p>
-                            <div class="spot-detail">
-                                <h6>📌 山居倉庫 (夢之俱樂)</h6>
-                                <ul>
-                                    <li><strong>特色：</strong>百年米倉建築群，非常好買在地伴手禮。</li>
-                                </ul>
-                            </div>
-                            <p class="mt-2"><span class="time-tag" id="d3-t4">17:00</span> 前往湯野濱溫泉</p>
-                            <div class="alert alert-primary mt-2 border-0 bg-light">🏨 <strong>住宿：</strong>湯野濱溫泉</div>
+                            <p class="mt-2">
+                                <span class="time-tag" id="d3-t3">13:30</span> 舞娘茶屋 酒田相馬樓
+                                <a href="https://www.somaro.net/" target="_blank" class="map-link">🌐 相馬樓</a>
+                            </p>
+                            <div class="alert alert-light border">🚗 移動：約36分 (29.4公里)</div>
                             <div class="user-note" id="d3-n2"></div>
+
+                            <p class="mt-2"><span class="time-tag" id="d3-t4">16:30</span> 前往溫海溫泉</p>
+                            <div class="alert alert-primary mt-2 border-0 bg-light">
+                                🏨 <strong>住宿：</strong>溫海溫泉 橘屋 或 萬國屋
+                            </div>
+                            <p class="small text-muted">※萬國屋備註：3人房(10疊+雙床+檜木風呂)、2人房(10疊+檜木風呂)</p>
                         </div>
                     </div>
                 </div>
@@ -388,23 +761,22 @@
             <div class="day-card" id="day4">
                 <div class="day-header">
                     <div class="day-title-group">
-                        <div class="day-thumb-box">🐠</div>
-                        <span class="day-title-text">2/26 (四) 水母館 & 萬國屋</span>
+                        <div class="day-thumb-box">🍶</div>
+                        <span class="day-title-text">2/26 (四) 水母・米澤牛</span>
                     </div>
-                    <div class="weather-badge">☁️ 陰偶雪 1°C~5°C</div>
+                    <div class="weather-badge">☁️ 陰天</div>
                 </div>
                 <div class="day-body">
                     <div class="event-row">
                         <div class="event-left">
-                            <p><span class="time-tag" id="d4-t1">10:00</span> <span class="highlight">加茂水族館</span> <a href="https://www.google.com/maps/search/?api=1&query=加茂水族館" class="map-link">📍 地圖導航</a> <span class="intro-btn" onclick="toggleDetail(this)">✨ 亮點</span></p>
-                            <div class="spot-detail">
-                                <h6>📌 水母夢幻劇場</h6>
-                                <ul>
-                                    <li><strong>療癒：</strong>直徑5公尺的巨大水母槽，世界第一。</li>
-                                </ul>
-                            </div>
+                            <p><span class="time-tag" id="d4-t1">09:00</span> 出發</p>
+                            <p class="mt-2"><span class="time-tag" id="d4-t2">10:00</span> 山居倉庫 (51分/50.1公里)</p>
+                            <p class="mt-2">
+                                <span class="time-tag" id="d4-t3">11:00</span> 加茂水族館 (世界最大水母館)
+                                <a href="https://kamo-kurage.jp/" target="_blank" class="map-link">🌐 官網</a>
+                            </p>
+                            <div class="alert alert-light border">🚗 移動：約31分 (22.3公里)</div>
                             <div class="user-note" id="d4-n1"></div>
-                            <p class="mt-2"><span class="time-tag" id="d4-t2">12:30</span> 午餐：鶴岡在地料理</p>
                         </div>
                         <div class="event-right">
                             <img src="day4-1.png" class="sticker-img" alt="水母館">
@@ -413,66 +785,79 @@
 
                     <div class="event-row">
                         <div class="event-left">
-                            <p><span class="time-tag" id="d4-t3">14:30</span> 入住萬國屋</p>
+                            <p class="mt-2">
+                                <span class="time-tag" id="d4-t4">13:30</span> 午餐：米沢牛 登起波 山形店
+                                <a href="https://www.yonezawabeef.co.jp/yamagata.html" target="_blank"
+                                    class="map-link">🌐 官網</a>
+                            </p>
+                            <div class="alert alert-light border">🚗 移動：約1小時44分 (101公里)</div>
+
+                            <p class="mt-2">
+                                <span class="time-tag" id="d4-t5">15:30</span> 山形壽虎屋酒造 (見學)
+                                <a href="https://chiyokotobuki.com/" target="_blank" class="map-link">🌐 官網</a>
+                            </p>
                             <div class="spot-detail">
-                                <h6>📌 溫海溫泉 萬國屋</h6>
+                                <h6>📌 百年酒造</h6>
                                 <ul>
-                                    <li><strong>享受：</strong>日本百選溫泉，盡情享受風呂與懷石料理。</li>
+                                    <li>1922年創立，超過300年歷史老店。(距離午餐約19分)</li>
                                 </ul>
                             </div>
+
+                            <p class="mt-2"><span class="time-tag" id="d4-t6">17:00</span> 入住天童溫泉</p>
+                            <div class="alert alert-light border">🚗 移動：約13分 (8公里)</div>
                             <div class="alert alert-primary mt-2 border-0 bg-light">
-                                🏨 <strong>住宿：</strong>溫海溫泉 萬國屋
+                                🏨 <strong>住宿：</strong>天童溫泉 滝の湯
                             </div>
-                            <div class="user-note" id="d4-n2"></div>
                         </div>
                         <div class="event-right">
-                            <img src="day4-2.png" class="sticker-img" alt="萬國屋">
+                            <img src="day4-2.png" class="sticker-img" alt="天童溫泉">
                         </div>
                     </div>
                 </div>
             </div>
 
-             <div class="day-card" id="day5">
+            <div class="day-card" id="day5">
                 <div class="day-header">
                     <div class="day-title-group">
-                        <div class="day-thumb-box">🍓</div>
-                        <span class="day-title-text">2/27 (五) 採草莓 & 神社</span>
+                        <div class="day-thumb-box">❄️</div>
+                        <span class="day-title-text">2/27 (五) 藏王樹冰・仙台</span>
                     </div>
-                    <div class="weather-badge">🌤️ 晴時多雲 0°C~5°C</div>
+                    <div class="weather-badge">🏔️ 山頂極冷</div>
                 </div>
                 <div class="day-body">
                     <div class="event-row">
                         <div class="event-left">
-                            <p><span class="time-tag" id="d5-t1">11:00</span> <span class="highlight">採草莓體驗</span> <span class="intro-btn" onclick="toggleDetail(this)">👴 友善</span></p>
+                            <p><span class="time-tag" id="d5-t1">09:30</span> 天童溫泉出發</p>
+                            <p class="mt-2">
+                                <span class="time-tag" id="d5-t2">10:30</span> 藏王樹冰 (纜車/雪怪車)
+                                <a href="https://www.youtube.com/results?search_query=Zao+Onsen+Live+Camera"
+                                    target="_blank" class="live-cam-btn">🎥 Live</a>
+                            </p>
                             <div class="spot-detail">
-                                <h6>📌 溫室高架草莓</h6>
+                                <h6>📌 MONSTER號雪怪車</h6>
                                 <ul>
-                                    <li><strong>貼心：</strong>高架種植，不用彎腰蹲下，對長輩膝蓋友善。</li>
+                                    <li>近距離觀賞藏王樹冰。山上氣溫極低，請做好防寒準備。</li>
                                 </ul>
                             </div>
                             <div class="user-note" id="d5-n1"></div>
-                            <p class="mt-2"><span class="time-tag" id="d5-t2">12:30</span> 午餐：冷肉蕎麥麵</p>
                         </div>
                         <div class="event-right">
-                            <img src="day5-1.png" class="sticker-img" alt="採草莓">
+                            <img src="day2-1.png" class="sticker-img" alt="藏王樹冰">
                         </div>
                     </div>
 
                     <div class="event-row">
                         <div class="event-left">
-                            <p><span class="time-tag" id="d5-t3">14:30</span> <span class="highlight">大崎八幡宮</span> <a href="https://www.google.com/maps/search/?api=1&query=大崎八幡宮" class="map-link">📍 地圖導航</a> <span class="intro-btn" onclick="toggleDetail(this)">💡 秘訣</span></p>
-                            <div class="spot-detail">
-                                <h6>📌 國寶 大崎八幡宮</h6>
-                                <ul>
-                                    <li><strong>省力：</strong>請司機開到「北側停車場」或側面入口，完全避開爬樓梯。</li>
-                                </ul>
+                            <p class="mt-2"><span class="time-tag" id="d5-t3">12:30</span> 午餐：日式套餐</p>
+                            <p class="mt-2"><span class="time-tag" id="d5-t4">14:30</span> 仙台一番街 逛街</p>
+                            <p class="mt-2"><span class="time-tag" id="d5-t5">18:00</span> 晚餐：牛舌特色餐</p>
+                            <div class="alert alert-primary mt-2 border-0 bg-light">
+                                🏨 <strong>住宿：</strong>仙台大都會飯店 (Hotel Metropolitan Sendai)
                             </div>
                             <div class="user-note" id="d5-n2"></div>
-                            <p class="mt-2"><span class="time-tag" id="d5-t4">17:30</span> 晚餐：仙台市區</p>
-                            <div class="alert alert-primary mt-2 border-0 bg-light">🏨 <strong>住宿：</strong>仙台市區</div>
                         </div>
                         <div class="event-right">
-                            <img src="day5-2.png" class="sticker-img" alt="大崎八幡宮">
+                            <img src="day1-2.png" class="sticker-img" alt="仙台逛街">
                         </div>
                     </div>
                 </div>
@@ -481,26 +866,28 @@
             <div class="day-card" id="day6">
                 <div class="day-header">
                     <div class="day-title-group">
-                        <div class="day-thumb-box">🎁</div>
-                        <span class="day-title-text">2/28 (六) 返台</span>
+                        <div class="day-thumb-box">⛩️</div>
+                        <span class="day-title-text">2/28 (六) 竹駒神社・返台</span>
                     </div>
-                    <div class="weather-badge">☀️ 晴朗 3°C~7°C</div>
+                    <div class="weather-badge">☀️ 晴朗</div>
                 </div>
                 <div class="day-body">
                     <div class="event-row">
                         <div class="event-left">
-                            <p><span class="time-tag" id="d6-t1">上午</span> 仙台朝市 / S-PAL <span class="intro-btn" onclick="toggleDetail(this)">🛍️ 採買</span></p>
+                            <p><span class="time-tag" id="d6-t1">10:00</span> 竹駒神社</p>
                             <div class="spot-detail">
-                                <h6>📌 最後採買時光</h6>
+                                <h6>📌 日本三大稻荷神社</h6>
                                 <ul>
-                                    <li><strong>朝市：</strong>感受在地活力，買當季水果。</li>
-                                    <li><strong>S-PAL：</strong>車站共構，伴手禮一次買齊。</li>
+                                    <li>五榖豐收、除厄開運、締結良緣。</li>
                                 </ul>
                             </div>
                             <div class="user-note" id="d6-n1"></div>
-                            <p class="mt-2"><span class="time-tag" id="d6-t2">14:30</span> 專車送往機場</p>
-                            <p class="mt-2"><span class="time-tag" id="d6-t3">17:00</span> 搭機返台</p>
-                            <div class="alert alert-primary mt-2 border-0 bg-light">✈️ <strong>航班：</strong>甜蜜的家</div>
+
+                            <p class="mt-2"><span class="time-tag" id="d6-t2">12:30</span> 午餐：在地特色餐</p>
+                            <p class="mt-2"><span class="time-tag" id="d6-t3">15:00</span> 抵達仙台機場</p>
+                            <p class="mt-2"><span class="time-tag" id="d6-t4">17:25</span> 搭機返台 (JX-863)</p>
+                            <div class="alert alert-primary mt-2 border-0 bg-light">✈️ <strong>航班：</strong>20:35 抵達桃園
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -528,10 +915,10 @@
         // ============================================
         const GH_USER = "allenletlpt";
         const GH_REPO = "japan0223";
-        const FILE_PATH = "data.json";
+        const FILE_PATH = "data_v2.json";
 
         // ↓↓↓ 請填入您的 Base64 Token (去頭 ghp_) ↓↓↓
-        const PART_B_ENCODED = "在此處填入您的Base64亂碼"; 
+        const PART_B_ENCODED = "在此處填入您的Base64亂碼";
         // ============================================
 
         var currentSha = "";
@@ -540,22 +927,22 @@
             try {
                 var partB = decodeURIComponent(escape(window.atob(PART_B_ENCODED)));
                 return "ghp_" + partB;
-            } catch(e) {
+            } catch (e) {
                 console.error("Token Error");
                 return "";
             }
         }
 
-        $(document).ready(function(){
+        $(document).ready(function () {
             // 倒數計時
             updateCountdown();
             setInterval(updateCountdown, 60000); // 每分鐘更新
 
             // 匯率計算機
-            $("#btnCalc").click(function(){ $("#calcModal").fadeToggle(); });
-            $("#jpInput").on("input", function(){
+            $("#btnCalc").click(function () { $("#calcModal").fadeToggle(); });
+            $("#jpInput").on("input", function () {
                 var jpy = parseFloat($(this).val());
-                if(!isNaN(jpy)) {
+                if (!isNaN(jpy)) {
                     var twd = Math.round(jpy * 0.23);
                     $("#twOutput").text(twd.toLocaleString());
                 } else {
@@ -564,7 +951,7 @@
             });
 
             // 頁籤切換
-            $(".nav-btn").click(function(){
+            $(".nav-btn").click(function () {
                 var targetId = $(this).data("target");
                 $(".nav-btn").removeClass("active");
                 $(this).addClass("active");
@@ -583,7 +970,7 @@
             var now = new Date().getTime();
             var distance = targetDate - now;
             var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            if(days < 0) days = 0;
+            if (days < 0) days = 0;
             $("#days").text(days);
         }
 
@@ -592,12 +979,12 @@
         // --- GitHub Logic ---
         function fetchDataFromGitHub() {
             var token = getRealToken();
-            if(!token || token === "ghp_") return;
+            if (!token || token === "ghp_") return;
 
             var url = `https://api.github.com/repos/${GH_USER}/${GH_REPO}/contents/${FILE_PATH}`;
             $.ajax({
                 url: url, type: "GET", headers: { "Authorization": "token " + token }, cache: false,
-                success: function(response) {
+                success: function (response) {
                     currentSha = response.sha;
                     var decodedContent = decodeURIComponent(escape(window.atob(response.content)));
                     var data = JSON.parse(decodedContent);
@@ -607,18 +994,18 @@
         }
 
         function applyDataToPage(data) {
-            $.each(data, function(id, value) { if($("#" + id).length > 0) $("#" + id).html(value); });
+            $.each(data, function (id, value) { if ($("#" + id).length > 0) $("#" + id).html(value); });
         }
 
         function uploadToGitHub() {
             var token = getRealToken();
-            if(!token || token === "ghp_") { alert("請填入 Token"); return; }
+            if (!token || token === "ghp_") { alert("請填入 Token"); return; }
             $("#loadingOverlay").fadeIn();
 
             var dataToSave = {};
-            $(".time-tag[id], .user-note[id]").each(function() {
+            $(".time-tag[id], .user-note[id]").each(function () {
                 var id = $(this).attr("id"); var content = $(this).html();
-                if(content.trim() !== "") dataToSave[id] = content;
+                if (content.trim() !== "") dataToSave[id] = content;
             });
 
             var jsonString = JSON.stringify(dataToSave);
@@ -627,8 +1014,8 @@
 
             $.ajax({
                 url: url, type: "GET", headers: { "Authorization": "token " + token }, cache: false,
-                success: function(response) { performPut(url, token, base64Content, response.sha); },
-                error: function(xhr) { if(xhr.status === 404) performPut(url, token, base64Content, null); }
+                success: function (response) { performPut(url, token, base64Content, response.sha); },
+                error: function (xhr) { if (xhr.status === 404) performPut(url, token, base64Content, null); }
             });
         }
 
@@ -640,18 +1027,18 @@
                 url: url, type: "PUT",
                 headers: { "Authorization": "token " + token, "Content-Type": "application/json" },
                 data: JSON.stringify(payload),
-                success: function(response) {
+                success: function (response) {
                     currentSha = response.content.sha; $("#loadingOverlay").fadeOut();
                     showToast("✅ 更新成功！"); toggleEditMode();
                 },
-                error: function() { $("#loadingOverlay").fadeOut(); alert("更新失敗"); }
+                error: function () { $("#loadingOverlay").fadeOut(); alert("更新失敗"); }
             });
         }
 
         function toggleEditMode() {
             $("body").toggleClass("edit-mode");
             var isEdit = $("body").hasClass("edit-mode");
-            if(isEdit) {
+            if (isEdit) {
                 $(".time-tag, .user-note").attr("contenteditable", "true");
                 $("#btnEdit").text("❌"); $("#btnSave").fadeIn();
                 showToast("編輯模式");
@@ -664,4 +1051,5 @@
         function showToast(msg) { $("#toast-msg").text(msg).fadeIn().delay(2000).fadeOut(); }
     </script>
 </body>
+
 </html>
